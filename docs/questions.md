@@ -18,3 +18,7 @@ Como hacemos estos pasos en robustez?
 		 El Sistema confirma la operación
 
    ![image](https://github.com/user-attachments/assets/36711fde-5754-4885-b018-53a53c3e834b)
+   ![image](https://github.com/user-attachments/assets/d1772c4d-8ab6-4d7a-a31e-5aee9e934938)
+![image](https://github.com/user-attachments/assets/af8ad416-abb9-4bbe-8933-7b33dfc439ae)
+![image](https://github.com/user-attachments/assets/c3732b2f-5d15-4803-927c-e682648ce6cd)
+
