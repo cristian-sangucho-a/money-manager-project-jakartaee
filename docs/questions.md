@@ -16,3 +16,5 @@ Como hacemos estos pasos en robustez?
          El Sistema confirma la operación
          El Usuario confirma la eliminación
 		 El Sistema confirma la operación
+
+   ![image](https://github.com/user-attachments/assets/36711fde-5754-4885-b018-53a53c3e834b)
