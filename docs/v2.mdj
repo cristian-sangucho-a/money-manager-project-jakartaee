@@ -54649,7 +54649,7 @@
 											"_parent": {
 												"$ref": "AAAAAAGRNChZ9D1tGoI="
 											},
-											"name": "Contabilidad",
+											"name": "ContabilidadController",
 											"ownedElements": [
 												{
 													"_type": "UMLAssociation",
