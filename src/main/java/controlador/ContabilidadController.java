@@ -58,16 +58,16 @@ public class ContabilidadController extends HttpServlet {
 		case "verdashboard":
 			this.viewDashboard(req, resp);
 			break;
-		case "viewAccount":
+		case "vercuenta":
 			this.viewAccount(req, resp);
 			break;
-		case "registerExpense":
+		case "registraregreso":
 			this.registerExpense(req, resp);
 			break;
-		case "confirmnRegisterExpense":
+		case "confirmarregistroegreso":
 			this.confirmnRegisterExpense(req, resp);
 			break;
-		case "cancel":
+		case "cancelar":
 			this.cancel(req, resp);
 			break;
 		default:
