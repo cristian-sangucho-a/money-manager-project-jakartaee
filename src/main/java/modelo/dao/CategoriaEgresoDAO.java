@@ -29,7 +29,7 @@ public class CategoriaEgresoDAO extends CategoriaDAO {
             String queryStr = "SELECT c.name, SUM(m.valor) " +
                               "FROM Movimiento m, CategoriaIngreso c " +
                               "WHERE m.fecha BETWEEN ?1 AND ?2 " +
-                              "AND m.tipo_movimiento = 'ingreso' " +
+                              "AND m.tipo_movimiento = 'egreso' " +
                               "AND m.Categoria_ID = c.id " +
                               "GROUP BY c.name";
             Query query = em.createNativeQuery(queryStr);
