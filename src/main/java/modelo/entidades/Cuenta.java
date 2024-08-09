@@ -6,6 +6,7 @@ import java.util.*;
 import jakarta.persistence.*;
 
 @Entity
+@Table
 public class Cuenta implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -44,9 +44,8 @@ public class CuentaDAO {
      * @param double value 
      * @return
      */
-    public void updateBalance(void double value) {
+    public void updateBalance(double value) {
         // TODO implement here
-        return null;
     }
 
 }

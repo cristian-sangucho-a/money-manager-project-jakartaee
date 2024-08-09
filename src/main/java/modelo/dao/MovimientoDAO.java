@@ -27,14 +27,14 @@ public class MovimientoDAO {
     /**
      * @param movement
      */
-    public void delete(void movement) {
+    public void delete(Movimiento movement) {
         // TODO implement here
     }
 
     /**
      * @param categoryID
      */
-    public void getMovementsByCategory(void categoryID) {
+    public void getMovementsByCategory(int categoryID) {
         // TODO implement here
     }
 
@@ -42,14 +42,14 @@ public class MovimientoDAO {
      * @param from 
      * @param to
      */
-    public void getMovementsByDate(void from, void to) {
+    public void getMovementsByDate(Date from, Date to) {
         // TODO implement here
     }
 
     /**
      * @param accountID
      */
-    public void getAllByAccount(void accountID) {
+    public void getAllByAccount(int accountID) {
         // TODO implement here
     }
 
@@ -72,7 +72,7 @@ public class MovimientoDAO {
     /**
      * @param movementID
      */
-    public void getMovementById(void movementID) {
+    public void getMovementById(int movementID) {
         // TODO implement here
     }
 
