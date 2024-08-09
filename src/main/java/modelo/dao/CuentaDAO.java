@@ -26,7 +26,7 @@ public class CuentaDAO {
             
             Query query = em.createQuery("Select c from Cuenta c", Cuenta.class);
             
-            
+         
             cuentas = query.getResultList();
             
             em.getTransaction().commit();
@@ -51,8 +51,22 @@ public class CuentaDAO {
     }
 
   
-    public void updateBalance(double value) {
-        
+    public void updateBalance(double value, int accountID) {
+        em.getTransaction().begin();
+        Cuenta cuenta = null;
+        try {
+            cuenta = em.find(Cuenta.class, accountID);
+            if (cuenta != null) {
+                cuenta.setBalance(cuenta.getBalance() + value);
+                em.persist(cuenta);
+                em.getTransaction().commit();
+            }
+        } finally {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            em.close();
+        }
     }
 
 
