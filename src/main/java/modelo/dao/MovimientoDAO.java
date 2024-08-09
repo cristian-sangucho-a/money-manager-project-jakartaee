@@ -2,6 +2,10 @@ package modelo .dao;
 
 import java.util.*;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.TypedQuery;
 import modelo.dto.MovimientoDTO;
 import modelo.entidades.Movimiento;
 
