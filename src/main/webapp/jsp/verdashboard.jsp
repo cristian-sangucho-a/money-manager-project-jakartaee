@@ -15,15 +15,18 @@
     </div>
 
     <div class="controls">
-        <label for="from">Desde:</label>
-        <input type="date" id="from" name="from" value="${from}">
-        <label for="to">Hasta:</label>
-        <input type="date" id="to" name="to" value="${to}">
-        <button type="submit">Consultar</button>
+        <form action="ContabilidadController" method="GET">
+            <input type="hidden" name="ruta" value="verdashboard" />
+            <label for="from">Desde:</label>
+            <input type="date" id="from" name="from" value="${from}">
+            <label for="to">Hasta:</label>
+            <input type="date" id="to" name="to" value="${to}">
+            <button type="submit">Consultar</button>
+        </form>
     </div>
 
     <div class="tabs">
-        <a href="cuentas.jsp" class="tab">Cuentas</a>
+        <a href="vercuenta.jsp" class="tab">Cuentas</a>
         <a href="categorias.jsp" class="tab">Categorías</a>
         <a href="movimientos.jsp" class="tab">Movimientos</a>
     </div>
@@ -37,10 +40,10 @@
                         ${account.balance}
                     </div>
                     <div class="actions">
-                        <a href="ContabilidadController?ruta=vercuenta&accountID=${cuenta.id}">INGRESO</a>
-                        <a href="ContabilidadController?ruta=vercuenta&accountID=${cuenta.id}">EGRESO</a>
-                        <a href="ContabilidadController?ruta=vercuenta&accountID=${cuenta.id}">TRANSF.</a>
-                        <a href="ContabilidadController?ruta=vercuenta&accountID=${cuenta.id}">MOVS.</a>
+                        <a href="ContabilidadController?ruta=vercuenta&accountID=${account.id}">INGRESO</a>
+                        <a href="ContabilidadController?ruta=vercuenta&accountID=${account.id}">EGRESO</a>
+                        <a href="ContabilidadController?ruta=vercuenta&accountID=${account.id}">TRANSF.</a>
+                        <a href="ContabilidadController?ruta=vercuenta&accountID=${account.id}">MOVS.</a>
                     </div>
                 </div>
             </c:forEach>

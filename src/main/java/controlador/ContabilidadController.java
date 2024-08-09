@@ -179,6 +179,8 @@ public class ContabilidadController extends HttpServlet {
 		List<MovimientoDTO> movements = movimientoDAO.getAll(from, to);
 
 		// paso 3: hablar con la vista
+		req.setAttribute("from", fromString); //Fecha request
+	    req.setAttribute("to", toString);  //Fecha 2 request
 		req.setAttribute("movements", movements);
 		req.setAttribute("accounts", accounts);
 		req.setAttribute("incomes", incomeCategoriesSumarized);
