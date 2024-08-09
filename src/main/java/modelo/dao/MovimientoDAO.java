@@ -68,14 +68,13 @@ public class MovimientoDAO {
      * @param to
      */
     public List<MovimientoDTO> getAll(Date from, Date to) {
-        // TODO implement here
         this.emf = Persistence.createEntityManagerFactory("Contabilidad");
         this.em = emf.createEntityManager();
         
         List<MovimientoDTO> movimientos = null;
         try {
             // Create and execute the JPQL query
-            String jpql = "SELECT m FROM MovimientoDTO m WHERE m.fecha BETWEEN :from AND :to";
+            String jpql = "SELECT m.* FROM Movimiento m WHERE m.date BETWEEN :from AND :to";
             TypedQuery<MovimientoDTO> query = em.createQuery(jpql, MovimientoDTO.class);
             query.setParameter("from", from);
             query.setParameter("to", to);
@@ -100,5 +99,4 @@ public class MovimientoDAO {
     public void getMovementById(int movementID) {
         // TODO implement here
     }
-
 }
