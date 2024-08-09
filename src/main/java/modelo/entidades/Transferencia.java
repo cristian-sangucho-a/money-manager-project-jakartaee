@@ -22,8 +22,10 @@ public class Transferencia extends Movimiento implements Serializable {
 	private Cuenta srcAccount;
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private Cuenta dstAccount;
-	@OneToOne
-	private CategoriaTransferencia categoriaTransferencia;
+	@ManyToOne
+	@JoinColumn(name = "Categoria_ID", insertable = false, updatable = false)
+	private CategoriaTransferencia categoria;
+
 
 	public Transferencia() {
 
@@ -33,7 +35,7 @@ public class Transferencia extends Movimiento implements Serializable {
 		super(concept, date, value);
 		this.srcAccount = srcAccount;
 		this.dstAccount = dstAccount;
-		this.categoriaTransferencia = categoriaTransferencia;
+		this.categoria = categoriaTransferencia;
 	}
 
 	public Cuenta getSrcAccount() {
@@ -54,11 +56,11 @@ public class Transferencia extends Movimiento implements Serializable {
 
 	
 	public CategoriaTransferencia getCategoriaTransferencia() {
-		return categoriaTransferencia;
+		return categoria;
 	}
 
 	public void setCategoriaTransferencia(CategoriaTransferencia categoriaTransferencia) {
-		this.categoriaTransferencia = categoriaTransferencia;
+		this.categoria = categoriaTransferencia;
 	}
 
 	

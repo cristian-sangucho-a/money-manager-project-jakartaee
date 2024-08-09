@@ -3,6 +3,7 @@ package modelo.entidades;
 import java.io.Serializable;
 import java.util.*;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.DiscriminatorType;
@@ -12,8 +13,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo_movimiento", discriminatorType = DiscriminatorType.STRING)
 public class Movimiento implements Serializable {
@@ -25,17 +29,18 @@ public class Movimiento implements Serializable {
 	@Column
 	private String concept;
 	@Column
-	private Date date;
+	private Date fecha;
 	@Column
-	private double value;
+	private double valor;
+
 
 	public Movimiento() {
 	}
 
 	public Movimiento(String concept, Date date, double value) {
 		this.concept = concept;
-		this.date = date;
-		this.value = value;
+		this.fecha = date;
+		this.valor = value;
 	}
 
 	public Integer getId() {
@@ -55,19 +60,19 @@ public class Movimiento implements Serializable {
 	}
 
 	public Date getDate() {
-		return date;
+		return fecha;
 	}
 
 	public void setDate(Date date) {
-		this.date = date;
+		this.fecha = date;
 	}
 
 	public double getValue() {
-		return value;
+		return valor;
 	}
 
 	public void setValue(double value) {
-		this.value = value;
+		this.valor = value;
 	}
 
 }

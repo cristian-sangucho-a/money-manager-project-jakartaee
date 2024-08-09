@@ -27,12 +27,11 @@ public class CategoriaIngresoDAO extends CategoriaDAO {
      * @return
      */
     public List<CategoriaResumenDTO> getAllSumarized(Date from, Date to) {
-    	List<CategoriaResumenDTO> resultList = new ArrayList<>();
+        List<CategoriaResumenDTO> resultList = new ArrayList<>();
         try {
-            String queryStr = "SELECT new modelo.dto.CategoriaResumenDTO(c.name, SUM(e.value)) " +
-                              "FROM CategoriaIngreso c JOIN Ingreso e ON c.id = e.idCategoriaIngreso " +
-                              "WHERE e.date BETWEEN :from AND :to " +
-                              "GROUP BY c.name";
+            String queryStr = "SELECT new modelo.dto.CategoriaResumenDTO(c.name, " +
+                              "(SELECT SUM(m.valor) FROM Movimiento m WHERE m.categoria.id = c.id AND m.fecha BETWEEN :from AND :to AND m.tipoMovimiento = 'ingreso')) " +
+                              "FROM CategoriaIngreso c";
             TypedQuery<CategoriaResumenDTO> query = em.createQuery(queryStr, CategoriaResumenDTO.class);
             query.setParameter("from", from);
             query.setParameter("to", to);
@@ -46,5 +45,6 @@ public class CategoriaIngresoDAO extends CategoriaDAO {
         }
         return resultList;
     }
+
 
 }
