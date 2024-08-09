@@ -78,11 +78,11 @@ public class MovimientoDAO {
         List<MovimientoDTO> movimientos = null;
         try {
             // Create and execute the JPQL query
-            String jpql = "SELECT m.* FROM Movimiento m WHERE m.date BETWEEN :from AND :to";
+            String jpql = "SELECT m FROM Movimiento m WHERE m.fecha BETWEEN :from AND :to";
             TypedQuery<MovimientoDTO> query = em.createQuery(jpql, MovimientoDTO.class);
             query.setParameter("from", from);
             query.setParameter("to", to);
-
+            
             movimientos = query.getResultList();
         } finally {
             // Ensure that the EntityManager and EntityManagerFactory are closed
