@@ -15,10 +15,10 @@
     </div>
 
     <div class="controls">
-        <label for="desde">Desde:</label>
-        <input type="date" id="desde" name="desde" value="${from}">
-        <label for="hasta">Hasta:</label>
-        <input type="date" id="hasta" name="hasta" value="${to}">
+        <label for="from">Desde:</label>
+        <input type="date" id="from" name="from" value="${from}">
+        <label for="to">Hasta:</label>
+        <input type="date" id="to" name="to" value="${to}">
         <button type="submit">Consultar</button>
     </div>
 
