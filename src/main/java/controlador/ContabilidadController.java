@@ -77,7 +77,7 @@ public class ContabilidadController extends HttpServlet {
 	}
 
 	private void cancel(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.sendRedirect("jsp/viewAccount");
+		resp.sendRedirect("jsp/vercuenta");
 	}
 
 	private void confirmnRegisterExpense(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -99,7 +99,7 @@ public class ContabilidadController extends HttpServlet {
 		categoriaDAO.updateBalance(value);
 		cuentaDAO.updateBalance(value);
 		// paso 3: hablar con la vista
-		resp.sendRedirect("jsp/viewAccount");
+		resp.sendRedirect("jsp/vercuenta");
 
 	}
 
@@ -152,17 +152,19 @@ public class ContabilidadController extends HttpServlet {
 		CategoriaIngresoDAO categoriaIngresoDAO = new CategoriaIngresoDAO();
 		CategoriaEgresoDAO categoriaEgresoDAO = new CategoriaEgresoDAO();
 		MovimientoDAO movimientoDAO = new MovimientoDAO();
+		Date from;
+		Date to;
 		// paso 1: obtener datos
 		// setear la fecha default segun la regla de negocio del caso de uso
 		String fromString = (String) req.getAttribute("from");
 		String toString = (String) req.getAttribute("to");
 		
-		Date from = convertToDate(fromString);
-		Date to = convertToDate(toString);
-		
-		if(from == null || to == null) {
+		if(fromString == null || toString == null) {
 			from = convertToDate(fromDefault);
 			to = convertToDate(toDefault);
+		} else {
+			from = convertToDate(fromString);
+			to = convertToDate(toString);
 		}
 		
 		if(!isAValidRangeOfDates(from, to)) {
