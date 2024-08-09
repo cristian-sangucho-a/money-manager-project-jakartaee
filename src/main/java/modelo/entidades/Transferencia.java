@@ -22,7 +22,7 @@ public class Transferencia extends Movimiento implements Serializable {
 	private Cuenta srcAccount;
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private Cuenta dstAccount;
-	@JoinColumn(name = "idCategoriaTransferencia")
+	@OneToOne
 	private CategoriaTransferencia categoriaTransferencia;
 
 	public Transferencia() {
