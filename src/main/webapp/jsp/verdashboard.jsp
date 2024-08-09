@@ -38,10 +38,10 @@
                         ${account.balance}
                     </div>
                     <div class="actions">
-                        <a href="ContabilidadController?ruta=viewAccount&accountID=${cuenta.id}">INGRESO</a>
-                        <a href="ContabilidadController?ruta=viewAccount&accountID=${cuenta.id}">EGRESO</a>
-                        <a href="ContabilidadController?ruta=viewAccount&accountID=${cuenta.id}">TRANSF.</a>
-                        <a href="ContabilidadController?ruta=viewAccount&accountID=${cuenta.id}">MOVS.</a>
+                        <a href="ContabilidadController?ruta=vercuenta&accountID=${cuenta.id}">INGRESO</a>
+                        <a href="ContabilidadController?ruta=vercuenta&accountID=${cuenta.id}">EGRESO</a>
+                        <a href="ContabilidadController?ruta=vercuenta&accountID=${cuenta.id}">TRANSF.</a>
+                        <a href="ContabilidadController?ruta=vercuenta&accountID=${cuenta.id}">MOVS.</a>
                     </div>
                 </div>
             </c:forEach>
