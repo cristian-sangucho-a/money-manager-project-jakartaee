@@ -8,10 +8,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import modelo.dao.CategoriaDAO;
 import modelo.dao.CategoriaEgresoDAO;
 import modelo.dao.CategoriaIngresoDAO;
 import modelo.dao.CategoriaTransferenciaDAO;
 import modelo.dao.CuentaDAO;
+import modelo.dao.EgresoDAO;
 import modelo.dao.MovimientoDAO;
 import modelo.dto.CategoriaResumenDTO;
 import modelo.dto.MovimientoDTO;
@@ -22,9 +24,14 @@ import modelo.entidades.*;
  * 
  */
 @WebServlet("/ContabilidadController")
-public class ContabilidadController extends HttpServlet{
+public class ContabilidadController extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
+	/**
+	 * Default constructor
+	 */
+	public ContabilidadController() {
+	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -35,62 +42,133 @@ public class ContabilidadController extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		ruteador(req, resp);
 	}
-	
-	//ruteador
+
+	// ruteador
 	private void ruteador(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String ruta = (req.getParameter("ruta") == null) ? "verdashboard" : req.getParameter("ruta");
 
-	    switch (ruta) {
-	        case "verdashboard":
-	            this.viewDashboard(req, resp);
-	            break;
-	        
-	    }
+		switch (ruta) {
+		case "verdashboard":
+			this.viewDashboard(req, resp);
+			break;
+		case "viewAccount":
+			this.viewAccount(req, resp);
+			break;
+		case "registerExpense":
+			this.registerExpense(req, resp);
+			break;
+		case "confirmnRegisterExpense":
+			this.confirmnRegisterExpense(req, resp);
+			break;
+		case "cancel":
+			this.cancel(req, resp);
+			break;
+		default:
+			this.viewDashboard(req, resp);
+			break;
+		}
 	}
-	
+
+	private void cancel(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.sendRedirect("jsp/viewAccount");
+	}
+
+	private void confirmnRegisterExpense(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//DAOs necesarios
+		CuentaDAO cuentaDAO = new CuentaDAO();
+		CategoriaDAO categoriaDAO = new CategoriaDAO();
+		EgresoDAO egresoDAO = new EgresoDAO();
+		// paso 1: obtener datos
+		int accountID = (int) req.getAttribute("accountID");
+		// 2
+		Date date = (Date) req.getAttribute("date");
+		String concept = (String) req.getAttribute("concept");
+		double value = (double) req.getAttribute("value");
+		CategoriaEgreso category = (CategoriaEgreso) req.getAttribute("category");
+		// paso 2: hablar con el modelo
+		// 2.1
+		egresoDAO.registerExpense(date, concept, value, category);
+		// 2.2 y 2.3
+		categoriaDAO.updateBalance(value);
+		cuentaDAO.updateBalance(value);
+		// paso 3: hablar con la vista
+		resp.sendRedirect("jsp/viewAccount");
+
+	}
+
+	// paso 1: obtener datos
+	// paso 2: hablar con el modelo
+	// paso 3: hablar con la vista
+
+	private void registerExpense(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		CuentaDAO cuentaDAO = new CuentaDAO();
+		CategoriaDAO categoriaDAO = new CategoriaDAO();
+		// paso 1: obtener datos
+		// 1
+		int accountID = (int) req.getAttribute("accountID");
+		// paso 2: hablar con el modelo
+		// 1.1 y 1.2
+		Cuenta account = cuentaDAO.getByID(accountID);
+		double balance = account.getBalance();
+		// 1.3
+		List<CategoriaEgreso> categories = categoriaDAO.getExpenseCategories();
+
+		// paso 3: hablar con la vista
+		// 1.4
+		req.setAttribute("balance", balance);
+		req.setAttribute("categories", categories);
+		req.getRequestDispatcher("jsp/registraregreso.jsp").forward(req, resp);
+	}
+
+	private void viewAccount(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		MovimientoDAO movimientoDAO = new MovimientoDAO();
+		CuentaDAO cuentaDAO = new CuentaDAO();
+		// paso 1: obtener datos
+		int accountID = (int) req.getAttribute("accountID");
+		// paso 2: hablar con el modelo
+		List<Movimiento> movements = movimientoDAO.getAllByAccount(accountID);
+		Cuenta account = cuentaDAO.getByID(accountID);
+
+		// paso 3: hablar con la vista
+		req.setAttribute("movements", movements);
+		req.setAttribute("account", account);
+
+		req.getRequestDispatcher("jsp/vercuenta.jsp").forward(req, resp);
+	}
+
 	/**
-     * Default constructor
-     */
-    public ContabilidadController() {
-    }
+	 * @param from vienen en el cuerpo / url
+	 * @param to
+	 */
+	public void viewDashboard(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		CuentaDAO cuentaDAO = new CuentaDAO();
+		CategoriaIngresoDAO categoriaIngresoDAO = new CategoriaIngresoDAO();
+		CategoriaEgresoDAO categoriaEgresoDAO = new CategoriaEgresoDAO();
+		MovimientoDAO movimientoDAO = new MovimientoDAO();
+		// paso 1: obtener datos
+		// setear la fecha default segun la regla de negocio del caso de uso
+		Date fechaInicio = (Date) req.getAttribute("from");
+		Date fechaFin = (Date) req.getAttribute("to");
+		
+		if (fechaInicio == null && fechaFin == null) {
+			//fechaInicio = ;//No se el formato de DATE xd
+			//fechaFin = ;		
+		}
+		
+		// paso 2: hablar con el modelo
+		List<Cuenta> listaDeCuentas = cuentaDAO.getAll();
+		List<CategoriaResumenDTO> categoriasIngresoSumarized = categoriaIngresoDAO.getAllSumarized(fechaInicio,fechaFin);
+		List<CategoriaResumenDTO> categoriasEgresoSumarized = categoriaEgresoDAO.getAllSumarized(fechaInicio, fechaFin);
+		List<MovimientoDTO> movimientos = movimientoDAO.getAll(fechaInicio, fechaFin);
 
-    /**
-     * @param from vienen en el cuerpo / url
-     * @param to
-     */
-    public void viewDashboard(HttpServletRequest req, HttpServletResponse resp)  throws ServletException, IOException {
-        //paso 1: obtener datos
-    	
-    		//setear la fecha default segun la regla de negocio del caso de uso
-    	
-    	//Emular fechas
-    	Date fechaInicio = new Date();
-    	Date fechaFin = new Date();
-    	
-    	//paso 2: hablar con el modelo
-    	CuentaDAO cuentaDAO = new CuentaDAO();
-    	List<Cuenta> listaDeCuentas = cuentaDAO.getAll();
-    	
-    	CategoriaIngresoDAO categoriaIngresoDAO = new CategoriaIngresoDAO();
-    	List<CategoriaResumenDTO> categoriasIngresoSumarized = categoriaIngresoDAO.getAllSumarized(fechaInicio, fechaFin);
-    	
-    	CategoriaEgresoDAO categoriaEgresoDAO = new CategoriaEgresoDAO();
-    	List<CategoriaResumenDTO> categoriasEgresoSumarized = categoriaEgresoDAO.getAllSumarized(fechaInicio, fechaFin);
+		// paso 3: hablar con la vista
+		req.setAttribute("movements", movimientos);
+		req.setAttribute("accounts", listaDeCuentas);
+		req.setAttribute("incomes", categoriasIngresoSumarized);
+		req.setAttribute("expenses", categoriasEgresoSumarized);
 
-    	MovimientoDAO movimientoDAO = new MovimientoDAO();
-    	List<MovimientoDTO> movimientos = movimientoDAO.getAll(fechaInicio, fechaFin);
-    	
-    	//paso 3: hablar con la vista
-    	req.setAttribute("movements", movimientos);
-    	req.setAttribute("accounts", listaDeCuentas);
-    	req.setAttribute("incomes", categoriasIngresoSumarized);
-    	req.setAttribute("expenses", categoriasEgresoSumarized);
-    	
-    	req.getRequestDispatcher("jsp/verdashboard.jsp").forward(req, resp);
-    	//resp.sendRedirect();
-    }
-    
-    
-
+		req.getRequestDispatcher("jsp/verdashboard.jsp").forward(req, resp);
+		// resp.sendRedirect();
+	}
 
 }
