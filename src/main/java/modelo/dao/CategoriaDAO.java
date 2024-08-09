@@ -43,9 +43,4 @@ public class CategoriaDAO {
 		
 	}
 
-	public Categoria getCategoryById(int categoryID) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

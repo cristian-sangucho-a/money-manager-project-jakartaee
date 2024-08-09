@@ -5,6 +5,8 @@ import java.util.*;
 import jakarta.persistence.Query;
 import jakarta.persistence.*;
 import modelo.dto.CategoriaResumenDTO;
+import modelo.entidades.CategoriaEgreso;
+import modelo.entidades.Cuenta;
 
 /**
  * 
@@ -49,6 +51,40 @@ public class CategoriaEgresoDAO extends CategoriaDAO {
             }
         }
         return resultList;
+    }
+    
+    public List<CategoriaEgreso> getAll() {
+    	List<CategoriaEgreso> categorias = null;
+        em.getTransaction().begin();
+        try {
+            
+            Query query = em.createQuery("Select c from CategoriaEgreso c", CategoriaEgreso.class);
+            
+         
+            categorias = query.getResultList();
+            
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if(em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+        }
+        return categorias;
+    }
+    
+    public CategoriaEgreso getCategoryById(int categoryId) {
+    	CategoriaEgreso categoria = null;
+	    em.getTransaction().begin();
+	    try {
+	        categoria = em.find(CategoriaEgreso.class, categoryId);
+	        em.getTransaction().commit();
+	    } catch (Exception e) {
+	        if (em.getTransaction().isActive()) {
+	            em.getTransaction().rollback();
+	        }
+	        e.printStackTrace();
+	    }
+	    return categoria;
     }
 
 }
