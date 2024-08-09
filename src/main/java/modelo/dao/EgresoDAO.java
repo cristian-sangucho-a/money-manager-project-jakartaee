@@ -19,7 +19,7 @@ public class EgresoDAO {
 	public void registerExpense(Date date, String concept, double value, CategoriaEgreso expenseCategory, Cuenta account) {
 		em.getTransaction().begin();
 		try {
-			em.persist(new Egreso(concept,date,value,account,expenseCategory));
+			em.persist(new Egreso(concept,date,-value,account,expenseCategory));
 			em.getTransaction().commit();
 		}catch(Exception e) {
 			if(em.getTransaction().isActive()) {
