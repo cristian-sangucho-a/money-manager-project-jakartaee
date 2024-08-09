@@ -3,6 +3,9 @@ package modelo.dto;
 import java.io.*;
 import java.util.*;
 
+import modelo.dao.CuentaDAO;
+import modelo.entidades.Cuenta;
+
 /**
  * 
  */
@@ -58,13 +61,13 @@ public class MovimientoDTO {
     }
 
     public String getNameSrc(){
-        CuentaDao cuentaDao = new CuentaDao();
+        CuentaDAO cuentaDao = new CuentaDAO();
         Cuenta cuentaSrc = cuentaDao.getById(this.src);
         return cuentaSrc.getName();
     }
 
     public String getNameDst(){
-        CuentaDao cuentaDao = new CuentaDao();
+        CuentaDAO cuentaDao = new CuentaDAO();
         Cuenta cuentaDst = cuentaDao.getById(this.dst);
         return cuentaDst.getName();
     }

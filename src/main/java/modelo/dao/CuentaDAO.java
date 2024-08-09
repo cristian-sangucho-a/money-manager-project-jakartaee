@@ -55,4 +55,20 @@ public class CuentaDAO {
         
     }
 
+
+	public Cuenta getById(int id) {
+	    Cuenta cuenta = null;
+	    em.getTransaction().begin();
+	    try {
+	        cuenta = em.find(Cuenta.class, id);
+	        em.getTransaction().commit();
+	    } catch (Exception e) {
+	        if (em.getTransaction().isActive()) {
+	            em.getTransaction().rollback();
+	        }
+	        e.printStackTrace();
+	    }
+	    return cuenta;
+	}
+
 }
