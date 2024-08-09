@@ -2,50 +2,57 @@ package modelo .dao;
 
 import java.util.*;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
 import modelo.entidades.Cuenta;
 
-/**
- * 
- */
-public class CuentaDAO {
 
-    /**
-     * Default constructor
-     */
+public class CuentaDAO {
+	private EntityManagerFactory emf = null;
+	private EntityManager em = null;
+	
     public CuentaDAO() {
+    	this.emf = Persistence.createEntityManagerFactory("Contabilidad");
+    	this.em = emf.createEntityManager();
     }
 
-    /**
-     * @return
-     */
+ 
     public List<Cuenta> getAll() {
+        List<Cuenta> cuentas = null;
+        em.getTransaction().begin();
+        try {
+            
+            Query query = em.createQuery("Select c from Cuenta c", Cuenta.class);
+            
+            
+            cuentas = query.getResultList();
+            
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if(em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+        }
+        return cuentas;
+    }
+
+ 
+    public Cuenta getByID(int accountID) {
         
         return null;
     }
 
-    /**
-     * @param accountID 
-     * @return
-     */
-    public Cuenta getByID(int accountID) {
-        // TODO implement here
-        return null;
-    }
-
-    /**
-     * @return
-     */
+  
     public double getBalance() {
-        // TODO implement here
+        
         return 0;
     }
 
-    /**
-     * @param double value 
-     * @return
-     */
+  
     public void updateBalance(double value) {
-        // TODO implement here
+        
     }
 
 }
