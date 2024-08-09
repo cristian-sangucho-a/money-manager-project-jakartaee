@@ -1,11 +1,17 @@
 package modelo .entidades;
 
+import java.io.Serializable;
 import java.util.*;
 
 import jakarta.persistence.*;
 
 @Entity
-public class CategoriaIngreso {
+public class CategoriaIngreso implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Column
     private String name;

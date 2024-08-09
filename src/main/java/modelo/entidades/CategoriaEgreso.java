@@ -1,5 +1,6 @@
 package modelo .entidades;
 
+import java.io.Serializable;
 import java.util.*;
 
 import jakarta.persistence.Column;
@@ -9,9 +10,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class CategoriaEgreso {
+public class CategoriaEgreso implements Serializable{
 
-    @Column
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Column
     private String name;
 
     @Id
