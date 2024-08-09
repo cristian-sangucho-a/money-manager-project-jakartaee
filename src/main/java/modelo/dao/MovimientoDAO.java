@@ -9,6 +9,8 @@ import modelo.entidades.Movimiento;
  * 
  */
 public class MovimientoDAO {
+    private EntityManagerFactory emf;
+    private EntityManager em;
 
     /**
      * Default constructor
@@ -67,7 +69,29 @@ public class MovimientoDAO {
      */
     public List<MovimientoDTO> getAll(Date from, Date to) {
         // TODO implement here
-    	return null;
+        this.emf = Persistence.createEntityManagerFactory("Contabilidad");
+        this.em = emf.createEntityManager();
+        
+        List<MovimientoDTO> movimientos = null;
+        try {
+            // Create and execute the JPQL query
+            String jpql = "SELECT m FROM MovimientoDTO m WHERE m.fecha BETWEEN :from AND :to";
+            TypedQuery<MovimientoDTO> query = em.createQuery(jpql, MovimientoDTO.class);
+            query.setParameter("from", from);
+            query.setParameter("to", to);
+
+            movimientos = query.getResultList();
+        } finally {
+            // Ensure that the EntityManager and EntityManagerFactory are closed
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+            if (emf != null && emf.isOpen()) {
+                emf.close();
+            }
+        }
+
+    	return movimientos;
     }
 
     /**
