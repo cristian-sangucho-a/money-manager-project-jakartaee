@@ -1,6 +1,11 @@
 package controlador;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import jakarta.servlet.ServletException;
@@ -147,28 +152,43 @@ public class ContabilidadController extends HttpServlet {
 		MovimientoDAO movimientoDAO = new MovimientoDAO();
 		// paso 1: obtener datos
 		// setear la fecha default segun la regla de negocio del caso de uso
-		Date fechaInicio = (Date) req.getAttribute("from");
-		Date fechaFin = (Date) req.getAttribute("to");
+		Date fechaInicio = convertToDate((String) req.getAttribute("from"));
+		Date fechaFin = convertToDate((String) req.getAttribute("to"));
 		
 		if (fechaInicio == null && fechaFin == null) {
-			//fechaInicio = ;//No se el formato de DATE xd
-			//fechaFin = ;		
+			fechaInicio = convertToDate("01-08-2024");
+			fechaFin = convertToDate("31-08-2024");		
 		}
 		
 		// paso 2: hablar con el modelo
-		List<Cuenta> listaDeCuentas = cuentaDAO.getAll();
-		List<CategoriaResumenDTO> categoriasIngresoSumarized = categoriaIngresoDAO.getAllSumarized(fechaInicio,fechaFin);
-		List<CategoriaResumenDTO> categoriasEgresoSumarized = categoriaEgresoDAO.getAllSumarized(fechaInicio, fechaFin);
-		List<MovimientoDTO> movimientos = movimientoDAO.getAll(fechaInicio, fechaFin);
+		List<Cuenta> accounts = cuentaDAO.getAll();
+		List<CategoriaResumenDTO> incomeCategorySumarized = categoriaIngresoDAO.getAllSumarized(fechaInicio,fechaFin);
+		List<CategoriaResumenDTO> expenseCategorySumarized = categoriaEgresoDAO.getAllSumarized(fechaInicio, fechaFin);
+		List<MovimientoDTO> movements = movimientoDAO.getAll(fechaInicio, fechaFin);
 
 		// paso 3: hablar con la vista
-		req.setAttribute("movements", movimientos);
-		req.setAttribute("accounts", listaDeCuentas);
-		req.setAttribute("incomes", categoriasIngresoSumarized);
-		req.setAttribute("expenses", categoriasEgresoSumarized);
+		req.setAttribute("movements", movements);
+		req.setAttribute("accounts", accounts);
+		req.setAttribute("incomes", incomeCategorySumarized);
+		req.setAttribute("expenses", expenseCategorySumarized);
 
 		req.getRequestDispatcher("jsp/verdashboard.jsp").forward(req, resp);
 		// resp.sendRedirect();
+	}
+
+	private Date convertToDate(String dateString) {
+		// Parse a LocalDate
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+		ZoneId defaultZoneId = ZoneId.systemDefault();
+        LocalDate localDate = LocalDate.parse(dateString, formatter);
+        // Para convertir a DATE
+        try {
+            Date date = Date.from(localDate.atStartOfDay(defaultZoneId).toInstant());
+            return date;
+        } catch (DateTimeException e) {
+            e.printStackTrace();
+        }
+		return null;
 	}
 
 }
