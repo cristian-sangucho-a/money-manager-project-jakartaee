@@ -14780,6 +14780,15 @@
 											},
 											"name": "dstID",
 											"type": ""
+										},
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAGROUNfRhNFVCU=",
+											"_parent": {
+												"$ref": "AAAAAAGRJgn9vqvA2Xg="
+											},
+											"name": "account",
+											"type": ""
 										}
 									]
 								}
@@ -15067,6 +15076,15 @@
 												"$ref": "AAAAAAGRJej/VAK7KMU="
 											},
 											"name": "expenseCategory",
+											"type": ""
+										},
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAGROUKwpQ79n8Q=",
+											"_parent": {
+												"$ref": "AAAAAAGRJej/VAK7KMU="
+											},
+											"name": "account",
 											"type": ""
 										}
 									]
@@ -32709,7 +32727,7 @@
 																		"$ref": "AAAAAAGRJed6k/g0rGM="
 																	},
 																	"font": "Arial;13;0",
-																	"left": 460.19189453125,
+																	"left": 461.69189453125,
 																	"top": 388.5,
 																	"width": 102.6162109375,
 																	"height": 13,
@@ -32728,7 +32746,7 @@
 																	},
 																	"visible": false,
 																	"font": "Arial;13;0",
-																	"left": 511.5,
+																	"left": 513,
 																	"top": 373.5,
 																	"height": 13,
 																	"alpha": 1.5707963267948966,
@@ -32745,7 +32763,7 @@
 																	},
 																	"visible": false,
 																	"font": "Arial;13;0",
-																	"left": 511.5,
+																	"left": 513,
 																	"top": 388.5,
 																	"height": 13,
 																	"alpha": 1.5707963267948966,
@@ -32753,9 +32771,9 @@
 																}
 															],
 															"font": "Arial;13;0",
-															"left": 502,
+															"left": 501,
 															"top": 388,
-															"width": 22,
+															"width": 21,
 															"height": 34,
 															"alpha": 1.5707963267948966,
 															"distance": 10,
@@ -33669,13 +33687,13 @@
 																		"$ref": "AAAAAAGRJejSbwHYNKk="
 																	},
 																	"font": "Arial;13;0",
-																	"left": 578.007080078125,
+																	"left": 540.917724609375,
 																	"top": 100.5,
-																	"width": 356.98583984375,
+																	"width": 431.16455078125,
 																	"height": 13,
 																	"alpha": 0.6202491481451435,
 																	"distance": 17.204650534085253,
-																	"text": "2.2 : registerExpense(date, concept, value, expenseCategory)"
+																	"text": "2.2 : registerExpense(date, concept, value, expenseCategory, account)"
 																},
 																{
 																	"_type": "NodeLabelView",
@@ -44604,13 +44622,13 @@
 																		"$ref": "AAAAAAGRJgnfk6rdFsQ="
 																	},
 																	"font": "Arial;13;0",
-																	"left": 560.337646484375,
+																	"left": 536.134033203125,
 																	"top": 167,
-																	"width": 360.32470703125,
+																	"width": 408.73193359375,
 																	"height": 13,
 																	"alpha": 1.5707963267948966,
 																	"distance": 10,
-																	"text": "2.2 : registerIncome(date, concept, value, category, dstID)"
+																	"text": "2.2 : registerIncome(date, concept, value, category, dstID, account)"
 																},
 																{
 																	"_type": "NodeLabelView",
@@ -56328,6 +56346,15 @@
 															},
 															"name": "dstID",
 															"type": "int"
+														},
+														{
+															"_type": "UMLParameter",
+															"_id": "AAAAAAGROUPNWBSoEfU=",
+															"_parent": {
+																"$ref": "AAAAAAGRND6fMHTpJKY="
+															},
+															"name": "account",
+															"type": ""
 														}
 													]
 												}
@@ -56616,7 +56643,7 @@
 															"_parent": {
 																"$ref": "AAAAAAGRND6fMHUI/WY="
 															},
-															"name": "category",
+															"name": "expenseCategory",
 															"type": {
 																"$ref": "AAAAAAGRJYB7yzvPf+k="
 															}
@@ -56627,8 +56654,10 @@
 															"_parent": {
 																"$ref": "AAAAAAGRND6fMHUI/WY="
 															},
-															"name": "accountID",
-															"type": "int"
+															"name": "account",
+															"type": {
+																"$ref": "AAAAAAGRJYBmQzsC6wg="
+															}
 														}
 													]
 												}
@@ -74008,7 +74037,7 @@
 															"font": "Arial;13;1",
 															"left": 917,
 															"top": 215,
-															"width": 599,
+															"width": 665.47900390625,
 															"height": 13,
 															"text": "EgresoDAO"
 														},
@@ -74022,7 +74051,7 @@
 															"font": "Arial;13;0",
 															"left": 917,
 															"top": 230,
-															"width": 599,
+															"width": 665.47900390625,
 															"height": 13,
 															"text": "(from dao)"
 														},
@@ -74045,7 +74074,7 @@
 													"font": "Arial;13;0",
 													"left": 912,
 													"top": 208,
-													"width": 609,
+													"width": 675.47900390625,
 													"height": 40,
 													"stereotypeLabel": {
 														"$ref": "AAAAAAGRON5QlFW13t8="
@@ -74073,7 +74102,7 @@
 													"font": "Arial;13;0",
 													"left": 912,
 													"top": 248,
-													"width": 609,
+													"width": 675.47900390625,
 													"height": 10
 												},
 												{
@@ -74137,9 +74166,9 @@
 															"font": "Arial;13;0",
 															"left": 917,
 															"top": 265,
-															"width": 599,
+															"width": 665.47900390625,
 															"height": 13,
-															"text": "+registerExpense(date: Date, concept: String, value: double, category: CategoriaEgreso, accountID: int)",
+															"text": "+registerExpense(date: Date, concept: String, value: double, expenseCategory: CategoriaEgreso, account: Cuenta)",
 															"horizontalAlignment": 0
 														}
 													],
@@ -74147,7 +74176,7 @@
 													"font": "Arial;13;0",
 													"left": 912,
 													"top": 258,
-													"width": 609,
+													"width": 675.47900390625,
 													"height": 25
 												},
 												{
@@ -74190,7 +74219,7 @@
 											"containerChangeable": true,
 											"left": 912,
 											"top": 208,
-											"width": 608,
+											"width": 674.47900390625,
 											"height": 80,
 											"showNamespace": true,
 											"nameCompartment": {
@@ -74230,8 +74259,8 @@
 													},
 													"visible": false,
 													"font": "Arial;13;0",
-													"left": 942,
-													"top": 176,
+													"left": 953,
+													"top": 174,
 													"height": 13,
 													"alpha": 1.5707963267948966,
 													"distance": 15,
@@ -74251,8 +74280,8 @@
 													},
 													"visible": null,
 													"font": "Arial;13;0",
-													"left": 945,
-													"top": 161,
+													"left": 956,
+													"top": 159,
 													"height": 13,
 													"alpha": 1.5707963267948966,
 													"distance": 30,
@@ -74272,8 +74301,8 @@
 													},
 													"visible": false,
 													"font": "Arial;13;0",
-													"left": 937,
-													"top": 205,
+													"left": 948,
+													"top": 203,
 													"height": 13,
 													"alpha": -1.5707963267948966,
 													"distance": 15,
@@ -74291,7 +74320,7 @@
 												"$ref": "AAAAAAGRNFtdiN+sr+8="
 											},
 											"lineStyle": 1,
-											"points": "887:187;994:207",
+											"points": "887:184;1016:207",
 											"showVisibility": true,
 											"nameLabel": {
 												"$ref": "AAAAAAGRON5QlFW+nrw="
@@ -83407,7 +83436,7 @@
 															"top": 345,
 															"width": 300.50146484375,
 															"height": 13,
-															"text": "+getAll(from, to)",
+															"text": "+getAll(from: Date, to: Date): List<Movimiento>",
 															"horizontalAlignment": 0
 														},
 														{
@@ -83426,7 +83455,7 @@
 															"top": 272,
 															"width": 300.50146484375,
 															"height": 13,
-															"text": "+getMovementById(movementID)",
+															"text": "+getMovementById(movementID: int): Movimiento",
 															"horizontalAlignment": 0
 														}
 													],
