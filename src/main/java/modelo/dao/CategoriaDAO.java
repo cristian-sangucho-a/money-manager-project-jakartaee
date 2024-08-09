@@ -2,6 +2,8 @@ package modelo .dao;
 
 import java.util.*;
 
+import modelo.entidades.CategoriaEgreso;
+
 /**
  * 
  */
@@ -23,8 +25,9 @@ public class CategoriaDAO {
     /**
      * 
      */
-    public void getExpensiveCategories() {
+    public List<CategoriaEgreso> getExpenseCategories() {
         // TODO implement here
+    	return null;
     }
 
     /**
@@ -33,5 +36,10 @@ public class CategoriaDAO {
     public void getIncomeCategories() {
         // TODO implement here
     }
+
+	public void updateBalance(double value) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
