@@ -160,7 +160,6 @@ public class ContabilidadController extends HttpServlet {
 		if(!isAValidRangeOfDates(from, to)) {
 			from = convertToDate(fromDefault);
 			to = convertToDate(toDefault);	
-			req.getRequestDispatcher("jsp/verdashboard.jsp").forward(req, resp);
 		}
 		
 		// paso 2: hablar con el modelo
