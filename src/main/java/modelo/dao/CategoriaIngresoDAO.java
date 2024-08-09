@@ -5,8 +5,10 @@ import java.util.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import jakarta.persistence.TypedQuery;
+import jakarta.persistence.Query;
 import modelo.dto.CategoriaResumenDTO;
+
+
 
 /**
  * 
@@ -29,13 +31,21 @@ public class CategoriaIngresoDAO extends CategoriaDAO {
     public List<CategoriaResumenDTO> getAllSumarized(Date from, Date to) {
         List<CategoriaResumenDTO> resultList = new ArrayList<>();
         try {
-            String queryStr = "SELECT new modelo.dto.CategoriaResumenDTO(c.name, " +
-                              "(SELECT SUM(m.valor) FROM Movimiento m WHERE m.categoria.id = c.id AND m.fecha BETWEEN :from AND :to AND m.tipoMovimiento = 'ingreso')) " +
-                              "FROM CategoriaIngreso c";
-            TypedQuery<CategoriaResumenDTO> query = em.createQuery(queryStr, CategoriaResumenDTO.class);
-            query.setParameter("from", from);
-            query.setParameter("to", to);
-            resultList = query.getResultList();
+            String queryStr = "SELECT c.name, SUM(m.valor) " +
+                              "FROM Movimiento m, CategoriaIngreso c " +
+                              "WHERE m.fecha BETWEEN ?1 AND ?2 " +
+                              "AND m.tipo_movimiento = 'ingreso' " +
+                              "AND m.Categoria_ID = c.id " +
+                              "GROUP BY c.name";
+            Query query = em.createNativeQuery(queryStr);
+            query.setParameter(1, from);
+            query.setParameter(2, to);
+            List<Object[]> results = query.getResultList();
+            for (Object[] result : results) {
+                String name = (String) result[0];
+                Double sum = (Double) result[1];
+                resultList.add(new CategoriaResumenDTO(name, sum));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -45,6 +55,10 @@ public class CategoriaIngresoDAO extends CategoriaDAO {
         }
         return resultList;
     }
+
+
+
+
 
 
 }
