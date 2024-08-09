@@ -16,9 +16,9 @@
 
     <div class="controls">
         <label for="desde">Desde:</label>
-        <input type="date" id="desde" name="desde" value="${param.desde}">
+        <input type="date" id="desde" name="desde" value="${from}">
         <label for="hasta">Hasta:</label>
-        <input type="date" id="hasta" name="hasta" value="${param.hasta}">
+        <input type="date" id="hasta" name="hasta" value="${to}">
         <button type="submit">Consultar</button>
     </div>
 
@@ -33,15 +33,15 @@
         <div class="account-container">
             <c:forEach var="account" items="${accounts}">
                 <div class="account-card">
-                    <h3>${cuenta.nombre}</h3>
-                    <div class="balance ${cuenta.balance < 0 ? 'negative' : ''}">
-                        ${cuenta.balance}
+                    <h3>${account.nombre}</h3>
+                    <div class="balance ${account.balance < 0 ? 'negative' : ''}">
+                        ${account.balance}
                     </div>
                     <div class="actions">
-                        <a href="#">INGRESO</a>
-                        <a href="#">EGRESO</a>
-                        <a href="#">TRANSF.</a>
-                        <a href="#">MOVS.</a>
+                        <a href="ContabilidadController?ruta=viewAccount&accountID=${cuenta.id}">INGRESO</a>
+                        <a href="ContabilidadController?ruta=viewAccount&accountID=${cuenta.id}">EGRESO</a>
+                        <a href="ContabilidadController?ruta=viewAccount&accountID=${cuenta.id}">TRANSF.</a>
+                        <a href="ContabilidadController?ruta=viewAccount&accountID=${cuenta.id}">MOVS.</a>
                     </div>
                 </div>
             </c:forEach>
