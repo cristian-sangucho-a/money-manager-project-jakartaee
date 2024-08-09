@@ -49,8 +49,9 @@ public class MovimientoDAO {
     /**
      * @param accountID
      */
-    public void getAllByAccount(int accountID) {
+    public List<Movimiento> getAllByAccount(int accountID) {
         // TODO implement here
+    	return null;
     }
 
     /**
