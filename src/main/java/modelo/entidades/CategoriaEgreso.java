@@ -10,7 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class CategoriaEgreso implements Serializable{
+public class CategoriaEgreso extends Categoria implements Serializable {
 
     /**
 	 * 

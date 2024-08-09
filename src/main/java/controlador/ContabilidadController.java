@@ -22,7 +22,6 @@ import modelo.dao.EgresoDAO;
 import modelo.dao.MovimientoDAO;
 import modelo.dto.CategoriaResumenDTO;
 import modelo.dto.MovimientoDTO;
-import modelo.entidades.Cuenta;
 import modelo.entidades.*;
 
 /**
@@ -87,15 +86,18 @@ public class ContabilidadController extends HttpServlet {
 		EgresoDAO egresoDAO = new EgresoDAO();
 		// paso 1: obtener datos
 		int accountID = (int) req.getAttribute("accountID");
+		int categoryIDVista = (int) req.getAttribute("categoryID");
 		// 2
 		Date date = (Date) req.getAttribute("date");
 		String concept = (String) req.getAttribute("concept");
 		double value = (double) req.getAttribute("value");
-		CategoriaEgreso category = (CategoriaEgreso) req.getAttribute("category");
+		Cuenta account = cuentaDAO.getById(accountID);
+		//2.1
+		CategoriaEgreso expenseCategory = (CategoriaEgreso) categoriaDAO.getCategoryById(categoryIDVista);
 		// paso 2: hablar con el modelo
-		// 2.1
-		egresoDAO.registerExpense(date, concept, value, category);
-		// 2.2 y 2.3
+		// 2.2 Date date, String concept, double value, CategoriaEgreso expenseCategory, Cuenta account
+		egresoDAO.registerExpense(date, concept, value, expenseCategory, account);
+		// 2.2 y 2.3 
 		categoriaDAO.updateBalance(value);
 		cuentaDAO.updateBalance(value);
 		// paso 3: hablar con la vista
@@ -179,15 +181,13 @@ public class ContabilidadController extends HttpServlet {
 		List<MovimientoDTO> movements = movimientoDAO.getAll(from, to);
 
 		// paso 3: hablar con la vista
-		req.setAttribute("from", fromString); //Fecha request
-	    req.setAttribute("to", toString);  //Fecha 2 request
 		req.setAttribute("movements", movements);
 		req.setAttribute("accounts", accounts);
 		req.setAttribute("incomes", incomeCategoriesSumarized);
 		req.setAttribute("expenses", expenseCategoriesSumarized);
 
 		req.getRequestDispatcher("jsp/verdashboard.jsp").forward(req, resp);
-		// resp.sendRedirect();
+		
 	}
 
 	private boolean isAValidRangeOfDates(Date from, Date to) {

@@ -2,6 +2,7 @@ package modelo .dao;
 
 import java.util.*;
 
+import modelo.entidades.Categoria;
 import modelo.entidades.CategoriaEgreso;
 
 /**
@@ -40,6 +41,11 @@ public class CategoriaDAO {
 	public void updateBalance(double value) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public Categoria getCategoryById(int categoryID) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
