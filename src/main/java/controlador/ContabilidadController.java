@@ -154,8 +154,16 @@ public class ContabilidadController extends HttpServlet {
 		MovimientoDAO movimientoDAO = new MovimientoDAO();
 		// paso 1: obtener datos
 		// setear la fecha default segun la regla de negocio del caso de uso
-		Date from = convertToDate((String) req.getAttribute("from"));
-		Date to = convertToDate((String) req.getAttribute("to"));
+		String fromString = (String) req.getAttribute("from");
+		String toString = (String) req.getAttribute("to");
+		
+		Date from = convertToDate(fromString);
+		Date to = convertToDate(toString);
+		
+		if(from == null || to == null) {
+			from = convertToDate(fromDefault);
+			to = convertToDate(toDefault);
+		}
 		
 		if(!isAValidRangeOfDates(from, to)) {
 			from = convertToDate(fromDefault);
