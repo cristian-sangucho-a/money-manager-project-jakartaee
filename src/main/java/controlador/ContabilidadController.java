@@ -32,6 +32,8 @@ import modelo.entidades.*;
 public class ContabilidadController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+	private final String fromDefault = "01-08-2024";
+	private final String toDefault = "31-08-2024";
 	/**
 	 * Default constructor
 	 */
@@ -152,28 +154,36 @@ public class ContabilidadController extends HttpServlet {
 		MovimientoDAO movimientoDAO = new MovimientoDAO();
 		// paso 1: obtener datos
 		// setear la fecha default segun la regla de negocio del caso de uso
-		Date fechaInicio = convertToDate((String) req.getAttribute("from"));
-		Date fechaFin = convertToDate((String) req.getAttribute("to"));
+		Date from = convertToDate((String) req.getAttribute("from"));
+		Date to = convertToDate((String) req.getAttribute("to"));
 		
-		if (fechaInicio == null && fechaFin == null) {
-			fechaInicio = convertToDate("01-08-2024");
-			fechaFin = convertToDate("31-08-2024");		
+		if(!isAValidRangeOfDates(from, to)) {
+			from = convertToDate(fromDefault);
+			to = convertToDate(toDefault);	
+			req.getRequestDispatcher("jsp/verdashboard.jsp").forward(req, resp);
 		}
 		
 		// paso 2: hablar con el modelo
 		List<Cuenta> accounts = cuentaDAO.getAll();
-		List<CategoriaResumenDTO> incomeCategorySumarized = categoriaIngresoDAO.getAllSumarized(fechaInicio,fechaFin);
-		List<CategoriaResumenDTO> expenseCategorySumarized = categoriaEgresoDAO.getAllSumarized(fechaInicio, fechaFin);
-		List<MovimientoDTO> movements = movimientoDAO.getAll(fechaInicio, fechaFin);
+		List<CategoriaResumenDTO> incomeCategoriesSumarized = categoriaIngresoDAO.getAllSumarized(from,to);
+		List<CategoriaResumenDTO> expenseCategoriesSumarized = categoriaEgresoDAO.getAllSumarized(from, to);
+		List<MovimientoDTO> movements = movimientoDAO.getAll(from, to);
 
 		// paso 3: hablar con la vista
 		req.setAttribute("movements", movements);
 		req.setAttribute("accounts", accounts);
-		req.setAttribute("incomes", incomeCategorySumarized);
-		req.setAttribute("expenses", expenseCategorySumarized);
+		req.setAttribute("incomes", incomeCategoriesSumarized);
+		req.setAttribute("expenses", expenseCategoriesSumarized);
 
 		req.getRequestDispatcher("jsp/verdashboard.jsp").forward(req, resp);
 		// resp.sendRedirect();
+	}
+
+	private boolean isAValidRangeOfDates(Date from, Date to) {
+		if(from.after(to)) {
+			return false;
+		}
+		return true;
 	}
 
 	private Date convertToDate(String dateString) {
