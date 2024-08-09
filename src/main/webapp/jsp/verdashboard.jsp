@@ -25,7 +25,6 @@
     <div class="tabs">
         <a href="cuentas.jsp" class="tab">Cuentas</a>
         <a href="categorias.jsp" class="tab">Categorías</a>
-        <a href="frecuentes.jsp" class="tab">Frecuentes</a>
         <a href="movimientos.jsp" class="tab">Movimientos</a>
     </div>
 
