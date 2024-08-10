@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Detalles de la Cuenta</title>
-    <link rel="stylesheet" type="text/css" href="./stylesvercuenta.css">
+    <link rel="stylesheet" type="text/css" href="jsp/stylesvercuenta.css">
 </head>
 <body>
 

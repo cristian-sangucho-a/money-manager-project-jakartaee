@@ -64,7 +64,7 @@ public class ContabilidadController extends HttpServlet {
 			this.registerExpense(req, resp);
 			break;
 		case "confirmarregistroegreso":
-			this.confirmnRegisterExpense(req, resp);
+			this.confirmRegisterExpense(req, resp);
 			break;
 		case "cancelar":
 			this.cancel(req, resp);
@@ -79,7 +79,7 @@ public class ContabilidadController extends HttpServlet {
 		resp.sendRedirect("jsp/vercuenta");
 	}
 
-	private void confirmnRegisterExpense(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	private void confirmRegisterExpense(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//DAOs necesarios
 		CuentaDAO cuentaDAO = new CuentaDAO();
 		CategoriaEgresoDAO categoriaEgresoDAO = new CategoriaEgresoDAO();

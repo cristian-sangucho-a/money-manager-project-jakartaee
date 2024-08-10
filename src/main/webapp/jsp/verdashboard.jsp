@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Dashboard</title>
-    <link rel="stylesheet" type="text/css" href="./stylesverdashboard.css">
+    <link rel="stylesheet" type="text/css" href="jsp/stylesverdashboard.css">
 </head>
 <body>
 

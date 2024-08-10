@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Registrar Egreso</title>
-    <link rel="stylesheet" type="text/css" href="./stylesregistraregreso.css">
+    <link rel="stylesheet" type="text/css" href="jsp/stylesregistraregreso.css">
 </head>
 <body>
 
@@ -24,7 +24,7 @@
     </div>
 
     <div class="controls">
-        <form action="ContabilidadController?ruta=registraregreso" method="POST">
+        <form action="ContabilidadController?ruta=confirmarregistroegreso" method="POST">
             <div class="controls vertical-center">
                 <label for="date" class="left-label">Fecha:</label>
                 <input type="date" id="date" name="date" class="large-input" required>
