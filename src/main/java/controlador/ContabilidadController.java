@@ -101,7 +101,7 @@ public class ContabilidadController extends HttpServlet {
 		// 2.2 y 2.3 
 		cuentaDAO.updateBalance(value, accountID);
 		// paso 3: hablar con la vista
-		resp.sendRedirect("jsp/vercuenta");
+		resp.sendRedirect("jsp/vercuenta.jsp");
 
 	}
 
@@ -126,6 +126,7 @@ public class ContabilidadController extends HttpServlet {
 		// 1.3
 		req.setAttribute("balance", balance);
 		req.setAttribute("categories", expensesCategories);
+		req.setAttribute("account", account);
 		req.getRequestDispatcher("jsp/registraregreso.jsp").forward(req, resp);
 	}
 
