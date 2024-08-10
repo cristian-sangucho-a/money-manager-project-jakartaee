@@ -28,7 +28,7 @@
                 <div class="movement-item">
                     <div>
                         <div class="movement-description">Concepto: <c:out value="${movement.concept}" /></div>
-                        <div class="movement-date">Fecha: <fmt:formatDate value="${movement.date}" pattern="dd/MM/yyyy" /></div>
+                        <div class="movement-date">Fecha: <c:out value="${movement.date}"/></div>
                     </div>
                     <div class="movement-amount ${movement.value < 0 ? 'negative' : 'positive'}">
                         Monto: $<c:out value="${movement.value}" />
