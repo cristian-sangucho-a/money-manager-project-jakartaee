@@ -53,6 +53,9 @@ public class TransferenciaDAO extends MovimientoDAO {
      * @param category
      */
     public void transfer(double amount, Cuenta dstAccount, Cuenta srcAccount, Date date, String concept, CategoriaTransferencia transferCategory) {
+    	CuentaDAO cdao = new CuentaDAO();
+    	cdao.updateBalance(amount, dstAccount.getId());
+    	cdao.updateBalance(-amount, srcAccount.getId());
     	EntityManager em = ManejoEntidadPersistencia.getEntityManager();
 		em.getTransaction().begin();
 		try {
