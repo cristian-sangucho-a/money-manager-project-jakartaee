@@ -140,9 +140,13 @@ body {
     text-align: center; /* Centra el texto dentro de los botones */
     width: 100%; /* Asegura que los botones ocupen todo el ancho del contenedor */
     box-sizing: border-box; /* Incluye padding en el ancho del botón */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* Espacio entre el ícono y el texto */
 }
 
 .actions a:hover {
     color: #fff;
-    background-color: #486565; /* Segundo color */
+    background-color: #ffffff; /* Segundo color */
 }

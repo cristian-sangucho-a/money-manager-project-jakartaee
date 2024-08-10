@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <title>Dashboard</title>
     <link rel="stylesheet" type="text/css" href="jsp/stylesverdashboard1.css">
+    <script src="https://kit.fontawesome.com/1a501b4a16.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -39,8 +40,8 @@
     </div>
 
     <div class="tabs">
-        <a href="vercategoria.jsp" class="tab">Categorías</a>
-        <a href="vermovimiento.jsp" class="tab">Movimientos</a>
+        <a href="jsp/vercategoria.jsp" class="tab">Categorías</a>
+        <a href="jsp/vermovimiento.jsp" class="tab">Movimientos</a>
     </div>
 
     <div class="container">
@@ -52,10 +53,18 @@
                         ${account.balance}
                     </div>
                     <div class="actions">
-                        <a href="ContabilidadController?ruta=registraringreso&accountID=${account.id}">INGRESO</a>
-                        <a href="ContabilidadController?ruta=registraregreso&accountID=${account.id}">EGRESO</a>
-                        <a href="ContabilidadController?ruta=registrartransferencia&accountID=${account.id}">TRANSF.</a>
-                        <a href="ContabilidadController?ruta=vercuenta&accountID=${account.id}">MOVS.</a>
+                        <a href="ContabilidadController?ruta=registraringreso&accountID=${account.id}">
+                            <i class="fa-solid fa-money-bill-trend-up"></i> Ingreso
+                        </a>
+                        <a href="ContabilidadController?ruta=registraregreso&accountID=${account.id}">
+                            <i class="fa-solid fa-arrow-down"></i> Egreso
+                        </a>
+                        <a href="ContabilidadController?ruta=registrartransferencia&accountID=${account.id}">
+                            <i class="fa-solid fa-money-bill-transfer"></i> Transf.
+                        </a>
+                        <a href="ContabilidadController?ruta=vercuenta&accountID=${account.id}">
+                            <i class="fa-solid fa-eye"></i> Movs.
+                        </a>
                     </div>
                 </div>
             </c:forEach>
