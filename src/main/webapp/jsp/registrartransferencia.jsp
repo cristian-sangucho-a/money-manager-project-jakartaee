@@ -42,7 +42,7 @@
             </div>
             <div class="controls vertical-center">
                 <label for="originAccount" class="left-label">Cuenta Origen:</label>
-                <input type="text" id="srcAccountID" name="srcAccountID" value = "${srcAccount.id}" class="large-input" required>
+                <input type="text" id="value" name="srcAccountID" value = "${srcAccount.id}" class="large-input" required>
             </div>
             <div class="controls vertical-center">
                 <label for="destinationAccount" class="left-label">Cuenta Destino:</label>

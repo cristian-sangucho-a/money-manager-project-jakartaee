@@ -1,19 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Registrar Egreso</title>
     <link rel="stylesheet" type="text/css" href="jsp/stylesregistrarmovimiento.css">
-    <script>
-        function setDefaultDate() {
-            var today = new Date().toISOString().split('T')[0];
-            document.getElementById('date').value = today;
-        }
-        window.onload = setDefaultDate;
-    </script>
 </head>
 <body>
 
@@ -32,9 +27,14 @@
 
     <div class="controls">
         <form action="ContabilidadController?ruta=confirmarregistroegreso" method="POST">
+            <%
+                // Obtén la fecha actual
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String currentDate = sdf.format(new Date());
+            %>
             <div class="controls vertical-center">
                 <label for="date" class="left-label">Fecha:</label>
-                <input type="date" id="date" name="date" class="large-input" required>
+                <input type="date" id="date" name="date" class="large-input" required value="<%= currentDate %>">
             </div>
             <div class="controls vertical-center">
                 <label for="concept" class="left-label">Concepto:</label>
@@ -52,10 +52,9 @@
                     </c:forEach>
                 </select>
             </div>
-            <input type="text" id="account" name="accountID" value="${account}">
             <div class="controls center-button">
                 <button type="submit">Registrar</button>
-                <button type="button" onclick="window.location.href='ContabilidadController?ruta=cancelar'">Cancel</button>
+                <button type="button" onclick="window.location.href='ContabilidadController?ruta=cancelar'">Cancelar</button>
             </div>
         </form>
         <div class="controls center-button">
