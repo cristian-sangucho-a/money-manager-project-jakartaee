@@ -35,9 +35,9 @@
             <c:forEach var="account" items="${accounts}">
                 <div class="account-card">
                     <h3>${account.name}</h3>
-                    <div class="balance ${account.balance < 0 ? 'negative' : ''}">
-                        ${account.balance}
-                    </div>
+                    <div class="balance">
+    					${account.balance}
+					</div>
                     <div class="actions">
                         <a href="ContabilidadController?ruta=registraringreso&accountID=${account.id}">INGRESO</a>
                         <a href="ContabilidadController?ruta=registraregreso&accountID=${account.id}">EGRESO</a>
