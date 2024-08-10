@@ -14,9 +14,6 @@ import modelo.entidades.Movimiento;
  * 
  */
 public class MovimientoDAO {
-    private EntityManagerFactory emf;
-    private EntityManager em;
-
     /**
      * Default constructor
      */
@@ -57,9 +54,7 @@ public class MovimientoDAO {
      * @param accountID
      */
     public List<MovimientoDTO> getAllByAccount(int accountID) {
-    	this.emf = Persistence.createEntityManagerFactory("Contabilidad");
-        this.em = emf.createEntityManager();
-        
+    	EntityManager em = ManejoEntidadPersistencia.getEntityManager();
         List<MovimientoDTO> movimientos = null;
         try {
             // Create and execute the JPQL query
@@ -70,12 +65,8 @@ public class MovimientoDAO {
             
             movimientos = query.getResultList();
         } finally {
-            // Ensure that the EntityManager and EntityManagerFactory are closed
             if (em != null && em.isOpen()) {
                 em.close();
-            }
-            if (emf != null && emf.isOpen()) {
-                emf.close();
             }
         }
     	return movimientos;
@@ -87,8 +78,7 @@ public class MovimientoDAO {
      * @param to
      */
     public List<MovimientoDTO> getAll(Date from, Date to) {
-        this.emf = Persistence.createEntityManagerFactory("Contabilidad");
-        this.em = emf.createEntityManager();
+    	EntityManager em = ManejoEntidadPersistencia.getEntityManager();
         
         List<MovimientoDTO> movimientos = null;
         try {
@@ -104,9 +94,6 @@ public class MovimientoDAO {
             if (em != null && em.isOpen()) {
                 em.close();
             }
-            if (emf != null && emf.isOpen()) {
-                emf.close();
-            }
         }
 
     	return movimientos;
@@ -116,7 +103,7 @@ public class MovimientoDAO {
      * @param movementID
      */
     public Movimiento getMovementById(int movementID) {
-        // TODO implement here
+    	EntityManager em = ManejoEntidadPersistencia.getEntityManager();
     	Movimiento Movimiento = null;
 	    em.getTransaction().begin();
 	    try {

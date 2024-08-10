@@ -13,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -32,8 +33,7 @@ public class Movimiento implements Serializable {
 	private Date fecha;
 	@Column
 	private double valor;
-
-
+	
 	public Movimiento() {
 	}
 
