@@ -38,7 +38,7 @@
         </div>
 
         <div class="center-button">
-            <form action="verdashboard.jsp" method="get">
+            <form action="ContabilidadController?ruta=verdashboard" method="get">
                 <button type="submit" class="button-back">Volver al Dashboard</button>
             </form>
         </div>
