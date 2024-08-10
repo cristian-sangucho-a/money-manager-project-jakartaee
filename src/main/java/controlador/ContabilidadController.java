@@ -85,9 +85,14 @@ public class ContabilidadController extends HttpServlet {
 			this.cancel(req, resp);
 			break;
 		default:
-			this.viewDashboard(req, resp);
+			this.error(req, resp);
 			break;
 		}
+	}
+
+	private void error(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.sendRedirect("jsp/error.jsp");
+		
 	}
 
 	private void confirmTransfer(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -98,8 +103,10 @@ public class ContabilidadController extends HttpServlet {
 		int accountID = Integer.parseInt(req.getParameter("accountID"));
 		double amount = Double.parseDouble(req.getParameter("amount"));
 		int dstAccountID = Integer.parseInt(req.getParameter("dstAccountID"));
+		System.out.println(dstAccountID);
 		Cuenta dstAccount =cuentaDAO.getByID(dstAccountID);
 		int srcAccountID = Integer.parseInt(req.getParameter("srcAccountID"));
+		System.out.println(srcAccountID);
 		Cuenta srcAccount = cuentaDAO.getByID(srcAccountID);
 		Date date = convertToDate(req.getParameter("date"));
 		String concept = req.getParameter("concept");
