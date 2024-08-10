@@ -71,4 +71,12 @@ public class MovimientoDTO {
         Cuenta cuentaDst = cuentaDao.getByID(this.dst);
         return cuentaDst.getName();
     }
+
+	@Override
+	public String toString() {
+		return "MovimientoDTO [id=" + id + ", src=" + src + ", dst=" + dst + ", concept=" + concept + ", date=" + date
+				+ ", value=" + value + ", tipo_movimiento=" + tipo_movimiento + "]";
+	}
+    
+    
 }
