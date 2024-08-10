@@ -89,7 +89,7 @@ public class CuentaDAO {
         	Cuenta cuenta = em.find(Cuenta.class, accountID);
             if (cuenta != null) {
                 cuenta.setBalance(cuenta.getBalance() + value);
-                System.out.print(cuenta.getId());
+                System.out.print( "Cuentaaaa" + cuenta.getId() + "Ingreso" + value);
                 em.getTransaction().commit();
             }
         } finally {

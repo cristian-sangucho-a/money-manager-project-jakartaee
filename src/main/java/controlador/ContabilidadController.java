@@ -100,17 +100,24 @@ public class ContabilidadController extends HttpServlet {
 		TransferenciaDAO transferenciaDAO = new TransferenciaDAO();
 		CategoriaTransferenciaDAO categoriaTransferenciaDAO = new CategoriaTransferenciaDAO();
 		//1. Obtener datos
-		int accountID = Integer.parseInt(req.getParameter("accountID"));
 		double amount = Double.parseDouble(req.getParameter("amount"));
+		
 		int dstAccountID = Integer.parseInt(req.getParameter("dstAccountID"));
+		System.out.print(dstAccountID);
 		System.out.println(dstAccountID);
 		Cuenta dstAccount =cuentaDAO.getByID(dstAccountID);
+		
 		int srcAccountID = Integer.parseInt(req.getParameter("srcAccountID"));
 		System.out.println(srcAccountID);
 		Cuenta srcAccount = cuentaDAO.getByID(srcAccountID);
+		System.out.print(srcAccountID);
 		Date date = convertToDate(req.getParameter("date"));
+		
 		String concept = req.getParameter("concept");
-		double balance = cuentaDAO.getBalance(accountID);
+		
+		double balance = srcAccount.getBalance();
+		
+		/*
 		//2. Hablar con el modelo
 		boolean approveExpense = amount > balance;
 		
@@ -119,9 +126,10 @@ public class ContabilidadController extends HttpServlet {
 			registerExpense(req, resp);
 			return;
 		}
+		*/
 		
-		CategoriaTransferencia categoryID = categoriaTransferenciaDAO.getCategoryById(1);
-		transferenciaDAO.transfer(amount, dstAccount, srcAccount, date, concept, categoryID);
+		CategoriaTransferencia category = categoriaTransferenciaDAO.getCategoryById(1);
+		transferenciaDAO.transfer(amount, dstAccount, srcAccount, date, concept, category);
 		
 		//3. Hablar con la vista
 		viewDashboard(req, resp);
@@ -129,18 +137,18 @@ public class ContabilidadController extends HttpServlet {
 
 	private void transfer(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		CuentaDAO cuentaDAO = new CuentaDAO();
-		TransferenciaDAO transferenciaDAO = new TransferenciaDAO();
 		CategoriaTransferenciaDAO categoriaTransferenciaDAO = new CategoriaTransferenciaDAO();
 		// 1. Obtener datos
-		int accountIDV = Integer.parseInt(req.getParameter("accountID"));
+		int accountID = Integer.parseInt(req.getParameter("accountID"));
 
 		// 2. Hablar con el modelo
-		Cuenta srcAccount = cuentaDAO.getByID(accountIDV);
+		Cuenta srcAccount = cuentaDAO.getByID(accountID);
 		List<Cuenta> accounts = cuentaDAO.getAll();
 
 		// 3. Hablar con la vista
 		req.setAttribute("srcAccount", srcAccount);
 		req.setAttribute("accounts", accounts);
+		req.setAttribute("balance", srcAccount.getBalance());
 		req.getRequestDispatcher("jsp/registrartransferencia.jsp").forward(req, resp);
 	}
 
