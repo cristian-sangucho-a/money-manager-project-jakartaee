@@ -48,12 +48,12 @@
             <div class="controls center-button">
                 <button type="submit">Registrar</button>
             </div>
-            <div class="controls center-button">
-                <form action="ContabilidadController?ruta=verdashboard" method="GET">
-                    <button type="submit">Volver al Dashboard</button>
-                </form>
-            </div>
         </form>
+        <div class="controls center-button">
+            <form action="ContabilidadController?ruta=verdashboard" method="GET">
+                <button type="submit">Volver al Dashboard</button>
+            </form>
+        </div>
     </div>
 </div>
 
