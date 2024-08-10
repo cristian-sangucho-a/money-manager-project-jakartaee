@@ -53,7 +53,6 @@
                 </select>
             </div>
             <input type="hidden" id="account" name="accountID" value="${account}">
-            <input type="text" id="cuenta" name="cuentaOrigen" value = "${account.name}" class="large-input" readonly>
             <div class="controls center-button">
                 <button type="submit">Registrar</button>
             </div>
