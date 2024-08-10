@@ -126,7 +126,7 @@ public class ContabilidadController extends HttpServlet {
 		// 1.3
 		req.setAttribute("balance", balance);
 		req.setAttribute("categories", expensesCategories);
-		req.setAttribute("account", account);
+		req.setAttribute("account", account.getId());
 		req.getRequestDispatcher("jsp/registraregreso.jsp").forward(req, resp);
 	}
 

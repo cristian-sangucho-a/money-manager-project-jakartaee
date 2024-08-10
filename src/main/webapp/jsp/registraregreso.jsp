@@ -35,7 +35,7 @@
             </div>
             <div class="controls vertical-center">
                 <label for="value" class="left-label">Valor:</label>
-                <input type="number" id="value" name="value" class="large-input" required>
+                <input type="text" id="value" name="value" class="large-input" required>
             </div>
             <div class="controls vertical-center">
                 <label for="category" class="left-label">Categoría:</label>
@@ -45,7 +45,7 @@
                     </c:forEach>
                 </select>
             </div>
-            <input type="hidden" id="account" name="account" value="${account}">
+            <input type="text" id="account" name="accountID" value="${account}">
             <div class="controls center-button">
                 <button type="submit">Registrar</button>
             </div>
