@@ -7,6 +7,13 @@
     <meta charset="UTF-8">
     <title>Registrar Egreso</title>
     <link rel="stylesheet" type="text/css" href="jsp/stylesregistrarmovimiento.css">
+    <script>
+        function setDefaultDate() {
+            var today = new Date().toISOString().split('T')[0];
+            document.getElementById('date').value = today;
+        }
+        window.onload = setDefaultDate;
+    </script>
 </head>
 <body>
 
