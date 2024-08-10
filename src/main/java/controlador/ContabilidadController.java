@@ -271,6 +271,7 @@ public class ContabilidadController extends HttpServlet {
 		// setear la fecha default segun la regla de negocio del caso de uso
 		String fromString = (String) req.getAttribute("from");
 		String toString = (String) req.getAttribute("to");
+		
 
 		if (fromString == null || toString == null) {
 			from = convertToDate(fromDefault);
@@ -296,6 +297,8 @@ public class ContabilidadController extends HttpServlet {
 		req.setAttribute("accounts", accounts);
 		req.setAttribute("incomes", incomeCategoriesSumarized);
 		req.setAttribute("expenses", expenseCategoriesSumarized);
+		req.setAttribute("from", from);
+		req.setAttribute("to", to);
 
 		req.getRequestDispatcher("jsp/verdashboard.jsp").forward(req, resp);
 
