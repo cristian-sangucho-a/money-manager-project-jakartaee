@@ -8,6 +8,7 @@ import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
 import modelo.dto.MovimientoDTO;
 import modelo.entidades.Movimiento;
+import modelo.entidades.Movimiento;
 
 /**
  * 
@@ -60,12 +61,6 @@ public class MovimientoDAO {
     	return null;
     }
 
-    /**
-     * 
-     */
-    public void getAll() {
-        // TODO implement here
-    }
 
     /**
      * @param from 
@@ -100,7 +95,19 @@ public class MovimientoDAO {
     /**
      * @param movementID
      */
-    public void getMovementById(int movementID) {
+    public Movimiento getMovementById(int movementID) {
         // TODO implement here
+    	Movimiento Movimiento = null;
+	    em.getTransaction().begin();
+	    try {
+	        Movimiento = em.find(Movimiento.class, movementID);
+	        em.getTransaction().commit();
+	    } catch (Exception e) {
+	        if (em.getTransaction().isActive()) {
+	            em.getTransaction().rollback();
+	        }
+	        e.printStackTrace();
+	    }
+	    return Movimiento;
     }
 }
