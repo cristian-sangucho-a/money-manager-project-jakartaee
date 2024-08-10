@@ -81,6 +81,8 @@ public class ContabilidadController extends HttpServlet {
 		case "confirmartransferencia":
 			this.confirmTransfer(req, resp);
 			break;
+		case "vercategoria":
+			this.viewCategory(req, resp);
 		case "cancelar":
 			this.cancel(req, resp);
 			break;
@@ -88,6 +90,18 @@ public class ContabilidadController extends HttpServlet {
 			this.error(req, resp);
 			break;
 		}
+	}
+
+	private void viewCategory(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		MovimientoDAO movimientoDAO = new MovimientoDAO();
+		//1. Obtener datos
+		int categoryID = Integer.parseInt(req.getParameter("categoryID"));
+		Date from = convertToDate(req.getParameter("from"));
+		Date to = convertToDate(req.getParameter("to"));
+		//2. Hablar con el modelo
+		
+		//3. Hablar con la vista
+		
 	}
 
 	private void error(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
