@@ -26,9 +26,7 @@ public class Cuenta implements Serializable{
 		
 	}
 
-	public Cuenta(Integer id, String name, double balance) {
-		super();
-		this.id = id;
+	public Cuenta( String name, double balance) {
 		this.name = name;
 		this.balance = balance;
 	}

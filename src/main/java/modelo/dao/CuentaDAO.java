@@ -10,16 +10,15 @@ import modelo.entidades.Cuenta;
 
 
 public class CuentaDAO {
-	private EntityManagerFactory emf = null;
-	private EntityManager em = null;
 	
     public CuentaDAO() {
-    	this.emf = Persistence.createEntityManagerFactory("Contabilidad");
-    	this.em = emf.createEntityManager();
+    	
     }
 
  
     public List<Cuenta> getAll() {
+    	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Contabilidad");
+    	EntityManager em  = emf.createEntityManager();
         List<Cuenta> cuentas = null;
         em.getTransaction().begin();
         try {
@@ -35,6 +34,8 @@ public class CuentaDAO {
                 em.getTransaction().rollback();
             }
         }
+        em.close();
+        emf.close();
         return cuentas;
     }
 
@@ -48,13 +49,15 @@ public class CuentaDAO {
 
   
     public void updateBalance(double value, int accountID) {
+    	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Contabilidad");
+    	EntityManager em  = emf.createEntityManager();
         em.getTransaction().begin();
-        Cuenta cuenta = null;
         try {
-            cuenta = em.find(Cuenta.class, accountID);
+        	Cuenta cuenta = em.find(Cuenta.class, accountID);
             if (cuenta != null) {
                 cuenta.setBalance(cuenta.getBalance() + value);
-                em.persist(cuenta);
+                System.out.print(cuenta.getId());
+                em.merge(cuenta);
                 em.getTransaction().commit();
             }
         } finally {
@@ -62,23 +65,29 @@ public class CuentaDAO {
                 em.getTransaction().rollback();
             }
             em.close();
+            emf.close();
         }
     }
 
 
 	public Cuenta getByID(int id) {
-	    Cuenta cuenta = null;
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Contabilidad");
+    	EntityManager em  = emf.createEntityManager();
 	    em.getTransaction().begin();
 	    try {
-	        cuenta = em.find(Cuenta.class, id);
+	        Cuenta cuenta = em.find(Cuenta.class, id);
 	        em.getTransaction().commit();
+	        return cuenta;
 	    } catch (Exception e) {
 	        if (em.getTransaction().isActive()) {
 	            em.getTransaction().rollback();
 	        }
 	        e.printStackTrace();
+	        
 	    }
-	    return cuenta;
+	    em.close();
+        emf.close();
+	    return null;
 	}
 
 }

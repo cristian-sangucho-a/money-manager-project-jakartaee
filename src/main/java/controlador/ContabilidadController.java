@@ -31,8 +31,8 @@ import modelo.entidades.*;
 public class ContabilidadController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private final String fromDefault = "01-08-2024";
-	private final String toDefault = "31-08-2024";
+	private final String fromDefault = "2024-08-01";
+	private final String toDefault = "2024-08-31";
 	/**
 	 * Default constructor
 	 */
@@ -85,23 +85,27 @@ public class ContabilidadController extends HttpServlet {
 		CategoriaEgresoDAO categoriaEgresoDAO = new CategoriaEgresoDAO();
 		EgresoDAO egresoDAO = new EgresoDAO();
 		// paso 1: obtener datos
-		int accountID = (int) req.getAttribute("accountID");
-		Date date = (Date) req.getAttribute("date");
-		String concept = (String) req.getAttribute("concept");
-		double value = (double) req.getAttribute("value");
-		int categoryID = (int) req.getAttribute("categoryID");
+		int accountID = Integer.parseInt(req.getParameter("accountID")) ;
+		Date date = convertToDate(req.getParameter("date"));
+		System.out.print(date);
+		String concept = (String) req.getParameter("concept");
+		double value = Double.parseDouble(req.getParameter("value")) ;
+		int categoryID = Integer.parseInt(req.getParameter("categoryID"));
 		// 2
 		//2.1
-		Cuenta account = cuentaDAO.getByID(accountID);
 		CategoriaEgreso expenseCategory = categoriaEgresoDAO.getCategoryById(categoryID);
+		Cuenta cuenta = cuentaDAO.getByID(accountID);
 		
+		System.out.print(cuenta.getId() + "Valor 1");
+		System.out.print(accountID + "Valor 2");
+		System.out.print("Estoy aqui ctm");
 		// paso 2: hablar con el modelo
 		// 2.2 Date date, String concept, double value, CategoriaEgreso expenseCategory, Cuenta account
-		egresoDAO.registerExpense(date, concept, value, expenseCategory, account);
+		egresoDAO.registerExpense(date, concept, value, expenseCategory, cuentaDAO.getByID(accountID));
 		// 2.2 y 2.3 
 		cuentaDAO.updateBalance(value, accountID);
 		// paso 3: hablar con la vista
-		resp.sendRedirect("jsp/vercuenta.jsp");
+		viewDashboard(req, resp);
 
 	}
 
@@ -200,7 +204,7 @@ public class ContabilidadController extends HttpServlet {
 
 	private Date convertToDate(String dateString) {
 		// Parse a LocalDate
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		ZoneId defaultZoneId = ZoneId.systemDefault();
         LocalDate localDate = LocalDate.parse(dateString, formatter);
         // Para convertir a DATE
