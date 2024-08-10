@@ -123,7 +123,7 @@ body {
 
 .actions {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     margin-top: 15px;
 }
 
@@ -131,9 +131,14 @@ body {
     text-decoration: none;
     color: #486565; /* Segundo color */
     font-weight: bold;
-    font-size: 12px;
+    font-size: 14px;
+    padding: 10px 20px;
+    background-color: #ddd;
+    border-radius: 5px;
+    transition: background-color 0.3s;
 }
 
 .actions a:hover {
-    color: #57745d; /* Tercer color */
+    color: #fff;
+    background-color: #486565; /* Segundo color */
 }
