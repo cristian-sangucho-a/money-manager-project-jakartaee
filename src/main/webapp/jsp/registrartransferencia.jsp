@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Registrar Transferencia</title>
-    <link rel="stylesheet" type="text/css" href="stylesregistrarmovimiento.css">
+    <link rel="stylesheet" type="text/css" href="jsp/stylesregistrarmovimiento.css">
     <script>
         function setDefaultDate() {
             var today = new Date().toISOString().split('T')[0];
