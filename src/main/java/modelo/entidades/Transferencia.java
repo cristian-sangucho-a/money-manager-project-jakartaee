@@ -13,11 +13,13 @@ public class Transferencia extends Movimiento implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@ManyToOne
+	@JoinColumn(name = "SRCACCOUNT_ID")
 	private Cuenta srcAccount;
 	@ManyToOne
+	@JoinColumn(name = "DSTACCOUNT_ID")
 	private Cuenta dstAccount;
 	@ManyToOne
-	@JoinColumn(name = "Categoria_ID", insertable = false, updatable = false)
+	@JoinColumn(name = "Categoria_ID")
 	private CategoriaTransferencia categoria;
 
 

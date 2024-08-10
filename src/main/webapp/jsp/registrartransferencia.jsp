@@ -42,7 +42,8 @@
             </div>
             <div class="controls vertical-center">
                 <label for="originAccount" class="left-label">Cuenta Origen:</label>
-                <input type="text" id="value" name="srcAccountID" value = "${srcAccount.id}" class="large-input" required>
+                <input type="hidden" id="value" name="srcAccountID" value = "${srcAccount.id}" class="large-input" required>
+                <input type="text" id="cuenta" name="cuentaOrigen" value = "${srcAccount.name }" class="large-input" readonly>
             </div>
             <div class="controls vertical-center">
                 <label for="destinationAccount" class="left-label">Cuenta Destino:</label>
@@ -52,14 +53,14 @@
                     </c:forEach>
                 </select>
             </div>
+            <input type="hidden" id="account" name="accountID" value="${account}">
             <div class="controls center-button">
                 <button type="submit">Registrar</button>
-                <button type="button" onclick="window.location.href='ContabilidadController?ruta=cancelar'">Cancelar</button>
             </div>
         </form>
         <div class="controls center-button">
             <form action="ContabilidadController?ruta=verdashboard" method="GET">
-                <button type="submit">Volver al Dashboard</button>
+                <button type="submit">Cancelar</button>
             </form>
         </div>
     </div>

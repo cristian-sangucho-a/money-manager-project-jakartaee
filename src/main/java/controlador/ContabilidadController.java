@@ -215,7 +215,6 @@ public class ContabilidadController extends HttpServlet {
 		CuentaDAO cuentaDAO = new CuentaDAO();
 		CategoriaIngresoDAO categoriaIngresoDAO = new CategoriaIngresoDAO();
 		IngresoDAO ingresoDAO = new IngresoDAO();
-
 		Date date = convertToDate(req.getParameter("date"));
 		String concept = req.getParameter("concept");
 		double value = Double.parseDouble(req.getParameter("value"));

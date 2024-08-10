@@ -52,14 +52,15 @@
                     </c:forEach>
                 </select>
             </div>
+            <input type="hidden" id="account" name="accountID" value="${account}">
+            <input type="text" id="cuenta" name="cuentaOrigen" value = "${account.name}" class="large-input" readonly>
             <div class="controls center-button">
                 <button type="submit">Registrar</button>
-                <button type="button" onclick="window.location.href='ContabilidadController?ruta=cancelar'">Cancelar</button>
             </div>
         </form>
         <div class="controls center-button">
             <form action="ContabilidadController?ruta=verdashboard" method="GET">
-                <button type="submit">Volver al Dashboard</button>
+                <button type="submit">Cancelar</button>
             </form>
         </div>
     </div>

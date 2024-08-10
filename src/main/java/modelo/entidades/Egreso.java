@@ -17,7 +17,7 @@ public class Egreso extends Movimiento implements Serializable {
 	@JoinColumn(name = "SRCACCOUNT_ID")
 	private Cuenta srcAccount;
 	@ManyToOne
-	@JoinColumn(name = "Categoria_ID", insertable = false, updatable = false)
+	@JoinColumn(name = "Categoria_ID")
 	private CategoriaEgreso categoria;
 
 	public Egreso() {
