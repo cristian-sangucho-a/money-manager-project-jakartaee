@@ -14,7 +14,11 @@ import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import modelo.dto.CategoriaResumenDTO;
 import modelo.dto.MovimientoDTO;
+import modelo.entidades.Cuenta;
+import modelo.entidades.Egreso;
+import modelo.entidades.Ingreso;
 import modelo.entidades.Movimiento;
+import modelo.entidades.Transferencia;
 import modelo.entidades.Movimiento;
 
 /**
@@ -39,7 +43,38 @@ public class MovimientoDAO {
      * @param movement
      */
     public void delete(Movimiento movement) {
-        // TODO implement here
+    	CuentaDAO cdao = new CuentaDAO();
+    	double value = movement.getValue();
+    	if (movement instanceof Egreso) {
+            Egreso egreso = (Egreso) movement;
+            Cuenta srcAccount = egreso.getSrcAccount();
+            cdao.updateBalance(value, srcAccount.getId());
+            
+        } else if (movement instanceof Ingreso) {
+            Ingreso ingreso = (Ingreso) movement;
+            Cuenta dstAccount = ingreso.getDstAccount();
+            cdao.updateBalance(-value, dstAccount.getId());
+            
+        } else if (movement instanceof Transferencia) {
+            Transferencia transferencia = (Transferencia) movement;
+            Cuenta srcAccount = transferencia.getSrcAccount();
+            Cuenta dstAccount = transferencia.getDstAccount();
+            cdao.updateBalance(value, srcAccount.getId());
+            cdao.updateBalance(-value, dstAccount.getId());
+        }
+    	
+    	EntityManager em = ManejoEntidadPersistencia.getEntityManager();
+        em.getTransaction().begin();
+        try {
+                em.remove(movement); 
+                em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+        } finally {
+            em.close();
+        }
     }
 
     /**
