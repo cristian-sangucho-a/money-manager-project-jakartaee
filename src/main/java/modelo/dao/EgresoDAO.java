@@ -10,22 +10,23 @@ import modelo.entidades.Cuenta;
 import modelo.entidades.Egreso;
 
 public class EgresoDAO {
-	private EntityManagerFactory emf = null;
-	private EntityManager em = null;
+
 	public EgresoDAO() {
-		this.emf = Persistence.createEntityManagerFactory("Contabilidad");
-    	this.em = emf.createEntityManager();
+
 	}
 	public void registerExpense(Date date, String concept, double value, CategoriaEgreso expenseCategory, Cuenta accountID) {
+		EntityManager em = ManejoEntidadPersistencia.getEntityManager();
 		em.getTransaction().begin();
 		try {
-			em.persist(new Egreso(concept,date,-value,accountID,expenseCategory));
+            Egreso eg = new Egreso(concept,date,-value,accountID,expenseCategory);
+			em.persist(eg);		
 			em.getTransaction().commit();
 		}catch(Exception e) {
 			if(em.getTransaction().isActive()) {
 				em.getTransaction().rollback();
 			}
 		}
+		em.close();
 	}
 
 }

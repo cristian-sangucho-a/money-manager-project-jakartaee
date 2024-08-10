@@ -17,15 +17,14 @@ public class CuentaDAO {
 
  
     public List<Cuenta> getAll() {
-    	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Contabilidad");
-    	EntityManager em  = emf.createEntityManager();
+    	EntityManager em = ManejoEntidadPersistencia.getEntityManager();
         List<Cuenta> cuentas = null;
         em.getTransaction().begin();
         try {
             
             Query query = em.createQuery("Select c from Cuenta c", Cuenta.class);
             
-         
+     
             cuentas = query.getResultList();
             
             em.getTransaction().commit();
@@ -35,7 +34,7 @@ public class CuentaDAO {
             }
         }
         em.close();
-        emf.close();
+
         return cuentas;
     }
 
@@ -49,15 +48,13 @@ public class CuentaDAO {
 
   
     public void updateBalance(double value, int accountID) {
-    	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Contabilidad");
-    	EntityManager em  = emf.createEntityManager();
+    	EntityManager em = ManejoEntidadPersistencia.getEntityManager();
         em.getTransaction().begin();
         try {
         	Cuenta cuenta = em.find(Cuenta.class, accountID);
             if (cuenta != null) {
                 cuenta.setBalance(cuenta.getBalance() + value);
                 System.out.print(cuenta.getId());
-                em.merge(cuenta);
                 em.getTransaction().commit();
             }
         } finally {
@@ -65,18 +62,18 @@ public class CuentaDAO {
                 em.getTransaction().rollback();
             }
             em.close();
-            emf.close();
+
         }
     }
 
 
 	public Cuenta getByID(int id) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Contabilidad");
-    	EntityManager em  = emf.createEntityManager();
+		EntityManager em = ManejoEntidadPersistencia.getEntityManager();
 	    em.getTransaction().begin();
 	    try {
 	        Cuenta cuenta = em.find(Cuenta.class, id);
 	        em.getTransaction().commit();
+            System.out.print(cuenta.getId());
 	        return cuenta;
 	    } catch (Exception e) {
 	        if (em.getTransaction().isActive()) {
@@ -86,7 +83,7 @@ public class CuentaDAO {
 	        
 	    }
 	    em.close();
-        emf.close();
+
 	    return null;
 	}
 

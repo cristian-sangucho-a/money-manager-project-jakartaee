@@ -25,7 +25,10 @@ public class Egreso extends Movimiento implements Serializable {
 
 	public Egreso(String concept, Date date, double value, Cuenta srcAccount, CategoriaEgreso categoria) {
 		super(concept, date, value);
+		
 		this.srcAccount = srcAccount;
+        System.out.print(srcAccount.getId()+ "BBBBBBBBBBBBB recibido");
+        System.out.print(this.srcAccount.getId()+"CCCCCCCCC enviado");
 		this.categoria = categoria;
 	}
 
