@@ -126,8 +126,10 @@ public class ContabilidadController extends HttpServlet {
 		// 1.3
 		req.setAttribute("balance", balance);
 		req.setAttribute("categories", expensesCategories);
-		req.setAttribute("account", account.getId());
+		req.setAttribute("account", account);
 		req.getRequestDispatcher("jsp/registraregreso.jsp").forward(req, resp);
+		
+		
 	}
 
 	private void viewAccount(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
