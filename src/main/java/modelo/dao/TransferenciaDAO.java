@@ -8,6 +8,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import modelo.dto.MovimientoDTO;
 import modelo.entidades.CategoriaTransferencia;
+import modelo.entidades.Cuenta;
 import modelo.entidades.Transferencia;
 
 
