@@ -49,6 +49,7 @@
 				<input type="text" id="account" name="accountID" value="${account}">
 				<div class="controls center-button">
 					<button type="submit">Registrar</button>
+					<button type="button" onclick="window.location.href='ContabilidadController?ruta=cancelar'">Cancel</button>
 				</div>
 			</form>
 			<div class="controls center-button">
