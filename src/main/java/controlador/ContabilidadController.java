@@ -134,7 +134,7 @@ public class ContabilidadController extends HttpServlet {
 		// paso 1: obtener datos
 		int accountID = (int) req.getAttribute("accountID");
 		// paso 2: hablar con el modelo
-		List<Movimiento> movements = movimientoDAO.getAllByAccount(accountID);
+		List<MovimientoDTO> movements = movimientoDAO.getAllByAccount(accountID);
 		Cuenta account = cuentaDAO.getByID(accountID);
 
 		// paso 3: hablar con la vista
