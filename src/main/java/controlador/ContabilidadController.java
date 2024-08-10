@@ -21,6 +21,7 @@ import modelo.dao.CuentaDAO;
 import modelo.dao.EgresoDAO;
 import modelo.dao.IngresoDAO;
 import modelo.dao.MovimientoDAO;
+import modelo.dao.TransferenciaDAO;
 import modelo.dto.CategoriaResumenDTO;
 import modelo.dto.MovimientoDTO;
 import modelo.entidades.*;
@@ -73,6 +74,10 @@ public class ContabilidadController extends HttpServlet {
 			break;
 		case "confirmarregistroingreso":
 			this.confirmRegisterIncome(req, resp);
+		case "transferir":
+			this.transfer(req, resp);
+		case "confirmartransferencia":
+			this.transferConfirm(req, resp);
 		case "cancelar":
 			this.cancel(req, resp);
 			break;
@@ -80,6 +85,36 @@ public class ContabilidadController extends HttpServlet {
 			this.viewDashboard(req, resp);
 			break;
 		}
+	}
+
+	private void transferConfirm(HttpServletRequest req, HttpServletResponse resp) {
+		//1. Obtener datos
+		
+		
+		//2. Hablar con el modelo
+				
+				
+		//3. Hablar con la vista
+				
+				
+		
+	}
+
+	private void transfer(HttpServletRequest req, HttpServletResponse resp) {
+		CuentaDAO cuentaDAO = new CuentaDAO();
+		TransferenciaDAO transferenciaDAO = new TransferenciaDAO();
+		CategoriaTransferenciaDAO categoriaTransferenciaDAO = new CategoriaTransferenciaDAO();
+		//1. Obtener datos
+		int accountIDV = Integer.parseInt(req.getParameter("accountID"));
+		
+		//2. Hablar con el modelo
+		Cuenta srcAccount = cuentaDAO.getByID(accountIDV); 
+		List<Cuenta> accounts = cuentaDAO.getAll();
+		
+		//3. Hablar con la vista
+		req.setAttribute("srcAccount", srcAccount);
+		req.setAttribute("accounts", accounts);
+		
 	}
 
 	private void confirmRegisterIncome(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -107,10 +142,10 @@ public class ContabilidadController extends HttpServlet {
 		CategoriaIngresoDAO categoriaIngresoDAO = new CategoriaIngresoDAO();
 		CuentaDAO cuentaDAO = new CuentaDAO();
 		// 1. Obtener datos
-		int dstIDV = Integer.parseInt(req.getParameter("dstID"));
-		Cuenta account = cuentaDAO.getByID(dstIDV);
+		int accountID = Integer.parseInt(req.getParameter("accountID"));
+		Cuenta account = cuentaDAO.getByID(accountID);
 		// 2. Hablar con el modelo
-		double balance = cuentaDAO.getBalance(dstIDV);
+		double balance = cuentaDAO.getBalance(account.getId());
 		List<CategoriaIngreso> categories = categoriaIngresoDAO.getAll();
 
 		// 3. Hablar con la vista
