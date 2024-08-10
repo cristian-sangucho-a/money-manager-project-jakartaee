@@ -103,7 +103,7 @@ public class ContabilidadController extends HttpServlet {
 
 	}
 
-	private void registerIncome(HttpServletRequest req, HttpServletResponse resp) {
+	private void registerIncome(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException  {
 		CategoriaIngresoDAO categoriaIngresoDAO = new CategoriaIngresoDAO();
 		CuentaDAO cuentaDAO = new CuentaDAO();
 		// 1. Obtener datos
@@ -117,7 +117,7 @@ public class ContabilidadController extends HttpServlet {
 		req.setAttribute("balance", balance);
 		req.setAttribute("categories", categories);
 		req.setAttribute("account", account.getId());
-		req.getRequestDispatcher("jsp/registraregreso.jsp").forward(req, resp);
+		req.getRequestDispatcher("jsp/registraringreso.jsp").forward(req, resp);
 
 	}
 
@@ -163,7 +163,7 @@ public class ContabilidadController extends HttpServlet {
 		Cuenta account = cuentaDAO.getByID(accountID);
 		// paso 2: hablar con el modelo
 		// 1.1 y 1.2
-		double balance = account.getBalance(accountID);
+		double balance = cuentaDAO.getBalance(accountID);
 		List<CategoriaEgreso> expensesCategories = categoriaEgresoDAO.getAll();
 
 		// paso 3: hablar con la vista
