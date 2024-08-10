@@ -323,7 +323,6 @@ public class ContabilidadController extends HttpServlet {
 		// paso 3: hablar con la vista
 		req.setAttribute("movements", movements);
 		req.setAttribute("account", account);
-
 		req.getRequestDispatcher("jsp/vercuenta.jsp").forward(req, resp);
 	}
 
