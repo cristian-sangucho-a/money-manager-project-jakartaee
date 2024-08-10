@@ -39,9 +39,9 @@
                         ${account.balance}
                     </div>
                     <div class="actions">
-                        <a href="ContabilidadController?ruta=vercuenta&accountID=${account.id}">INGRESO</a>
+                        <a href="ContabilidadController?ruta=registraringreso&accountID=${account.id}">INGRESO</a>
                         <a href="ContabilidadController?ruta=registraregreso&accountID=${account.id}">EGRESO</a>
-                        <a href="ContabilidadController?ruta=vercuenta&accountID=${account.id}">TRANSF.</a>
+                        <a href="ContabilidadController?ruta=registrartransferencia&accountID=${account.id}">TRANSF.</a>
                         <a href="ContabilidadController?ruta=vercuenta&accountID=${account.id}">MOVS.</a>
                     </div>
                 </div>
