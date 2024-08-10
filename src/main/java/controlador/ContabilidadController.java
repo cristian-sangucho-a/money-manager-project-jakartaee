@@ -99,11 +99,12 @@ public class ContabilidadController extends HttpServlet {
 		System.out.print(cuenta.getId() + "Valor 1");
 		System.out.print(accountID + "Valor 2");
 		System.out.print("Estoy aqui ctm");
+		cuentaDAO.updateBalance(value, accountID);
 		// paso 2: hablar con el modelo
 		// 2.2 Date date, String concept, double value, CategoriaEgreso expenseCategory, Cuenta account
 		egresoDAO.registerExpense(date, concept, value, expenseCategory, cuentaDAO.getByID(accountID));
 		// 2.2 y 2.3 
-		cuentaDAO.updateBalance(value, accountID);
+		
 		// paso 3: hablar con la vista
 		viewDashboard(req, resp);
 
