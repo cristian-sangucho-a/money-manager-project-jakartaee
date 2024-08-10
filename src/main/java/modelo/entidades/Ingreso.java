@@ -14,7 +14,7 @@ import jakarta.persistence.ManyToOne;
 public class Ingreso extends Movimiento implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne
 	private Cuenta dstAccount;
 	@JoinColumn(name = "Categoria_ID", insertable = false, updatable = false)
 	private CategoriaIngreso categoria;
