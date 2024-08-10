@@ -78,7 +78,6 @@ public class MovimientoDAO {
                 emf.close();
             }
         }
-
     	return movimientos;
     }
 

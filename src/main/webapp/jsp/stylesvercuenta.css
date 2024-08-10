@@ -1,0 +1,118 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Merriweather:wght@700&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: #698a8c;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+.header h1 {
+    font-family: 'Merriweather', serif;
+    font-size: 36px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.account-container {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+}
+
+.account-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.account-name {
+    font-size: 20px;
+    font-weight: 500;
+    color: #333;
+}
+
+.balance {
+    font-size: 24px;
+    font-weight: bold;
+    color: #4CAF50;
+}
+
+.balance.negative {
+    color: #f44336;
+}
+
+.movements-list {
+    margin-top: 20px;
+}
+
+.movements-list h2 {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.movement-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.movement-description {
+    font-size: 16px;
+    color: #333;
+}
+
+.movement-date {
+    font-size: 14px;
+    color: #666;
+}
+
+.movement-amount {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.movement-amount.positive {
+    color: #4CAF50;
+}
+
+.movement-amount.negative {
+    color: #f44336;
+}
+
+.center-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.button-back {
+    background-color: #486565;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 4px;
+}
+
+.button-back:hover {
+    background-color: #57745d;
+}
