@@ -1,19 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Registrar Transferencia</title>
     <link rel="stylesheet" type="text/css" href="jsp/stylesregistrarmovimiento.css">
-    <script>
-        function setDefaultDate() {
-            var today = new Date().toISOString().split('T')[0];
-            document.getElementById('date').value = today;
-        }
-        window.onload = setDefaultDate;
-    </script>
 </head>
 <body>
 
@@ -28,9 +23,14 @@
 
     <div class="controls">
         <form action="ContabilidadController?ruta=confirmarregistrotransferencia" method="POST">
+            <%
+                // Obtén la fecha actual
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String currentDate = sdf.format(new Date());
+            %>
             <div class="controls vertical-center">
                 <label for="date" class="left-label">Fecha:</label>
-                <input type="date" id="date" name="date" class="large-input" required>
+                <input type="date" id="date" name="date" class="large-input" required value="<%= currentDate %>">
             </div>
             <div class="controls vertical-center">
                 <label for="concept" class="left-label">Concepto:</label>
@@ -44,7 +44,7 @@
                 <label for="originAccount" class="left-label">Cuenta Origen:</label>
                 <select id="originAccount" name="originAccountID" class="select-account" required>
                     <c:forEach var="account" items="${accounts}">
-                        <option value="${account.id}">${account.name}</option>
+                        <option value="${account.id}" <c:if test="${account.id == originAccountID}">selected</c:if>>${account.name}</option>
                     </c:forEach>
                 </select>
             </div>
