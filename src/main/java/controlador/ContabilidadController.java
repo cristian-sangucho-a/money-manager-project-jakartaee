@@ -74,10 +74,13 @@ public class ContabilidadController extends HttpServlet {
 			break;
 		case "confirmarregistroingreso":
 			this.confirmRegisterIncome(req, resp);
-		case "transferir":
+			break;
+		case "registrartransferencia":
 			this.transfer(req, resp);
+			break;
 		case "confirmartransferencia":
-			this.transferConfirm(req, resp);
+			this.confirmTransfer(req, resp);
+			break;
 		case "cancelar":
 			this.cancel(req, resp);
 			break;
@@ -87,65 +90,83 @@ public class ContabilidadController extends HttpServlet {
 		}
 	}
 
-	private void transferConfirm(HttpServletRequest req, HttpServletResponse resp) {
-		//1. Obtener datos
-		
-		
-		//2. Hablar con el modelo
-				
-				
-		//3. Hablar con la vista
-				
-				
-		
-	}
-
-	private void transfer(HttpServletRequest req, HttpServletResponse resp) {
+	private void confirmTransfer(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		CuentaDAO cuentaDAO = new CuentaDAO();
 		TransferenciaDAO transferenciaDAO = new TransferenciaDAO();
 		CategoriaTransferenciaDAO categoriaTransferenciaDAO = new CategoriaTransferenciaDAO();
 		//1. Obtener datos
-		int accountIDV = Integer.parseInt(req.getParameter("accountID"));
-		
+		int accountID = Integer.parseInt(req.getParameter("accountID"));
+		double amount = Double.parseDouble(req.getParameter("amount"));
+		int dstAccountID = Integer.parseInt(req.getParameter("dstAccountID"));
+		Cuenta dstAccount =cuentaDAO.getByID(dstAccountID);
+		int srcAccountID = Integer.parseInt(req.getParameter("srcAccountID"));
+		Cuenta srcAccount = cuentaDAO.getByID(srcAccountID);
+		Date date = convertToDate(req.getParameter("date"));
+		String concept = req.getParameter("concept");
+		double balance = cuentaDAO.getBalance(accountID);
 		//2. Hablar con el modelo
-		Cuenta srcAccount = cuentaDAO.getByID(accountIDV); 
-		List<Cuenta> accounts = cuentaDAO.getAll();
+		boolean approveExpense = amount > balance;
+		
+		if(approveExpense) {
+			req.setAttribute("aproveExpense", approveExpense);
+			registerExpense(req, resp);
+			return;
+		}
+		
+		CategoriaTransferencia categoryID = categoriaTransferenciaDAO.getCategoryById(1);
+		transferenciaDAO.transfer(amount, dstAccount, srcAccount, date, concept, categoryID);
 		
 		//3. Hablar con la vista
-		req.setAttribute("srcAccount", srcAccount);
-		req.setAttribute("accounts", accounts);
-		
+		viewDashboard(req, resp);
 	}
 
-	private void confirmRegisterIncome(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	private void transfer(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		CuentaDAO cuentaDAO = new CuentaDAO();
+		TransferenciaDAO transferenciaDAO = new TransferenciaDAO();
+		CategoriaTransferenciaDAO categoriaTransferenciaDAO = new CategoriaTransferenciaDAO();
+		// 1. Obtener datos
+		int accountIDV = Integer.parseInt(req.getParameter("accountID"));
+
+		// 2. Hablar con el modelo
+		Cuenta srcAccount = cuentaDAO.getByID(accountIDV);
+		List<Cuenta> accounts = cuentaDAO.getAll();
+
+		// 3. Hablar con la vista
+		req.setAttribute("srcAccount", srcAccount);
+		req.setAttribute("accounts", accounts);
+		req.getRequestDispatcher("jsp/registrartransferencia.jsp").forward(req, resp);
+	}
+
+	private void confirmRegisterIncome(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
 		// 1. Obtener datos
 		CuentaDAO cuentaDAO = new CuentaDAO();
 		CategoriaIngresoDAO categoriaIngresoDAO = new CategoriaIngresoDAO();
 		IngresoDAO ingresoDAO = new IngresoDAO();
-		
+
 		Date date = convertToDate(req.getParameter("date"));
 		String concept = req.getParameter("concept");
 		double value = Double.parseDouble(req.getParameter("value"));
 		int categoryID = Integer.parseInt(req.getParameter("categoryID"));
 		int accountID = Integer.parseInt(req.getParameter("accountID"));
 		Cuenta account = cuentaDAO.getByID(accountID);
-		//2. Hablar con el modelo
+		// 2. Hablar con el modelo
 		CategoriaIngreso incomeCategory = categoriaIngresoDAO.getCategoryById(categoryID);
 		ingresoDAO.registerIncome(date, concept, value, incomeCategory, account);
 		cuentaDAO.updateBalance(value, account.getId());
-		//3. Hablar con la vista
+		// 3. Hablar con la vista
 		viewDashboard(req, resp);
 
 	}
 
-	private void registerIncome(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException  {
+	private void registerIncome(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		CategoriaIngresoDAO categoriaIngresoDAO = new CategoriaIngresoDAO();
 		CuentaDAO cuentaDAO = new CuentaDAO();
 		// 1. Obtener datos
 		int accountID = Integer.parseInt(req.getParameter("accountID"));
 		Cuenta account = cuentaDAO.getByID(accountID);
 		// 2. Hablar con el modelo
-		double balance = cuentaDAO.getBalance(account.getId());
+		double balance = account.getBalance();
 		List<CategoriaIngreso> categories = categoriaIngresoDAO.getAll();
 
 		// 3. Hablar con la vista
@@ -160,7 +181,8 @@ public class ContabilidadController extends HttpServlet {
 		resp.sendRedirect("jsp/vercuenta");
 	}
 
-	private void confirmRegisterExpense(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	private void confirmRegisterExpense(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
 		// DAOs necesarios
 		CuentaDAO cuentaDAO = new CuentaDAO();
 		CategoriaEgresoDAO categoriaEgresoDAO = new CategoriaEgresoDAO();
@@ -171,11 +193,19 @@ public class ContabilidadController extends HttpServlet {
 		String concept = (String) req.getParameter("concept");
 		double value = Double.parseDouble(req.getParameter("value"));
 		int categoryID = Integer.parseInt(req.getParameter("categoryID"));
+		double balance = cuentaDAO.getBalance(accountID);
+		boolean approveExpense = value > balance;
+
+		if (approveExpense) {
+			req.setAttribute("aproveExpense", approveExpense);
+			registerExpense(req, resp);
+			return;
+		}
 		// 2
 		// 2.1
 		CategoriaEgreso expenseCategory = categoriaEgresoDAO.getCategoryById(categoryID);
 		Cuenta cuenta = cuentaDAO.getByID(accountID);
-		cuentaDAO.updateBalance(value, accountID);
+		cuentaDAO.updateBalance(-value, accountID);
 		// paso 2: hablar con el modelo
 		// 2.2 Date date, String concept, double value, CategoriaEgreso expenseCategory,
 		// Cuenta account
@@ -189,7 +219,8 @@ public class ContabilidadController extends HttpServlet {
 	// paso 2: hablar con el modelo
 	// paso 3: hablar con la vista
 
-	private void registerExpense(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	private void registerExpense(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
 		CuentaDAO cuentaDAO = new CuentaDAO();
 		CategoriaEgresoDAO categoriaEgresoDAO = new CategoriaEgresoDAO();
 		// paso 1: obtener datos
@@ -198,7 +229,7 @@ public class ContabilidadController extends HttpServlet {
 		Cuenta account = cuentaDAO.getByID(accountID);
 		// paso 2: hablar con el modelo
 		// 1.1 y 1.2
-		double balance = cuentaDAO.getBalance(accountID);
+		double balance = account.getBalance();
 		List<CategoriaEgreso> expensesCategories = categoriaEgresoDAO.getAll();
 
 		// paso 3: hablar con la vista

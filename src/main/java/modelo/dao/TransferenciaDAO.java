@@ -46,17 +46,17 @@ public class TransferenciaDAO extends MovimientoDAO {
 
     /**
      * @param amount 
-     * @param dstAccountID 
-     * @param srcAccountID 
+     * @param dstAccount 
+     * @param srcAccount 
      * @param date 
      * @param concept 
      * @param category
      */
-    public void transfer(double amount, Cuenta dstAccountID, Cuenta srcAccountID, Date date, String concept, CategoriaTransferencia transferCategory) {
+    public void transfer(double amount, Cuenta dstAccount, Cuenta srcAccount, Date date, String concept, CategoriaTransferencia transferCategory) {
     	EntityManager em = ManejoEntidadPersistencia.getEntityManager();
 		em.getTransaction().begin();
 		try {
-            Transferencia transferencia = new Transferencia(concept,date,amount,srcAccountID,dstAccountID, transferCategory);
+            Transferencia transferencia = new Transferencia(concept,date,amount,srcAccount,dstAccount, transferCategory);
 			em.persist(transferencia);	
 			em.getTransaction().commit();
 		}catch(Exception e) {
