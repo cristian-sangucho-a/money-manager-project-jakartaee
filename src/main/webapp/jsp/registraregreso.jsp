@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Registrar Egreso</title>
-    <link rel="stylesheet" type="text/css" href="stylesregistraregreso.css">
+    <link rel="stylesheet" type="text/css" href="./stylesregistraregreso.css">
 </head>
 <body>
 
