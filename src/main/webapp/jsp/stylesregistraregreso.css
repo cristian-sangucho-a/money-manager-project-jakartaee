@@ -1,0 +1,97 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Merriweather:wght@700&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif; /* Fuente principal */
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: #698a8c; /* Primer color */
+    color: #333;
+    padding: 10px;
+    text-align: center;
+}
+
+.header h1 {
+    font-family: 'Merriweather', serif;
+    font-size: 36px;
+    font-weight: 700;
+    margin: 0;
+    color: #fff;
+}
+
+.controls {
+    background-color: #fff;
+    padding: 10px;
+    border-bottom: 2px solid #ddd;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.controls label {
+    margin-right: 5px;
+    font-weight: bold;
+}
+
+.controls input[type="date"] {
+    padding: 5px;
+    font-size: 14px;
+}
+
+.controls button {
+    background-color: #486565; /* Segundo color */
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.controls button:hover {
+    background-color: #57745d; /* Tercer color */
+}
+
+.account-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+.balance {
+    font-size: 24px;
+    font-weight: bold;
+    color: #4CAF50;
+    margin: 10px 0;
+}
+.balance.negative {
+    color: #f44336;
+}
+
+/* stylesregistraregreso.css */
+
+/* Centrar el botón */
+.center-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Alinear los labels a la izquierda */
+.left-label {
+    text-align: left;
+    display: block;
+    margin-bottom: 5px;
+}
+.select-category {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
