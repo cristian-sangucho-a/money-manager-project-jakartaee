@@ -5,26 +5,22 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Registrar Egreso</title>
+    <title>Registrar Transferencia</title>
     <link rel="stylesheet" type="text/css" href="jsp/stylesregistrarmovimiento.css">
 </head>
 <body>
 
 <div class="header">
-    <h1>Registrar Egreso</h1>
-</div>
-<div class="center-balance">
-    <div class="account-card">
-        <h3>Balance</h3>
-        <p class="balance"><c:out value="${balance}"/></p>
-    </div>
+    <h1>Registrar Transferencia</h1>
 </div>
 <div class="center-form">
     <div class="account-container">
+        <h3>Balance de la Cuenta Origen</h3>
+        <p class="balance"><c:out value="${originBalance}"/></p>
     </div>
 
     <div class="controls">
-        <form action="ContabilidadController?ruta=confirmarregistroegreso" method="POST">
+        <form action="ContabilidadController?ruta=confirmarregistrotransferencia" method="POST">
             <div class="controls vertical-center">
                 <label for="date" class="left-label">Fecha:</label>
                 <input type="date" id="date" name="date" class="large-input" required>
@@ -38,14 +34,21 @@
                 <input type="text" id="value" name="value" class="large-input" required>
             </div>
             <div class="controls vertical-center">
-                <label for="category" class="left-label">Categoría:</label>
-                <select id="category" name="categoryID" class="select-category" required>
-                    <c:forEach var="category" items="${categories}">
-                        <option value="${category.id}">${category.name}</option>
+                <label for="originAccount" class="left-label">Cuenta Origen:</label>
+                <select id="originAccount" name="originAccountID" class="select-account" required>
+                    <c:forEach var="account" items="${accounts}">
+                        <option value="${account.id}">${account.name}</option>
                     </c:forEach>
                 </select>
             </div>
-            <input type="text" id="account" name="accountID" value="${account}">
+            <div class="controls vertical-center">
+                <label for="destinationAccount" class="left-label">Cuenta Destino:</label>
+                <select id="destinationAccount" name="destinationAccountID" class="select-account" required>
+                    <c:forEach var="account" items="${accounts}">
+                        <option value="${account.id}">${account.name}</option>
+                    </c:forEach>
+                </select>
+            </div>
             <div class="controls center-button">
                 <button type="submit">Registrar</button>
             </div>

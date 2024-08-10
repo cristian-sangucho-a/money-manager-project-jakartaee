@@ -20,17 +20,19 @@ public class Transferencia extends Movimiento implements Serializable {
 	@JoinColumn(name = "Categoria_ID", insertable = false, updatable = false)
 	private CategoriaTransferencia categoria;
 
-	public Transferencia(String concept, Date date, double value, Cuenta srcAccount, Cuenta dstAccount, CategoriaTransferencia categoriaTransferencia) {
-		super(concept, date, value);
-		this.srcAccount = srcAccount;
-		this.dstAccount = dstAccount;
-		this.categoria = categoriaTransferencia;
-	}
+
 
 	public Transferencia() {
 
 	}
 	
+
+	public Transferencia(String concept, Date date, double amount, Cuenta srcAccountID, Cuenta dstAccountID, CategoriaTransferencia transferCategory) {
+		super(concept, date, amount);
+		this.srcAccount = srcAccountID;
+		this.dstAccount = dstAccountID;
+		this.categoria = transferCategory;
+	}
 
 	public Cuenta getSrcAccount() {
 		return srcAccount;

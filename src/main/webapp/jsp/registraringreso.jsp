@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Registrar Ingreso</title>
-<link rel="stylesheet" type="text/css" href="jsp/stylesregistraregreso.css">
+<link rel="stylesheet" type="text/css" href="jsp/stylesregistrarmovimiento.css">
 </head>
 <body>
 	<div class="header">
