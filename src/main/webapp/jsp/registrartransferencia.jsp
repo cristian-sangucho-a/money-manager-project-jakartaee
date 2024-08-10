@@ -22,7 +22,7 @@
     </div>
 
     <div class="controls">
-        <form action="ContabilidadController?ruta=confirmarregistrotransferencia" method="POST">
+        <form action="ContabilidadController?ruta=confirmartransferencia" method="POST">
             <%
                 // Obtén la fecha actual
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -38,21 +38,17 @@
             </div>
             <div class="controls vertical-center">
                 <label for="value" class="left-label">Valor:</label>
-                <input type="text" id="value" name="value" class="large-input" required>
+                <input type="text" id="value" name="amount" class="large-input" required>
             </div>
             <div class="controls vertical-center">
                 <label for="originAccount" class="left-label">Cuenta Origen:</label>
-                <select id="originAccount" name="srcAccountID" class="select-account" required>
-                    <c:forEach var="account" items="${accounts}">
-                        <option value="${account.id}" <c:if test="${account.id == originAccountID}">selected</c:if>>${account.name}</option>
-                    </c:forEach>
-                </select>
+                <input type="text" id="srcAccountID" name="srcAccountID" value = "${srcAccount.id}" class="large-input" required>
             </div>
             <div class="controls vertical-center">
                 <label for="destinationAccount" class="left-label">Cuenta Destino:</label>
                 <select id="destinationAccount" name="dstAccountID" class="select-account" required>
                     <c:forEach var="account" items="${accounts}">
-                        <option value="${account.id}">${account.name}</option>
+                        <option value="${account.id}">${account.id} y ${account.name}</option>
                     </c:forEach>
                 </select>
             </div>
