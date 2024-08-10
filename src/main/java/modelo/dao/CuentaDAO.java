@@ -41,9 +41,44 @@ public class CuentaDAO {
  
 
   
-    public double getBalance() {
+    public double getBalance(int accountID) {
         
+        EntityManager em = ManejoEntidadPersistencia.getEntityManager();
+        em.getTransaction().begin();
+        try {
+        	Cuenta cuenta = em.find(Cuenta.class, accountID);
+        	if(cuenta!=null) {
+        		return cuenta.getBalance();
+        	}
+        }catch(Exception e) {
+        	if(em.getTransaction().isActive()) {
+        		em.getTransaction().rollback();
+        	}
+        }
+        em.close();
         return 0;
+    }
+    
+    public double getTotalAccounts() {
+    	EntityManager em = ManejoEntidadPersistencia.getEntityManager();
+        List<Cuenta> cuentas = null;
+        double totalCuentas = 0;
+        em.getTransaction().begin();
+        try {
+            
+            Query query = em.createQuery("Select c from Cuenta c", Cuenta.class);
+            cuentas = query.getResultList();
+            em.getTransaction().commit();
+            for (Cuenta cuenta : cuentas) {
+				totalCuentas+=cuenta.getBalance();
+			}
+        } catch (Exception e) {
+            if(em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+        }
+        em.close();
+        return totalCuentas;
     }
 
   
