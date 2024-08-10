@@ -40,7 +40,7 @@
 				</div>
 				<div class="controls vertical-center">
 					<label for="category" class="left-label">Categoría:</label> 
-					<select	id="category" name="category" class="select-category" required>
+					<select	id="category" name="categoryID" class="select-category" required>
 						<c:forEach var="category" items="${categories}">
 							<option value="${category.id}">${category.name}</option>
 						</c:forEach>

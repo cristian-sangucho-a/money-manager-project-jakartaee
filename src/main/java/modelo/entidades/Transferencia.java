@@ -12,9 +12,9 @@ import jakarta.persistence.ManyToOne;
 public class Transferencia extends Movimiento implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne
 	private Cuenta srcAccount;
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne
 	private Cuenta dstAccount;
 	@ManyToOne
 	@JoinColumn(name = "Categoria_ID", insertable = false, updatable = false)
