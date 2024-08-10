@@ -16,10 +16,10 @@ public class EgresoDAO {
 		this.emf = Persistence.createEntityManagerFactory("Contabilidad");
     	this.em = emf.createEntityManager();
 	}
-	public void registerExpense(Date date, String concept, double value, CategoriaEgreso expenseCategory, Cuenta account) {
+	public void registerExpense(Date date, String concept, double value, CategoriaEgreso expenseCategory, Cuenta accountID) {
 		em.getTransaction().begin();
 		try {
-			em.persist(new Egreso(concept,date,-value,account,expenseCategory));
+			em.persist(new Egreso(concept,date,-value,accountID,expenseCategory));
 			em.getTransaction().commit();
 		}catch(Exception e) {
 			if(em.getTransaction().isActive()) {

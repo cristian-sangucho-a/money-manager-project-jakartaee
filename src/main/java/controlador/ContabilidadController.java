@@ -82,24 +82,24 @@ public class ContabilidadController extends HttpServlet {
 	private void confirmnRegisterExpense(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//DAOs necesarios
 		CuentaDAO cuentaDAO = new CuentaDAO();
-		CategoriaDAO categoriaDAO = new CategoriaDAO();
+		CategoriaEgresoDAO categoriaEgresoDAO = new CategoriaEgresoDAO();
 		EgresoDAO egresoDAO = new EgresoDAO();
 		// paso 1: obtener datos
 		int accountID = (int) req.getAttribute("accountID");
-		int categoryIDVista = (int) req.getAttribute("categoryID");
-		// 2
 		Date date = (Date) req.getAttribute("date");
 		String concept = (String) req.getAttribute("concept");
 		double value = (double) req.getAttribute("value");
-		Cuenta account = cuentaDAO.getById(accountID);
+		int categoryID = (int) req.getAttribute("categoryID");
+		// 2
 		//2.1
-		CategoriaEgreso expenseCategory = (CategoriaEgreso) categoriaDAO.getCategoryById(categoryIDVista);
+		Cuenta account = cuentaDAO.getByID(accountID);
+		CategoriaEgreso expenseCategory = categoriaEgresoDAO.getCategoryById(categoryID);
+		
 		// paso 2: hablar con el modelo
 		// 2.2 Date date, String concept, double value, CategoriaEgreso expenseCategory, Cuenta account
 		egresoDAO.registerExpense(date, concept, value, expenseCategory, account);
 		// 2.2 y 2.3 
-		categoriaDAO.updateBalance(value);
-		cuentaDAO.updateBalance(value);
+		cuentaDAO.updateBalance(value, accountID);
 		// paso 3: hablar con la vista
 		resp.sendRedirect("jsp/vercuenta");
 
@@ -111,21 +111,20 @@ public class ContabilidadController extends HttpServlet {
 
 	private void registerExpense(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		CuentaDAO cuentaDAO = new CuentaDAO();
-		CategoriaDAO categoriaDAO = new CategoriaDAO();
+		CategoriaEgresoDAO categoriaEgresoDAO = new CategoriaEgresoDAO();
 		// paso 1: obtener datos
 		// 1
 		int accountID = (int) req.getAttribute("accountID");
+		Cuenta account = cuentaDAO.getByID(accountID);
 		// paso 2: hablar con el modelo
 		// 1.1 y 1.2
-		Cuenta account = cuentaDAO.getByID(accountID);
 		double balance = account.getBalance();
-		// 1.3
-		List<CategoriaEgreso> categories = categoriaDAO.getExpenseCategories();
+		List<CategoriaEgreso> expensesCategories = categoriaEgresoDAO.getAll();
 
 		// paso 3: hablar con la vista
-		// 1.4
+		// 1.3
 		req.setAttribute("balance", balance);
-		req.setAttribute("categories", categories);
+		req.setAttribute("categories", expensesCategories);
 		req.getRequestDispatcher("jsp/registraregreso.jsp").forward(req, resp);
 	}
 
