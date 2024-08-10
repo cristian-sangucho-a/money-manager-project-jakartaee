@@ -16,7 +16,7 @@
 <div class="center-balance">
     <div class="account-card">
         <h3>Balance</h3>
-        <p class="balance"><c:out value="${cuenta.balance}"/></p>
+        <p class="balance"><c:out value="${balance}"/></p>
     </div>
 </div>
 <div class="center-form">
