@@ -42,7 +42,7 @@
             </div>
             <div class="controls vertical-center">
                 <label for="originAccount" class="left-label">Cuenta Origen:</label>
-                <select id="originAccount" name="originAccountID" class="select-account" required>
+                <select id="originAccount" name="srcAccountID" class="select-account" required>
                     <c:forEach var="account" items="${accounts}">
                         <option value="${account.id}" <c:if test="${account.id == originAccountID}">selected</c:if>>${account.name}</option>
                     </c:forEach>
@@ -50,7 +50,7 @@
             </div>
             <div class="controls vertical-center">
                 <label for="destinationAccount" class="left-label">Cuenta Destino:</label>
-                <select id="destinationAccount" name="destinationAccountID" class="select-account" required>
+                <select id="destinationAccount" name="dstAccountID" class="select-account" required>
                     <c:forEach var="account" items="${accounts}">
                         <option value="${account.id}">${account.name}</option>
                     </c:forEach>
