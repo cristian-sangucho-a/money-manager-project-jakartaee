@@ -56,9 +56,30 @@ public class MovimientoDAO {
     /**
      * @param accountID
      */
-    public List<Movimiento> getAllByAccount(int accountID) {
-        // TODO implement here
-    	return null;
+    public List<MovimientoDTO> getAllByAccount(int accountID) {
+    	this.emf = Persistence.createEntityManagerFactory("Contabilidad");
+        this.em = emf.createEntityManager();
+        
+        List<MovimientoDTO> movimientos = null;
+        try {
+            // Create and execute the JPQL query
+            String jpql = "SELECT m FROM Movimiento m WHERE m.DSTACCOUNT_ID = :dstID OR m.SRCACCOUNT_ID = :srcID";
+            TypedQuery<MovimientoDTO> query = em.createQuery(jpql, MovimientoDTO.class);
+            query.setParameter("dstID", accountID);
+            query.setParameter("srcID", accountID);
+            
+            movimientos = query.getResultList();
+        } finally {
+            // Ensure that the EntityManager and EntityManagerFactory are closed
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+            if (emf != null && emf.isOpen()) {
+                emf.close();
+            }
+        }
+
+    	return movimientos;
     }
 
 
