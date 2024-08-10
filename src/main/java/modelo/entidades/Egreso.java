@@ -13,7 +13,8 @@ import jakarta.persistence.ManyToOne;
 public class Egreso extends Movimiento implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne
+	@JoinColumn(name = "SRCACCOUNT_ID")
 	private Cuenta srcAccount;
 	@ManyToOne
 	@JoinColumn(name = "Categoria_ID", insertable = false, updatable = false)
