@@ -7,6 +7,8 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
 import modelo.dto.CategoriaResumenDTO;
+import modelo.entidades.CategoriaEgreso;
+import modelo.entidades.CategoriaIngreso;
 
 
 
@@ -56,9 +58,38 @@ public class CategoriaIngresoDAO extends CategoriaDAO {
         return resultList;
     }
 
+    public List<CategoriaIngreso> getAll() {
+    	List<CategoriaIngreso> categorias = null;
+        em.getTransaction().begin();
+        try {
+            
+            Query query = em.createQuery("Select c from CategoriaIngreso c", CategoriaIngreso.class);
+            
+         
+            categorias = query.getResultList();
+            
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if(em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+        }
+        return categorias;
+    }
 
-
-
-
+    public CategoriaIngreso getCategoryById(int categoryId) {
+    	CategoriaIngreso categoria = null;
+	    em.getTransaction().begin();
+	    try {
+	        categoria = em.find(CategoriaIngreso.class, categoryId);
+	        em.getTransaction().commit();
+	    } catch (Exception e) {
+	        if (em.getTransaction().isActive()) {
+	            em.getTransaction().rollback();
+	        }
+	        e.printStackTrace();
+	    }
+	    return categoria;
+    }
 
 }

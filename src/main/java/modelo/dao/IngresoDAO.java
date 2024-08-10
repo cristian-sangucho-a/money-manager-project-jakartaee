@@ -6,6 +6,7 @@ import java.util.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import modelo.dto.MovimientoDTO;
 import modelo.entidades.CategoriaEgreso;
 import modelo.entidades.CategoriaIngreso;
 import modelo.entidades.Cuenta;
@@ -31,9 +32,11 @@ public class IngresoDAO extends MovimientoDAO {
     /**
      * @param from 
      * @param to
+     * @return 
      */
-    public void getAll(void from, void to) {
+    public List<MovimientoDTO> getAll(Date from, Date to) {
         // TODO implement here
+    	return null;
     }
 
     /**
