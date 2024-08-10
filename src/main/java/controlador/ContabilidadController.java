@@ -114,8 +114,9 @@ public class ContabilidadController extends HttpServlet {
 		CategoriaEgresoDAO categoriaEgresoDAO = new CategoriaEgresoDAO();
 		// paso 1: obtener datos
 		// 1
-		int accountID = (int) req.getAttribute("accountID");
+		int accountID = Integer.parseInt(req.getParameter("accountID"));
 		Cuenta account = cuentaDAO.getByID(accountID);
+		System.out.println(accountID);
 		// paso 2: hablar con el modelo
 		// 1.1 y 1.2
 		double balance = account.getBalance();
@@ -132,7 +133,7 @@ public class ContabilidadController extends HttpServlet {
 		MovimientoDAO movimientoDAO = new MovimientoDAO();
 		CuentaDAO cuentaDAO = new CuentaDAO();
 		// paso 1: obtener datos
-		int accountID = (int) req.getAttribute("accountID");
+		int accountID = Integer.parseInt(req.getParameter("accountID"));
 		// paso 2: hablar con el modelo
 		List<MovimientoDTO> movements = movimientoDAO.getAllByAccount(accountID);
 		Cuenta account = cuentaDAO.getByID(accountID);

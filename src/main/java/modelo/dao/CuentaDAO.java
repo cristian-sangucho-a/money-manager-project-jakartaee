@@ -39,10 +39,6 @@ public class CuentaDAO {
     }
 
  
-    public Cuenta getByID(int accountID) {
-        
-        return null;
-    }
 
   
     public double getBalance() {
@@ -70,7 +66,7 @@ public class CuentaDAO {
     }
 
 
-	public Cuenta getById(int id) {
+	public Cuenta getByID(int id) {
 	    Cuenta cuenta = null;
 	    em.getTransaction().begin();
 	    try {

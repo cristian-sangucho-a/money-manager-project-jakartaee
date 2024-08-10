@@ -34,13 +34,13 @@
         <div class="account-container">
             <c:forEach var="account" items="${accounts}">
                 <div class="account-card">
-                    <h3>${account.nombre}</h3>
+                    <h3>${account.name}</h3>
                     <div class="balance ${account.balance < 0 ? 'negative' : ''}">
                         ${account.balance}
                     </div>
                     <div class="actions">
                         <a href="ContabilidadController?ruta=vercuenta&accountID=${account.id}">INGRESO</a>
-                        <a href="ContabilidadController?ruta=vercuenta&accountID=${account.id}">EGRESO</a>
+                        <a href="ContabilidadController?ruta=registraregreso&accountID=${account.id}">EGRESO</a>
                         <a href="ContabilidadController?ruta=vercuenta&accountID=${account.id}">TRANSF.</a>
                         <a href="ContabilidadController?ruta=vercuenta&accountID=${account.id}">MOVS.</a>
                     </div>

@@ -62,13 +62,13 @@ public class MovimientoDTO {
 
     public String getNameSrc(){
         CuentaDAO cuentaDao = new CuentaDAO();
-        Cuenta cuentaSrc = cuentaDao.getById(this.src);
+        Cuenta cuentaSrc = cuentaDao.getByID(this.src);
         return cuentaSrc.getName();
     }
 
     public String getNameDst(){
         CuentaDAO cuentaDao = new CuentaDAO();
-        Cuenta cuentaDst = cuentaDao.getById(this.dst);
+        Cuenta cuentaDst = cuentaDao.getByID(this.dst);
         return cuentaDst.getName();
     }
 }
