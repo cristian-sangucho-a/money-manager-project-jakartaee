@@ -6,7 +6,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Registrar Transferencia</title>
-    <link rel="stylesheet" type="text/css" href="jsp/stylesregistrarmovimiento.css">
+    <link rel="stylesheet" type="text/css" href="stylesregistrarmovimiento.css">
+    <script>
+        function setDefaultDate() {
+            var today = new Date().toISOString().split('T')[0];
+            document.getElementById('date').value = today;
+        }
+        window.onload = setDefaultDate;
+    </script>
 </head>
 <body>
 
@@ -51,6 +58,7 @@
             </div>
             <div class="controls center-button">
                 <button type="submit">Registrar</button>
+                <button type="button" onclick="window.location.href='ContabilidadController?ruta=cancelar'">Cancelar</button>
             </div>
         </form>
         <div class="controls center-button">
