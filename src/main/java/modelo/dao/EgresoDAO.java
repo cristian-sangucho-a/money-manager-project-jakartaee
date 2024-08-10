@@ -20,7 +20,6 @@ public class EgresoDAO {
 		try {
             Egreso eg = new Egreso(concept,date,-value,accountID,expenseCategory);
 			em.persist(eg);	
-			System.out.print("////////////"+eg.getSrcAccount().getId()+ "Take me back to the night we met");
 			em.getTransaction().commit();
 		}catch(Exception e) {
 			if(em.getTransaction().isActive()) {

@@ -17,12 +17,10 @@ import modelo.entidades.CategoriaIngreso;
  */
 public class CategoriaIngresoDAO extends CategoriaDAO {
 
-	private EntityManagerFactory emf = null;
-	private EntityManager em = null;
+	
 	
     public CategoriaIngresoDAO() {
-    	this.emf = Persistence.createEntityManagerFactory("Contabilidad");
-    	this.em = emf.createEntityManager();
+    	
     }
 
     /**
@@ -31,6 +29,7 @@ public class CategoriaIngresoDAO extends CategoriaDAO {
      * @return
      */
     public List<CategoriaResumenDTO> getAllSumarized(Date from, Date to) {
+    	EntityManager em = ManejoEntidadPersistencia.getEntityManager();
         List<CategoriaResumenDTO> resultList = new ArrayList<>();
         try {
             String queryStr = "SELECT c.name, SUM(m.valor) " +
@@ -59,6 +58,7 @@ public class CategoriaIngresoDAO extends CategoriaDAO {
     }
 
     public List<CategoriaIngreso> getAll() {
+    	EntityManager em = ManejoEntidadPersistencia.getEntityManager();
     	List<CategoriaIngreso> categorias = null;
         em.getTransaction().begin();
         try {
@@ -78,6 +78,7 @@ public class CategoriaIngresoDAO extends CategoriaDAO {
     }
 
     public CategoriaIngreso getCategoryById(int categoryId) {
+    	EntityManager em = ManejoEntidadPersistencia.getEntityManager();
     	CategoriaIngreso categoria = null;
 	    em.getTransaction().begin();
 	    try {
