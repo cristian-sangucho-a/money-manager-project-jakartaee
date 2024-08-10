@@ -19,6 +19,7 @@ import modelo.dao.CategoriaIngresoDAO;
 import modelo.dao.CategoriaTransferenciaDAO;
 import modelo.dao.CuentaDAO;
 import modelo.dao.EgresoDAO;
+import modelo.dao.IngresoDAO;
 import modelo.dao.MovimientoDAO;
 import modelo.dto.CategoriaResumenDTO;
 import modelo.dto.MovimientoDTO;
@@ -33,6 +34,7 @@ public class ContabilidadController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final String fromDefault = "2024-08-01";
 	private final String toDefault = "2024-08-31";
+
 	/**
 	 * Default constructor
 	 */
@@ -66,6 +68,11 @@ public class ContabilidadController extends HttpServlet {
 		case "confirmarregistroegreso":
 			this.confirmRegisterExpense(req, resp);
 			break;
+		case "registraringreso":
+			this.registerIncome(req, resp);
+			break;
+		case "confirmarregistroingreso":
+			this.confirmRegisterIncome(req, resp);
 		case "cancelar":
 			this.cancel(req, resp);
 			break;
@@ -75,39 +82,72 @@ public class ContabilidadController extends HttpServlet {
 		}
 	}
 
+	private void confirmRegisterIncome(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// 1. Obtener datos
+		CuentaDAO cuentaDAO = new CuentaDAO();
+		CategoriaIngresoDAO categoriaIngresoDAO = new CategoriaIngresoDAO();
+		IngresoDAO ingresoDAO = new IngresoDAO();
+		
+		Date date = convertToDate(req.getParameter("date"));
+		String concept = req.getParameter("concept");
+		double value = Double.parseDouble(req.getParameter("value"));
+		int categoryID = Integer.parseInt(req.getParameter("categoryID"));
+		int accountID = Integer.parseInt(req.getParameter("accountID"));
+		Cuenta account = cuentaDAO.getByID(accountID);
+		//2. Hablar con el modelo
+		CategoriaIngreso incomeCategory = categoriaIngresoDAO.getCategoryById(categoryID);
+		ingresoDAO.registerIncome(date, concept, value, incomeCategory, account);
+		cuentaDAO.updateBalance(value, account.getId());
+		//3. Hablar con la vista
+		viewDashboard(req, resp);
+
+	}
+
+	private void registerIncome(HttpServletRequest req, HttpServletResponse resp) {
+		CategoriaIngresoDAO categoriaIngresoDAO = new CategoriaIngresoDAO();
+		CuentaDAO cuentaDAO = new CuentaDAO();
+		// 1. Obtener datos
+		int dstIDV = Integer.parseInt(req.getParameter("dstID"));
+		Cuenta account = cuentaDAO.getByID(dstIDV);
+		// 2. Hablar con el modelo
+		double balance = cuentaDAO.getBalance(dstIDV);
+		List<CategoriaIngreso> categories = categoriaIngresoDAO.getAll();
+
+		// 3. Hablar con la vista
+		req.setAttribute("balance", balance);
+		req.setAttribute("categories", categories);
+		req.setAttribute("account", account.getId());
+		req.getRequestDispatcher("jsp/registraregreso.jsp").forward(req, resp);
+
+	}
+
 	private void cancel(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.sendRedirect("jsp/vercuenta");
 	}
 
 	private void confirmRegisterExpense(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//DAOs necesarios
+		// DAOs necesarios
 		CuentaDAO cuentaDAO = new CuentaDAO();
 		CategoriaEgresoDAO categoriaEgresoDAO = new CategoriaEgresoDAO();
 		EgresoDAO egresoDAO = new EgresoDAO();
 		// paso 1: obtener datos
-		int accountID = Integer.parseInt(req.getParameter("accountID")) ;
+		int accountID = Integer.parseInt(req.getParameter("accountID"));
 		Date date = convertToDate(req.getParameter("date"));
-		System.out.print(date);
 		String concept = (String) req.getParameter("concept");
-		double value = Double.parseDouble(req.getParameter("value")) ;
+		double value = Double.parseDouble(req.getParameter("value"));
 		int categoryID = Integer.parseInt(req.getParameter("categoryID"));
 		// 2
-		//2.1
+		// 2.1
 		CategoriaEgreso expenseCategory = categoriaEgresoDAO.getCategoryById(categoryID);
 		Cuenta cuenta = cuentaDAO.getByID(accountID);
-		
-		System.out.print(cuenta.getId() + "Valor 1");
-		System.out.print(accountID + "Valor 2");
-		System.out.print("Estoy aqui ctm");
 		cuentaDAO.updateBalance(value, accountID);
 		// paso 2: hablar con el modelo
-		// 2.2 Date date, String concept, double value, CategoriaEgreso expenseCategory, Cuenta account
+		// 2.2 Date date, String concept, double value, CategoriaEgreso expenseCategory,
+		// Cuenta account
 		egresoDAO.registerExpense(date, concept, value, expenseCategory, cuentaDAO.getByID(accountID));
-		// 2.2 y 2.3 
-		
+		// 2.2 y 2.3
 		// paso 3: hablar con la vista
 		viewDashboard(req, resp);
-
 	}
 
 	// paso 1: obtener datos
@@ -121,10 +161,9 @@ public class ContabilidadController extends HttpServlet {
 		// 1
 		int accountID = Integer.parseInt(req.getParameter("accountID"));
 		Cuenta account = cuentaDAO.getByID(accountID);
-		System.out.println(accountID);
 		// paso 2: hablar con el modelo
 		// 1.1 y 1.2
-		double balance = account.getBalance();
+		double balance = account.getBalance(accountID);
 		List<CategoriaEgreso> expensesCategories = categoriaEgresoDAO.getAll();
 
 		// paso 3: hablar con la vista
@@ -133,8 +172,6 @@ public class ContabilidadController extends HttpServlet {
 		req.setAttribute("categories", expensesCategories);
 		req.setAttribute("account", account.getId());
 		req.getRequestDispatcher("jsp/registraregreso.jsp").forward(req, resp);
-		
-		
 	}
 
 	private void viewAccount(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -168,23 +205,23 @@ public class ContabilidadController extends HttpServlet {
 		// setear la fecha default segun la regla de negocio del caso de uso
 		String fromString = (String) req.getAttribute("from");
 		String toString = (String) req.getAttribute("to");
-		
-		if(fromString == null || toString == null) {
+
+		if (fromString == null || toString == null) {
 			from = convertToDate(fromDefault);
 			to = convertToDate(toDefault);
 		} else {
 			from = convertToDate(fromString);
 			to = convertToDate(toString);
 		}
-		
-		if(!isAValidRangeOfDates(from, to)) {
+
+		if (!isAValidRangeOfDates(from, to)) {
 			from = convertToDate(fromDefault);
-			to = convertToDate(toDefault);	
+			to = convertToDate(toDefault);
 		}
-		
+
 		// paso 2: hablar con el modelo
 		List<Cuenta> accounts = cuentaDAO.getAll();
-		List<CategoriaResumenDTO> incomeCategoriesSumarized = categoriaIngresoDAO.getAllSumarized(from,to);
+		List<CategoriaResumenDTO> incomeCategoriesSumarized = categoriaIngresoDAO.getAllSumarized(from, to);
 		List<CategoriaResumenDTO> expenseCategoriesSumarized = categoriaEgresoDAO.getAllSumarized(from, to);
 		List<MovimientoDTO> movements = movimientoDAO.getAll(from, to);
 
@@ -195,11 +232,11 @@ public class ContabilidadController extends HttpServlet {
 		req.setAttribute("expenses", expenseCategoriesSumarized);
 
 		req.getRequestDispatcher("jsp/verdashboard.jsp").forward(req, resp);
-		
+
 	}
 
 	private boolean isAValidRangeOfDates(Date from, Date to) {
-		if(from.after(to)) {
+		if (from.after(to)) {
 			return false;
 		}
 		return true;
@@ -209,14 +246,14 @@ public class ContabilidadController extends HttpServlet {
 		// Parse a LocalDate
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		ZoneId defaultZoneId = ZoneId.systemDefault();
-        LocalDate localDate = LocalDate.parse(dateString, formatter);
-        // Para convertir a DATE
-        try {
-            Date date = Date.from(localDate.atStartOfDay(defaultZoneId).toInstant());
-            return date;
-        } catch (DateTimeException e) {
-            e.printStackTrace();
-        }
+		LocalDate localDate = LocalDate.parse(dateString, formatter);
+		// Para convertir a DATE
+		try {
+			Date date = Date.from(localDate.atStartOfDay(defaultZoneId).toInstant());
+			return date;
+		} catch (DateTimeException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
