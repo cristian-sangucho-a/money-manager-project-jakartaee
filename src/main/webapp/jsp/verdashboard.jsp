@@ -39,8 +39,8 @@
     </div>
 
     <div class="tabs">
-        <a href="categorias.jsp" class="tab">Categorías</a>
-        <a href="movimientos.jsp" class="tab">Movimientos</a>
+        <a href="vercategoria.jsp" class="tab">Categorías</a>
+        <a href="vermovimiento.jsp" class="tab">Movimientos</a>
     </div>
 
     <div class="container">
