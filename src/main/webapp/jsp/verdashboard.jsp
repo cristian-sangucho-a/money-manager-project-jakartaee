@@ -26,7 +26,6 @@
     </div>
 
     <div class="tabs">
-        <a href="vercuenta.jsp" class="tab">Cuentas</a>
         <a href="categorias.jsp" class="tab">Categorías</a>
         <a href="movimientos.jsp" class="tab">Movimientos</a>
     </div>
