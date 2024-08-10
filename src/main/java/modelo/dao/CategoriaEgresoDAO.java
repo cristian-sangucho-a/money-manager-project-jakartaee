@@ -12,12 +12,10 @@ import modelo.entidades.Cuenta;
  * 
  */
 public class CategoriaEgresoDAO extends CategoriaDAO {
-	private EntityManagerFactory emf = null;
-	private EntityManager em = null;
+	
 
     public CategoriaEgresoDAO() {
-    	this.emf = Persistence.createEntityManagerFactory("Contabilidad");
-    	this.em = emf.createEntityManager();
+    	
     }
 
     /**
@@ -26,6 +24,7 @@ public class CategoriaEgresoDAO extends CategoriaDAO {
      * @return
      */
     public List<CategoriaResumenDTO> getAllSumarized(Date from, Date to) {
+    	EntityManager em = ManejoEntidadPersistencia.getEntityManager();
         List<CategoriaResumenDTO> resultList = new ArrayList<>();
         try {
             String queryStr = "SELECT c.name, SUM(m.valor) " +
@@ -54,6 +53,7 @@ public class CategoriaEgresoDAO extends CategoriaDAO {
     }
     
     public List<CategoriaEgreso> getAll() {
+    	EntityManager em = ManejoEntidadPersistencia.getEntityManager();
     	List<CategoriaEgreso> categorias = null;
         em.getTransaction().begin();
         try {
@@ -73,6 +73,7 @@ public class CategoriaEgresoDAO extends CategoriaDAO {
     }
     
     public CategoriaEgreso getCategoryById(int categoryId) {
+    	EntityManager em = ManejoEntidadPersistencia.getEntityManager();
     	CategoriaEgreso categoria = null;
 	    em.getTransaction().begin();
 	    try {

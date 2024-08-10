@@ -18,12 +18,8 @@ import modelo.entidades.Transferencia;
  * 
  */
 public class IngresoDAO extends MovimientoDAO {
-	private EntityManagerFactory emf = null;
-	private EntityManager em = null;
 	
 	public IngresoDAO() {
-		this.emf = Persistence.createEntityManagerFactory("Contabilidad");
-    	this.em = emf.createEntityManager();
 	}
 	
     public void getAllByAccount() {

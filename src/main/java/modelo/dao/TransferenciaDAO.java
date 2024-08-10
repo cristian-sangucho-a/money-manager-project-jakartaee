@@ -16,15 +16,13 @@ import modelo.entidades.Transferencia;
  * 
  */
 public class TransferenciaDAO extends MovimientoDAO {
-	private EntityManagerFactory emf = null;
-	private EntityManager em = null;
+
 
     /**
      * Default constructor
      */
     public TransferenciaDAO() {
-		this.emf = Persistence.createEntityManagerFactory("Contabilidad");
-    	this.em = emf.createEntityManager();
+	
     }
 
     /**

@@ -12,15 +12,13 @@ import modelo.entidades.CategoriaTransferencia;
  * 
  */
 public class CategoriaTransferenciaDAO {
-	private EntityManagerFactory emf = null;
-	private EntityManager em = null;
+	
 
     /**
      * Default constructor
      */
     public CategoriaTransferenciaDAO() {
-    	this.emf = Persistence.createEntityManagerFactory("Contabilidad");
-    	this.em = emf.createEntityManager();
+    	
     }
 
     /**
@@ -34,6 +32,7 @@ public class CategoriaTransferenciaDAO {
     }
     
     public CategoriaTransferencia getCategoryById(int categoryId) {
+    	EntityManager em = ManejoEntidadPersistencia.getEntityManager();
     	CategoriaTransferencia categoria = null;
 	    em.getTransaction().begin();
 	    try {
