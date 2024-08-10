@@ -38,7 +38,7 @@ public class CategoriaEgresoDAO extends CategoriaDAO {
             query.setParameter(1, from);
             query.setParameter(2, to);
             List<Object[]> results = query.getResultList();
-            for (Object[] result : results) {n
+            for (Object[] result : results) {
                 String name = (String) result[0];
                 Double sum = (Double) result[1];
                 resultList.add(new CategoriaResumenDTO(name, sum));
