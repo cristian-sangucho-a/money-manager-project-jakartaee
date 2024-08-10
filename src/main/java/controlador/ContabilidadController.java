@@ -178,7 +178,7 @@ public class ContabilidadController extends HttpServlet {
 	}
 
 	private void cancel(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.sendRedirect("jsp/vercuenta");
+		resp.sendRedirect("jsp/vercuenta.jsp");
 	}
 
 	private void confirmRegisterExpense(HttpServletRequest req, HttpServletResponse resp)

@@ -17,10 +17,23 @@
     <div class="controls">
         <form action="ContabilidadController" method="GET">
             <input type="hidden" name="ruta" value="verdashboard" />
+            
+            <% 
+                // Obtener la fecha actual
+                java.time.LocalDate today = java.time.LocalDate.now();
+                // Calcular el primer día del mes actual
+                java.time.LocalDate firstDayOfMonth = today.withDayOfMonth(1);
+                // Formatear las fechas para el input type="date"
+                String fromDate = firstDayOfMonth.toString();
+                String toDate = today.toString();
+            %>
+            
             <label for="from">Desde:</label>
-            <input type="date" id="from" name="from" value="${from}">
+            <input type="date" id="from" name="from" value="<%= fromDate %>">
+            
             <label for="to">Hasta:</label>
-            <input type="date" id="to" name="to" value="${to}">
+            <input type="date" id="to" name="to" value="<%= toDate %>">
+            
             <button type="submit">Consultar</button>
         </form>
     </div>
