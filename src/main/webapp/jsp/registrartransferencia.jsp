@@ -23,7 +23,7 @@
 <div class="center-form">
     <div class="account-container">
         <h3>Balance de la Cuenta Origen</h3>
-        <p class="balance"><c:out value="${originBalance}"/></p>
+        <p class="balance"><c:out value="${balance}"/></p>
     </div>
 
     <div class="controls">
