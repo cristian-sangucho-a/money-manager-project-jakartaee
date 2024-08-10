@@ -103,12 +103,8 @@ public class ContabilidadController extends HttpServlet {
 		double amount = Double.parseDouble(req.getParameter("amount"));
 		
 		int dstAccountID = Integer.parseInt(req.getParameter("dstAccountID"));
-<<<<<<< HEAD
 		System.out.print(dstAccountID);
-		
-=======
 		System.out.println(dstAccountID);
->>>>>>> 862c3ae (Pagina error desde controlador)
 		Cuenta dstAccount =cuentaDAO.getByID(dstAccountID);
 		
 		int srcAccountID = Integer.parseInt(req.getParameter("srcAccountID"));
