@@ -67,7 +67,7 @@ public class MovimientoDAO {
 		if (movement instanceof Egreso) {
 			Egreso egreso = (Egreso) movement;
 			Cuenta srcAccount = egreso.getSrcAccount();
-			cdao.updateBalance(value, srcAccount.getId());
+			cdao.updateBalance(-value, srcAccount.getId());
 
 		} else if (movement instanceof Ingreso) {
 			Ingreso ingreso = (Ingreso) movement;
