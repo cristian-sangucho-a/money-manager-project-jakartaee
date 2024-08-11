@@ -8,13 +8,23 @@ import java.util.*;
  */
 public class CategoriaResumenDTO implements Serializable {
 	
+	private int id;
     private String categoryName;
     private double sumarized;
     
     
     
-    public CategoriaResumenDTO(String categoryName, double sumarized) {
+    public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public CategoriaResumenDTO(String categoryName, double sumarized, int id) {
 		super();
+		this.id = id;
 		this.categoryName = categoryName;
 		this.sumarized = sumarized;
 	}

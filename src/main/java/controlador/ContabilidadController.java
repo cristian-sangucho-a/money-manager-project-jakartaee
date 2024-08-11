@@ -425,6 +425,7 @@ public class ContabilidadController extends HttpServlet {
 		List<CategoriaResumenDTO> incomeCategoriesSumarized = categoriaIngresoDAO.getAllSumarized(from, to);
 		List<CategoriaResumenDTO> expenseCategoriesSumarized = categoriaEgresoDAO.getAllSumarized(from, to);
 		List<MovimientoDTO> movements = movimientoDAO.getAll(from, to);
+		
 
 		// paso 3: hablar con la vista
 		req.setAttribute("movements", movements);

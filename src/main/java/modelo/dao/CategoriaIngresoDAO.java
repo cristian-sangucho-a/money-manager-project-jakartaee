@@ -32,7 +32,7 @@ public class CategoriaIngresoDAO extends CategoriaDAO {
     	EntityManager em = ManejoEntidadPersistencia.getEntityManager();
         List<CategoriaResumenDTO> resultList = new ArrayList<>();
         try {
-            String queryStr = "SELECT c.name, SUM(m.valor) " +
+            String queryStr = "SELECT c.name, SUM(m.valor), c.id " +
                               "FROM Movimiento m, Categoria c " +
                               "WHERE m.fecha BETWEEN ?1 AND ?2 " +
                               "AND m.tipo_movimiento = 'INGRESO' " +
@@ -45,7 +45,8 @@ public class CategoriaIngresoDAO extends CategoriaDAO {
             for (Object[] result : results) {
                 String name = (String) result[0];
                 Double sum = (Double) result[1];
-                resultList.add(new CategoriaResumenDTO(name, sum));
+                int id = (Integer) result[2];
+                resultList.add(new CategoriaResumenDTO(name, sum, id));
             }
         } catch (Exception e) {
             e.printStackTrace();

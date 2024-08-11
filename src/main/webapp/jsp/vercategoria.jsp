@@ -16,8 +16,22 @@
             <p><strong>Concepto:</strong> ${movimiento.concept}</p>
             <p><strong>Fecha:</strong> ${movimiento.date}</p>
             <p><strong>Valor:</strong> ${movimiento.value}</p>
-            <p><strong>Origen:</strong> ${movimiento.srcAccount}</p>
-            <p><strong>Destino:</strong> ${movimiento.dstAccount}</p>
+            <c:choose>
+							<c:when test="${movimiento.tipo_movimiento == 'INGRESO'}">
+								<span class="details">Destino: ${movimiento.nameDstAccount}</span>
+							</c:when>
+						
+            
+							
+							<c:when test="${movimiento.tipo_movimiento == 'EGRESO'}">
+								<span class="details">Origen: ${movimiento.nameSrcAccount}</span>
+							</c:when>
+							
+							<c:when test="${movimiento.tipo_movimiento == 'TRANSFERENCIA'}">
+								<span class="details">Origen: ${movimiento.nameSrcAccount}
+									- Destino: ${movimiento.nameDstAccount}</span>
+							</c:when>
+							</c:choose>
         </div>
     </c:forEach>
     

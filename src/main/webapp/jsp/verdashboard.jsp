@@ -83,7 +83,7 @@
 					<div class="balance">${incomeCategory.sumarized}</div>
 					<div class="actions">
 						<a
-							href="ContabilidadController?ruta=vercategoria&categoryID=${category.id}">
+							href="ContabilidadController?ruta=vercategoria&categoryID=${incomeCategory.id}">
 							<i class="fa-solid fa-hand-holding-dollar"></i> Ver
 						</a>
 					</div>
@@ -99,7 +99,7 @@
 					<div class="balance">${expenseCategory.sumarized}</div>
 					<div class="actions">
 						<a
-							href="ContabilidadController?ruta=vercategoria&categoryID=${category.id}">
+							href="ContabilidadController?ruta=vercategoria&categoryID=${expenseCategory.id}">
 							<i class="fa-solid fa-hand-holding-dollar"></i> Ver
 						</a>
 					</div>
