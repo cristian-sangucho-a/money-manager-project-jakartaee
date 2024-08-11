@@ -67,7 +67,7 @@
             </div>
         </form>
         <div class="controls center-button">
-            <form action="ContabilidadController?ruta=verdashboard" method="GET">
+            <form action="ContabilidadController?ruta=cancelar" method="GET">
                 <button type="submit">Cancelar</button>
             </form>
         </div>
