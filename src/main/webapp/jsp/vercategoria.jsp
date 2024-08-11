@@ -5,51 +5,26 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Ver Categorías</title>
-    <link rel="stylesheet" type="text/css" href="jsp/stylesvercategoria1.css">
+    <title>Movimientos de la Categoría</title>
+    <link rel="stylesheet" href="jsp/stylesverdashboard.css">
 </head>
 <body>
 
-    <div class="header">
-        <h1>Categorías</h1>
-    </div>
-
-    <div class="container">
-        <div class="category-container">
-            <c:forEach var="incomeCategory" items="${incomeCategories}">
-                <div class="category-card">
-                    <h3>${incomeCategory.name}</h3>
-                    <ul>
-                        <c:forEach var="subCategory" items="${incomeCategory.subCategories}">
-                            <li>${subCategory.name}</li>
-                        </c:forEach>
-                    </ul>
-                </div>
-            </c:forEach>
-
-            <c:forEach var="expenseCategory" items="${expenseCategories}">
-                <div class="category-card">
-                    <h3>${expenseCategory.name}</h3>
-                    <ul>
-                        <c:forEach var="subCategory" items="${expenseCategory.subCategories}">
-                            <li>${subCategory.name}</li>
-                        </c:forEach>
-                    </ul>
-                </div>
-            </c:forEach>
-
-            <c:forEach var="transferCategory" items="${transferCategories}">
-                <div class="category-card">
-                    <h3>${transferCategory.name}</h3>
-                    <ul>
-                        <c:forEach var="subCategory" items="${transferCategory.subCategories}">
-                            <li>${subCategory.name}</li>
-                        </c:forEach>
-                    </ul>
-                </div>
-            </c:forEach>
+<div class="movimientos">
+    <c:forEach var="movimiento" items="${movimientos}">
+        <div class="movimiento">
+            <p><strong>Concepto:</strong> ${movement.concept}</p>
+            <p><strong>Fecha:</strong> ${movement.date}</p>
+            <p><strong>Valor:</strong> ${movement.value}</p>
+            <p><strong>Origen:</strong> ${movement.srcName}</p>
+            <p><strong>Destino:</strong> ${movement.dstName}</p>
         </div>
-    </div>
+    </c:forEach>
+    
+    <c:if test="${empty movements}">
+        <p>No se encontraron movimientos para esta categoría en el rango de fechas especificado.</p>
+    </c:if>
+</div>
 
 </body>
 </html>
