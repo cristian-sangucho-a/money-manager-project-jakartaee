@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Movimientos de la Categoría</title>
-    <link rel="stylesheet" href="stylesvercategoria.css">
+    <link rel="stylesheet" href="jsp/stylesvercategoria.css">
 </head>
 <body>
 
