@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Actualizar Movimiento</title>
-    <link rel="stylesheet" type="text/css" href="stylesactualizarmovimiento.css">
+    <link rel="stylesheet" type="text/css" href="jsp/stylesactualizarmovimiento.css">
 </head>
 <body>
 
@@ -14,8 +14,11 @@
     <h1>Actualizar movimiento</h1>
 </div>
 
-    <form action="ContabilidadController" method="POST">
+    <form action="ContabilidadController?ruta=confirmaractualizarmovimiento" method="POST">
         <input type="hidden" name="ruta" value="actualizarmovimiento">
+        <input type="hidden" name="srcAccountID" value="${movement.srcAccount}">
+        <input type="hidden" name="dstAccountID" value="${movement.dstAccount}">
+        <input type="hidden" name="tipo_movimiento" value="${movement.tipo_movimiento}">
         <input type="hidden" name="movementID" value="${movement.id}">
 
         <label for="concept">Concepto:</label>
@@ -30,7 +33,7 @@
         <label for="category">Categoría:</label>
         <select id="category" name="categoryID" required>
             <c:forEach var="category" items="${list}">
-                <option value="${category.id}">${category.categoryName}</option>
+                <option value="${category.id}">${category.name}</option>
             </c:forEach>
         </select>
 

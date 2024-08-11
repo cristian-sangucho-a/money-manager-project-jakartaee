@@ -43,7 +43,7 @@
             <div class="controls vertical-center">
                 <label for="originAccount" class="left-label">Cuenta Origen:</label>
                 <input type="hidden" id="value" name="srcAccountID" value = "${srcAccount.id}" class="large-input" required>
-                <input type="text" id="cuenta" name="cuentaOrigen" value = "${srcAccount.name }" class="large-input" readonly>
+                <input type="text" id="cuenta" name="cuentaOrigen" value = "${srcAccount.name}" class="large-input" readonly>
             </div>
             <div class="controls vertical-center">
                 <label for="destinationAccount" class="left-label">Cuenta Destino:</label>
@@ -53,6 +53,14 @@
                     </c:forEach>
                 </select>
             </div>
+            <div class="controls vertical-center">
+					<label for="category" class="left-label">Categoría:</label> 
+					<select id="category" name="categoryID" class="select-category" required>
+						<c:forEach var="category" items="${categories}">
+							<option value="${category.id}">${category.name}</option>
+						</c:forEach>
+					</select>
+				</div>
             <input type="hidden" id="account" name="accountID" value="${account}">
             <div class="controls center-button">
                 <button type="submit">Registrar</button>

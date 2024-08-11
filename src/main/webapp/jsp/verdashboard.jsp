@@ -113,7 +113,7 @@
                         <span class="description">${movement.concept}</span>
                         <c:choose>
                             <c:when test="${movement.tipo_movimiento == 'TRANSFERENCIA'}">
-                                <span class="details">Origen: ${movement.nameSrc} - Destino: ${movement.nameDst}</span>
+                                <span class="details">Origen: ${movement.nameSrcAccount} - Destino: ${movement.nameDstAccount}</span>
                             </c:when>
                         </c:choose>
                     </div>
