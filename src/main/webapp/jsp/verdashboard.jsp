@@ -81,6 +81,12 @@
 				<div class="category-card">
 					<h3>${incomeCategory.categoryName}</h3>
 					<div class="balance">${incomeCategory.sumarized}</div>
+					<div class="actions">
+						<a
+							href="ContabilidadController?ruta=vercategoria&categoryID=${category.id}">
+							<i class="fa-solid fa-hand-holding-dollar"></i> Ver
+						</a>
+					</div>
 				</div>
 			</c:forEach>
 		</div>
@@ -91,6 +97,12 @@
 				<div class="category-card">
 					<h3>${expenseCategory.categoryName}</h3>
 					<div class="balance">${expenseCategory.sumarized}</div>
+					<div class="actions">
+						<a
+							href="ContabilidadController?ruta=vercategoria&categoryID=${category.id}">
+							<i class="fa-solid fa-hand-holding-dollar"></i> Ver
+						</a>
+					</div>
 				</div>
 			</c:forEach>
 		</div>
