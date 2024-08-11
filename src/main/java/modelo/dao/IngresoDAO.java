@@ -26,15 +26,6 @@ public class IngresoDAO extends MovimientoDAO {
         // TODO implement here
     }
 
-    /**
-     * @param from 
-     * @param to
-     * @return 
-     */
-    public List<MovimientoDTO> getAll(Date from, Date to) {
-        // TODO implement here
-    	return null;
-    }
 
     /**
      * @param date 

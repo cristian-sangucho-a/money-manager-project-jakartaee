@@ -17,6 +17,7 @@ public class Ingreso extends Movimiento implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "DSTACCOUNT_ID")
 	private Cuenta dstAccount;
+	@ManyToOne
 	@JoinColumn(name = "Categoria_ID")
 	private CategoriaIngreso categoria;
 	

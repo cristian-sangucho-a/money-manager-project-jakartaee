@@ -32,7 +32,55 @@ public class MovimientoDTO {
         this.tipo_movimiento = tipo_movimiento;
     }
 
-    public String getTipo_movimiento() {
+    public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getSrc() {
+		return src;
+	}
+
+	public void setSrc(int src) {
+		this.src = src;
+	}
+
+	public int getDst() {
+		return dst;
+	}
+
+	public void setDst(int dst) {
+		this.dst = dst;
+	}
+
+	public String getConcept() {
+		return concept;
+	}
+
+	public void setConcept(String concept) {
+		this.concept = concept;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public double getValue() {
+		return value;
+	}
+
+	public void setValue(double value) {
+		this.value = value;
+	}
+
+	public String getTipo_movimiento() {
 		return tipo_movimiento;
 	}
 
@@ -40,59 +88,7 @@ public class MovimientoDTO {
 		this.tipo_movimiento = tipo_movimiento;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public void setSrc(int src) {
-		this.src = src;
-	}
-
-	public void setDst(int dst) {
-		this.dst = dst;
-	}
-
-	public void setConcept(String concept) {
-		this.concept = concept;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
-	public void setValue(double value) {
-		this.value = value;
-	}
-
-	public int getId() {
-        return id;
-    }
-
-    public int getSrc() {
-        return src;
-    }
-
-    public int getDst() {
-        return dst;
-    }
-
-    public String getConcept() {
-        return concept;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public double getValue() {
-        return value;
-    }
-
-    public String getTipoMovimiento() {
-        return tipo_movimiento;
-    }
-
-    public String getNameSrc(){
+	public String getNameSrc(){
         CuentaDAO cuentaDao = new CuentaDAO();
         Cuenta cuentaSrc = cuentaDao.getByID(this.src);
         return cuentaSrc.getName();
