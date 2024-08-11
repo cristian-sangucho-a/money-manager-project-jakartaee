@@ -40,8 +40,7 @@
     </div>
 
     <div class="tabs">
-        <a href="jsp/vercategoria.jsp" class="tab">Categorías</a>
-        <a href="jsp/vermovimiento.jsp" class="tab">Movimientos</a>
+        <a class="tab">Cuentas</a>
     </div>
 
     <div class="container">
@@ -65,6 +64,56 @@
                         <a href="ContabilidadController?ruta=vercuenta&accountID=${account.id}">
                             <i class="fa-solid fa-eye"></i> Movs.
                         </a>
+                    </div>
+                </div>
+            </c:forEach>
+        </div>
+    </div>
+    
+    <div class="tabs">
+        <a class="tab">Categorías</a>
+    </div>
+
+    <div class="container">
+        <div class="category-container">
+            <h2>Ingresos</h2>
+            <c:forEach var="incomeCategory" items="${incomes}">
+                <div class="category-card">
+                    <h3>${incomeCategory.name}</h3>
+                    <div class="balance">
+                        ${incomeCategory.total}
+                    </div>
+                </div>
+            </c:forEach>
+        </div>
+        
+        <div class="category-container">
+            <h2>Egresos</h2>
+            <c:forEach var="expenseCategory" items="${expenses}">
+                <div class="category-card">
+                    <h3>${expenseCategory.name}</h3>
+                    <div class="balance">
+                        ${expenseCategory.total}
+                    </div>
+                </div>
+            </c:forEach>
+        </div>
+    </div>
+    
+    <div class="tabs">
+        <a class="tab">Movimientos</a>
+    </div>
+    
+    <div class="container">
+        <div class="movements-container">
+            <c:forEach var="movement" items="${movements}">
+                <div class="movement-card">
+                    <div class="movement-details">
+                        <span class="date">${movement.date}</span>
+                        <span class="description">${movement.description}</span>
+                    </div>
+                    <div class="amount ${movement.amount < 0 ? 'negative' : 'positive'}">
+                        ${movement.amount}
                     </div>
                 </div>
             </c:forEach>

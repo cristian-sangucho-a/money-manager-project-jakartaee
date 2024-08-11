@@ -2,21 +2,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Merriweather:wght@700&display=swap');
 
 body {
-    font-family: 'Roboto', sans-serif; /* Fuente principal */
+    font-family: 'Roboto', sans-serif;
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
 }
 
 .header {
-    background-color: #698a8c; /* Primer color */
+    background-color: #698a8c;
     color: #333;
     padding: 10px;
     text-align: center;
 }
 
 .header h1 {
-    font-family: 'Merriweather', serif; 
+    font-family: 'Merriweather', serif;
     font-size: 36px;
     font-weight: 700;
     margin: 0;
@@ -43,7 +43,7 @@ body {
 }
 
 .controls button {
-    background-color: #486565; /* Segundo color */
+    background-color: #486565;
     color: #fff;
     border: none;
     padding: 8px 12px;
@@ -53,13 +53,13 @@ body {
 }
 
 .controls button:hover {
-    background-color: #57745d; /* Tercer color */
+    background-color: #57745d;
 }
 
 .tabs {
     display: flex;
     justify-content: center;
-    background-color: #698a8c; /* Primer color */
+    background-color: #698a8c;
     padding: 10px 0;
     margin-bottom: 20px;
     border-top: 3px solid #333;
@@ -67,7 +67,7 @@ body {
 }
 
 .tab {
-    color: #fff; 
+    color: #fff;
     text-decoration: none;
     padding: 10px 20px;
     font-weight: bold;
@@ -87,14 +87,14 @@ body {
     padding: 20px;
 }
 
-.account-container {
+.account-container, .category-container, .movements-container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
 }
 
-.account-card {
+.account-card, .category-card, .movement-card {
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -103,7 +103,7 @@ body {
     text-align: center;
 }
 
-.account-card h3 {
+.account-card h3, .category-card h3 {
     margin-top: 0;
     font-size: 18px;
     color: #333;
@@ -123,30 +123,79 @@ body {
 
 .actions {
     display: flex;
-    flex-direction: column; /* Alinea los botones en una columna */
+    flex-direction: column;
     margin-top: 15px;
-    gap: 10px; /* Espacio entre los botones */
+    gap: 10px;
 }
 
 .actions a {
     text-decoration: none;
-    color: #486565; /* Segundo color */
+    color: #486565;
     font-weight: bold;
     font-size: 14px;
-    padding: 10px 0; /* Asegura que los botones tengan suficiente altura */
+    padding: 10px 0;
     background-color: #ddd;
     border-radius: 5px;
     transition: background-color 0.3s;
-    text-align: center; /* Centra el texto dentro de los botones */
-    width: 100%; /* Asegura que los botones ocupen todo el ancho del contenedor */
-    box-sizing: border-box; /* Incluye padding en el ancho del botón */
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px; /* Espacio entre el ícono y el texto */
+    gap: 8px;
 }
 
 .actions a:hover {
     color: #fff;
-    background-color: #486565; /* Segundo color */
+    background-color: #486565;
+}
+
+/* Estilos para las tarjetas de categorías */
+.category-card .balance {
+    font-size: 20px;
+    color: #333;
+}
+
+/* Estilos para los movimientos */
+.movement-card {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+.movement-card .movement-details {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.movement-card .movement-details .date {
+    font-size: 14px;
+    color: #666;
+}
+
+.movement-card .movement-details .description {
+    font-size: 16px;
+    color: #333;
+    font-weight: 500;
+}
+
+.movement-card .amount {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.movement-card .amount.negative {
+    color: #f44336;
+}
+
+.movement-card .amount.positive {
+    color: #4CAF50;
 }
