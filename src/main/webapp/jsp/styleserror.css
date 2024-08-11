@@ -56,24 +56,23 @@ body {
     color: #666;
 }
 
-.actions {
+.center-button {
     display: flex;
     justify-content: center;
-    margin-top: 15px;
+    margin-top: 20px;
 }
 
-.actions a {
-    text-decoration: none;
-    color: #486565; /* Segundo color */
-    font-weight: bold;
-    font-size: 14px;
-    padding: 10px 20px;
-    background-color: #ddd;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
-.actions a:hover {
+.button-back {
+    background-color: #486565;
     color: #fff;
-    background-color: #486565; /* Segundo color */
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 4px;
+}
+
+.button-back:hover {
+    background-color: #57745d;
 }

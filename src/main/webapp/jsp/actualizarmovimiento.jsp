@@ -28,11 +28,11 @@
         <input type="date" id="date" name="date" value="${movement.date}" required>
         
         <label for="value">Valor:</label>
-        <input type="number" id="value" name="value" value="${movement.value}" step="0.01" required>
+        <input type="number" id="value" name="value" value="${movement.value}" step="1" required>
         
         <label for="category">Categoría:</label>
         <select id="category" name="categoryID" required>
-            <c:forEach var="category" items="${list}">
+            <c:forEach var="category" items="${movementsCategories}">
                 <option value="${category.id}">${category.name}</option>
             </c:forEach>
         </select>

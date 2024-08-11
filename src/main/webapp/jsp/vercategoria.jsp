@@ -6,38 +6,40 @@
 <head>
     <meta charset="UTF-8">
     <title>Movimientos de la Categoría</title>
-    <link rel="stylesheet" href="jsp/stylesverdashboard.css">
+    <link rel="stylesheet" href="stylesvercategoria.css">
 </head>
 <body>
 
+<div class="header">
+        <h1>Movimientos de la Categoría</h1>
+</div>
+
 <div class="movimientos">
-    <c:forEach var="movimiento" items="${movimientos}">
+    <c:forEach var="movimiento" items="${movements}">
         <div class="movimiento">
             <p><strong>Concepto:</strong> ${movimiento.concept}</p>
             <p><strong>Fecha:</strong> ${movimiento.date}</p>
             <p><strong>Valor:</strong> ${movimiento.value}</p>
             <c:choose>
-							<c:when test="${movimiento.tipo_movimiento == 'INGRESO'}">
-								<span class="details">Destino: ${movimiento.nameDstAccount}</span>
-							</c:when>
-						
-            
-							
-							<c:when test="${movimiento.tipo_movimiento == 'EGRESO'}">
-								<span class="details">Origen: ${movimiento.nameSrcAccount}</span>
-							</c:when>
-							
-							<c:when test="${movimiento.tipo_movimiento == 'TRANSFERENCIA'}">
-								<span class="details">Origen: ${movimiento.nameSrcAccount}
-									- Destino: ${movimiento.nameDstAccount}</span>
-							</c:when>
-							</c:choose>
+                <c:when test="${movimiento.movementType == 'INGRESO'}">
+                    <span class="details">Cuenta: ${movimiento.nameDstAccount}</span>
+                </c:when>
+                <c:when test="${movimiento.movementType == 'EGRESO'}">
+                    <span class="details">Cuenta: ${movimiento.nameSrcAccount}</span>
+                </c:when>
+            </c:choose>
         </div>
     </c:forEach>
     
-    <c:if test="${empty movimientos}">
+    <c:if test="${empty movements}">
         <p>No se encontraron movimientos para esta categoría en el rango de fechas especificado.</p>
     </c:if>
+</div>
+
+<div class="center-button">
+            <form action="ContabilidadController?ruta=verdashboard" method="get">
+                <button type="submit" class="button-back">Volver al Dashboard</button>
+            </form>
 </div>
 
 </body>

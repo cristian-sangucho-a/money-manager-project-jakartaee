@@ -16,9 +16,11 @@
 <div class="container">
     <h3>Página No Encontrada</h3>
     <p>Lo sentimos, la página que estás buscando no existe.</p>
-    <div class="actions">
-        <a class="btn" href="ContabilidadController?ruta=verdashboard">Volver al Dashboard</a>
-    </div>
+	<div class="center-button">
+            <form action="ContabilidadController?ruta=verdashboard" method="get">
+                <button type="submit" class="button-back">Volver al Dashboard</button>
+            </form>
+        </div>
 </div>
 
 </body>
