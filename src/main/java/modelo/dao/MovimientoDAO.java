@@ -36,7 +36,22 @@ public class MovimientoDAO {
 	 * @return
 	 */
 	public void update(Movimiento movement) {
-		// TODO implement here
+		EntityManager em = ManejoEntidadPersistencia.getEntityManager();
+        em.getTransaction().begin();
+        try {
+        	Cuenta cuenta = em.find(Cuenta.class, accountID);
+            if (cuenta != null) {
+                cuenta.setBalance(cuenta.getBalance() + value);
+                System.out.print( "Cuentaaaa" + cuenta.getId() + "Ingreso" + value);
+                em.getTransaction().commit();
+            }
+        } finally {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            em.close();
+
+        }
 	}
 
 	/**

@@ -103,7 +103,7 @@ public class ContabilidadController extends HttpServlet {
 		}
 	}
 
-	private void confirmUpdateOfMovement(HttpServletRequest req, HttpServletResponse resp) {
+	private void confirmUpdateOfMovement(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		MovimientoDAO movimientoDAO = new MovimientoDAO();
 		// 1. Obtener datos
 		double value = Double.parseDouble(req.getParameter("value"));	
@@ -117,9 +117,9 @@ public class ContabilidadController extends HttpServlet {
 		movement.setValue(value);
 		movement.setConcept(concept);
 		movement.setDate(date);
-		
+		movimientoDAO.update(movement);
 		// 3. Hablar con la vista
-
+		this.viewDashboard(req, resp);
 	}
 
 	private void updateMovement(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -239,7 +239,7 @@ public class ContabilidadController extends HttpServlet {
 		transferenciaDAO.transfer(amount, dstAccount, srcAccount, date, concept, category);
 
 		// 3. Hablar con la vista
-		viewDashboard(req, resp);
+		this.viewDashboard(req, resp);
 	}
 
 	private void transfer(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -276,7 +276,7 @@ public class ContabilidadController extends HttpServlet {
 		ingresoDAO.registerIncome(date, concept, value, incomeCategory, account);
 		cuentaDAO.updateBalance(value, account.getId());
 		// 3. Hablar con la vista
-		viewDashboard(req, resp);
+		this.viewDashboard(req, resp);
 
 	}
 
@@ -333,7 +333,7 @@ public class ContabilidadController extends HttpServlet {
 		egresoDAO.registerExpense(date, concept, value, expenseCategory, cuentaDAO.getByID(accountID));
 		// 2.2 y 2.3
 		// paso 3: hablar con la vista
-		viewDashboard(req, resp);
+		this.viewDashboard(req, resp);
 	}
 
 	// paso 1: obtener datos
