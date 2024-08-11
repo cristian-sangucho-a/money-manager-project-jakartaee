@@ -213,7 +213,7 @@ public class ContabilidadController extends HttpServlet {
 		int categoryID = Integer.parseInt(req.getParameter("categoryID"));
 		
 		// 2. Hablar con el modelo
-		List<MovimientoDTO> movimientos = categoriaDAO.getMovimientosByCategoria(categoryID);
+		List<MovimientoDTO> movimientos = categoriaDAO.getMovementsByCategory(categoryID, from, to);
 		
 		// 3. Hablar con la vista
 		req.setAttribute("movements", movimientos);

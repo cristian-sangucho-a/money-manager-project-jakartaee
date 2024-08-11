@@ -29,7 +29,7 @@ public class CategoriaDAO {
 		
 	}
 
-	public List<MovimientoDTO> getMovimientosByCategoria(int categoryID) {
+	public List<MovimientoDTO> getMovementsByCategory(int categoryID, Date from, Date to) {
 		List<MovimientoDTO> resultList = new ArrayList<>();
 		EntityManager em = ManejoEntidadPersistencia.getEntityManager();
 		try {
