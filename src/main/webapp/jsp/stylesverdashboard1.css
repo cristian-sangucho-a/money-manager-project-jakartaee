@@ -167,3 +167,46 @@ body {
 .amount.positive {
     color: #4CAF50;
 }
+
+/* Estilos para los movimientos */
+.movement-card {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+.movement-card .movement-details {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.movement-card .movement-details .date {
+    font-size: 14px;
+    color: #666;
+}
+
+.movement-card .movement-details .description {
+    font-size: 16px;
+    color: #333;
+    font-weight: 500;
+}
+
+.movement-card .amount {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.movement-card .amount.negative {
+    color: #f44336;
+}
+
+.movement-card .amount.positive {
+    color: #4CAF50;
+}
