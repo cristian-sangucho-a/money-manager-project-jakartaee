@@ -57,6 +57,9 @@ public class ContabilidadController extends HttpServlet {
 		String ruta = (req.getParameter("ruta") == null) ? "verdashboard" : req.getParameter("ruta");
 
 		switch (ruta) {
+		case "eliminarmovimiento":
+			this.deleteMovement(req, resp);
+			break;
 		case "verdashboard":
 			this.viewDashboard(req, resp);
 			break;
@@ -92,6 +95,18 @@ public class ContabilidadController extends HttpServlet {
 			this.error(req, resp);
 			break;
 		}
+	}
+
+	private void deleteMovement(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//1. Obtener datos
+		int movementID = Integer.parseInt(req.getParameter("movementID"));
+		MovimientoDAO movimientoDAO = new MovimientoDAO();
+		
+		Movimiento mov = movimientoDAO.getMovementById(movementID);
+		
+		movimientoDAO.delete(mov);
+		
+		this.viewDashboard(req, resp);
 	}
 
 	private void viewMovements(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
