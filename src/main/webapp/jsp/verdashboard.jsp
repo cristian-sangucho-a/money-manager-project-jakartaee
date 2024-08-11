@@ -73,7 +73,7 @@
     <div class="tabs">
         <a class="tab">Categorías</a>
     </div>
-
+    
     <div class="container">
         <div class="category-container">
             <h2>Ingresos</h2>
@@ -107,13 +107,31 @@
     <div class="container">
         <div class="movements-container">
             <c:forEach var="movement" items="${movements}">
-                <div class="movement-card">
+                <div class="movement-card ${movement.tipoMovimiento}">
                     <div class="movement-details">
                         <span class="date">${movement.date}</span>
                         <span class="description">${movement.concept}</span>
+                        <c:choose>
+                            <c:when test="${movement.tipoMovimiento == 'Transferencia'}">
+                                <span class="details">Origen: ${movement.nameSrc} - Destino: ${movement.nameDst}</span>
+                            </c:when>
+                        </c:choose>
                     </div>
                     <div class="amount ${movement.value < 0 ? 'negative' : 'positive'}">
                         ${movement.value}
+                    </div>
+                    <div class="movement-type">
+                        <c:choose>
+                            <c:when test="${movement.tipoMovimiento == 'Ingreso'}">
+                                <span>Ingreso</span>
+                            </c:when>
+                            <c:when test="${movement.tipoMovimiento == 'Egreso'}">
+                                <span>Egreso</span>
+                            </c:when>
+                            <c:when test="${movement.tipoMovimiento == 'Transferencia'}">
+                                <span>Transferencia</span>
+                            </c:when>
+                        </c:choose>
                     </div>
                 </div>
             </c:forEach>
