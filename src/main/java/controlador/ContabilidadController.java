@@ -106,6 +106,7 @@ public class ContabilidadController extends HttpServlet {
 	private void confirmUpdateOfMovement(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		MovimientoDAO movimientoDAO = new MovimientoDAO();
+		
 		// 1. Obtener datos
 		int categoryID = Integer.parseInt(req.getParameter("categoryID"));
 		double value = Double.parseDouble(req.getParameter("value"));
@@ -118,6 +119,18 @@ public class ContabilidadController extends HttpServlet {
 		String tipo_movimiento = req.getParameter("tipo_movimiento");
 		int movementID = Integer.parseInt(req.getParameter("movementID"));
 		// 2. Hablar con el modelo
+		
+		Movimiento mov = movimientoDAO.getMovementById(movementID);
+		
+		if(mov instanceof Ingreso) {
+			mov = (Ingreso) mov;
+			//((Ingreso) mov).setDstAccount(dstAccountID);
+		}else if(mov instanceof Egreso){
+			mov = (Egreso) mov;
+		} else if(mov instanceof Transferencia) {
+			mov = (Transferencia) mov;
+		}
+		
 		MovimientoDTO movimientoDTO = new MovimientoDTO(movementID, srcAccountID, dstAccountID, concept, date, value,
 				tipo_movimiento);
 		movimientoDAO.update(movimientoDTO, categoryID);
