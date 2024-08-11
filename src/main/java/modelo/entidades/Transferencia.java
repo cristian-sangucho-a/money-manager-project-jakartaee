@@ -57,7 +57,7 @@ public class Transferencia extends Movimiento implements Serializable {
 		return categoria;
 	}
 
-	public void setCategoriaTransferencia(CategoriaTransferencia categoriaTransferencia) {
+	public void setCategoria(CategoriaTransferencia categoriaTransferencia) {
 		this.categoria = categoriaTransferencia;
 	}
 

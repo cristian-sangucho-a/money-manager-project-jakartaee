@@ -40,19 +40,19 @@ public class MovimientoDTO {
 		this.id = id;
 	}
 
-	public int getSrc() {
+	public int getSrcAccount() {
 		return src;
 	}
 
-	public void setSrc(int src) {
+	public void setSrcAccount(int src) {
 		this.src = src;
 	}
 
-	public int getDst() {
+	public int getDstAccount() {
 		return dst;
 	}
 
-	public void setDst(int dst) {
+	public void setDstAccount(int dst) {
 		this.dst = dst;
 	}
 
@@ -88,13 +88,13 @@ public class MovimientoDTO {
 		this.tipo_movimiento = tipo_movimiento;
 	}
 
-	public String getNameSrc(){
+	public String getNameSrcAccount(){
         CuentaDAO cuentaDao = new CuentaDAO();
         Cuenta cuentaSrc = cuentaDao.getByID(this.src);
         return cuentaSrc.getName();
     }
 
-    public String getNameDst(){
+    public String getNameDstAccount(){
         CuentaDAO cuentaDao = new CuentaDAO();
         Cuenta cuentaDst = cuentaDao.getByID(this.dst);
         return cuentaDst.getName();
