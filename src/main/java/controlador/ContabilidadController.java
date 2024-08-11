@@ -108,7 +108,6 @@ public class ContabilidadController extends HttpServlet {
 		MovimientoDAO movimientoDAO = new MovimientoDAO();
 		
 		// 1. Obtener datos
-		int categoryID = Integer.parseInt(req.getParameter("categoryID"));
 		double value = Double.parseDouble(req.getParameter("value"));
 		String concept = req.getParameter("concept");
 		int srcAccountID = (req.getParameter("srcAccountID") == null) ? 0
@@ -116,11 +115,12 @@ public class ContabilidadController extends HttpServlet {
 		int dstAccountID = (req.getParameter("dstAccountID") == null) ? 0
 				: Integer.parseInt(req.getParameter("dstAccountID"));
 		Date date = convertToDate(req.getParameter("date"));
-		String tipo_movimiento = req.getParameter("tipo_movimiento");
 		int movementID = Integer.parseInt(req.getParameter("movementID"));
+		int categoryID = Integer.parseInt(req.getParameter("categoryID"));
+		String movementType = req.getParameter("movementType");
 		// 2. Hablar con el modelo
 		MovimientoDTO movimientoDTO = new MovimientoDTO(movementID, srcAccountID, dstAccountID, concept, date, value,
-				tipo_movimiento);
+				movementType);
 		movimientoDAO.update(movimientoDTO, categoryID);
 		// 3. Hablar con la vista
 		this.viewDashboard(req, resp);
@@ -131,34 +131,35 @@ public class ContabilidadController extends HttpServlet {
 		// 1. Obtener datos
 		int movementID = Integer.parseInt(req.getParameter("movementID"));
 		// 2. Hablar con el modelo
-		MovimientoDTO movementDTO = movimientoDAO.getMovementDTOById(movementID);
 		Movimiento movimiento = movimientoDAO.getMovementById(movementID);
-		Object listaCategorias = null;
+		
+		MovimientoDTO movementDTO = movimientoDAO.getMovementDTOById(movementID); //Considerar el metodo en diseno
+		Object movementsCategories = null;
 		if (movimiento instanceof Egreso) {
 			CategoriaEgresoDAO categoriaEgresoDAO = new CategoriaEgresoDAO();
-			listaCategorias = categoriaEgresoDAO.getAll();
+			movementsCategories = categoriaEgresoDAO.getAll();
 		} else if (movimiento instanceof Ingreso) {
 			CategoriaIngresoDAO categoriaIngresoDAO = new CategoriaIngresoDAO();
-			listaCategorias = categoriaIngresoDAO.getAll();
+			movementsCategories = categoriaIngresoDAO.getAll();
 		} else if (movimiento instanceof Transferencia) {
 			CategoriaTransferenciaDAO categoriaTransferenciaDAO = new CategoriaTransferenciaDAO();
-			listaCategorias = categoriaTransferenciaDAO.getAll();
+			movementsCategories = categoriaTransferenciaDAO.getAll();
 		}
 		// 3. Hablar con la vista
 		req.setAttribute("movement", movementDTO);
-		req.setAttribute("list", listaCategorias);
+		req.setAttribute("movementsCategories", movementsCategories);
 		req.getRequestDispatcher("jsp/actualizarmovimiento.jsp").forward(req, resp);
 	}
 
 	private void deleteMovement(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		MovimientoDAO movimientoDAO = new MovimientoDAO();
 		// 1. Obtener datos
 		int movementID = Integer.parseInt(req.getParameter("movementID"));
-		MovimientoDAO movimientoDAO = new MovimientoDAO();
-
+		
+		//2. Hablar con el modelo
 		Movimiento mov = movimientoDAO.getMovementById(movementID);
-
 		movimientoDAO.delete(mov);
-
+		//3. Hablar con la vista
 		this.viewDashboard(req, resp);
 	}
 
@@ -194,7 +195,6 @@ public class ContabilidadController extends HttpServlet {
 		CategoriaIngresoDAO categoriaIngresoDAO = new CategoriaIngresoDAO();
 		CategoriaDAO categoriaDAO = new CategoriaDAO();
 		// 1. Obtener datos
-		int categoryID = Integer.parseInt(req.getParameter("categoryID"));
 		Date from;
 		Date to;
 		String fromString = (String) req.getAttribute("from");
@@ -210,18 +210,19 @@ public class ContabilidadController extends HttpServlet {
 			from = convertToDate(fromDefault);
 			to = convertToDate(toDefault);
 		}
+		int categoryID = Integer.parseInt(req.getParameter("categoryID"));
+		
 		// 2. Hablar con el modelo
 		List<MovimientoDTO> movimientos = categoriaDAO.getMovimientosByCategoria(categoryID);
 		
 		// 3. Hablar con la vista
-		req.setAttribute("movimientos", movimientos);
+		req.setAttribute("movements", movimientos);
 		req.getRequestDispatcher("jsp/vercategoria.jsp").forward(req, resp);
 		
 	}
 
 	private void error(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.sendRedirect("jsp/error.jsp");
-
 	}
 
 	private void confirmTransfer(HttpServletRequest req, HttpServletResponse resp)
@@ -314,7 +315,7 @@ public class ContabilidadController extends HttpServlet {
 	}
 
 	private void cancel(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.sendRedirect("jsp/vercuenta.jsp");
+		this.viewDashboard(req, resp);
 	}
 
 	private void confirmRegisterExpense(HttpServletRequest req, HttpServletResponse resp)
@@ -382,12 +383,12 @@ public class ContabilidadController extends HttpServlet {
 		// paso 1: obtener datos
 		int accountID = Integer.parseInt(req.getParameter("accountID"));
 		// paso 2: hablar con el modelo
-		List<MovimientoDTO> movements = movimientoDAO.getAllByAccount(accountID);
 		Cuenta account = cuentaDAO.getByID(accountID);
+		List<MovimientoDTO> movements = movimientoDAO.getAllByAccount(accountID);
 
 		// paso 3: hablar con la vista
-		req.setAttribute("movements", movements);
 		req.setAttribute("account", account);
+		req.setAttribute("movements", movements);
 		req.getRequestDispatcher("jsp/vercuenta.jsp").forward(req, resp);
 	}
 
