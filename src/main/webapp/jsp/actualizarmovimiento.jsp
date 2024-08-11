@@ -18,7 +18,7 @@
     <input type="hidden" name="ruta" value="actualizarmovimiento">
     <input type="hidden" name="srcAccountID" value="${movement.srcAccount}">
     <input type="hidden" name="dstAccountID" value="${movement.dstAccount}">
-    <input type="hidden" name="movementTypemovimiento" value="${movement.movementTypemovimiento}">
+    <input type="hidden" name="tipo_movimiento" value="${movement.tipo_movimiento}">
     <input type="hidden" name="movementID" value="${movement.id}">
 
     <label for="concept">Concepto:</label>
@@ -39,7 +39,7 @@
 
     <div class="controls center-button">
         <button type="submit">Registrar</button>
-        <form action="ContabilidadController?ruta=verdashboard" method="GET" style="display:inline;">
+        <form action="ContabilidadController?ruta=cancelar" method="GET" style="display:inline;">
             <button type="submit">Cancelar</button>
         </form>
     </div>
