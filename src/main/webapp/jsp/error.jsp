@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Error 404 - Página No Encontrada</title>
-    <link rel="stylesheet" type="text/css" href="styleserror.css">
+    <link rel="stylesheet" type="text/css" href="jsp/styleserror1.css">
 </head>
 <body>
 

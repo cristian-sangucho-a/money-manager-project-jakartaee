@@ -38,6 +38,7 @@ form {
     padding: 20px;
     width: 100%;
     max-width: 400px;
+    margin-top: 60px; /* Para evitar que el formulario quede debajo del header */
 }
 
 label {
@@ -68,22 +69,10 @@ select:focus {
 }
 
 .controls {
-    background-color: #fff;
-    padding: 10px;
-    border-bottom: 2px solid #ddd;
     display: flex;
     justify-content: center;
     gap: 10px;
-}
-
-.controls label {
-    margin-right: 5px;
-    font-weight: bold;
-}
-
-.controls input[type="date"] {
-    padding: 5px;
-    font-size: 14px;
+    margin-top: 20px;
 }
 
 .controls button {
@@ -94,6 +83,7 @@ select:focus {
     cursor: pointer;
     font-size: 14px;
     font-weight: 500;
+    border-radius: 4px;
 }
 
 .controls button:hover {
