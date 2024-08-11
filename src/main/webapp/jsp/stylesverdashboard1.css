@@ -2,17 +2,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Merriweather:wght@700&display=swap');
 
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif; /* Fuente principal */
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
 }
 
 .header {
-    background-color: #698a8c;
-    color: #333;
+    background-color: #698a8c; /* Primer color */
+    color: #fff;
     padding: 10px;
     text-align: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
 }
 
 .header h1 {
@@ -20,7 +25,6 @@ body {
     font-size: 36px;
     font-weight: 700;
     margin: 0;
-    color: #fff;
 }
 
 .controls {
@@ -30,6 +34,7 @@ body {
     display: flex;
     justify-content: center;
     gap: 10px;
+    margin-top: 60px; /* Para evitar que el contenido quede oculto detrás del header fijo */
 }
 
 .controls label {
@@ -43,7 +48,7 @@ body {
 }
 
 .controls button {
-    background-color: #486565;
+    background-color: #486565; /* Segundo color */
     color: #fff;
     border: none;
     padding: 8px 12px;
@@ -53,21 +58,21 @@ body {
 }
 
 .controls button:hover {
-    background-color: #57745d;
+    background-color: #57745d; /* Tercer color */
 }
 
 .tabs {
     display: flex;
     justify-content: center;
-    background-color: #698a8c;
+    background-color: #698a8c; /* Primer color */
     padding: 10px 0;
-    margin-bottom: 20px;
+    margin: 20px 0;
     border-top: 3px solid #333;
     border-bottom: 3px solid #333;
 }
 
 .tab {
-    color: #fff;
+    color: #fff; 
     text-decoration: none;
     padding: 10px 20px;
     font-weight: bold;
@@ -81,10 +86,13 @@ body {
 
 .container {
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 20px;
     padding: 20px;
+    margin-top: 20px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .account-container, .category-container, .movements-container {
@@ -123,79 +131,39 @@ body {
 
 .actions {
     display: flex;
-    flex-direction: column;
+    justify-content: space-around;
     margin-top: 15px;
-    gap: 10px;
 }
 
 .actions a {
     text-decoration: none;
-    color: #486565;
+    color: #486565; /* Segundo color */
     font-weight: bold;
-    font-size: 14px;
-    padding: 10px 0;
-    background-color: #ddd;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-    text-align: center;
-    width: 100%;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
+    font-size: 12px;
 }
 
 .actions a:hover {
     color: #fff;
-    background-color: #486565;
+    background-color: #486565; /* Segundo color */
+    padding: 5px 10px;
+    border-radius: 5px;
 }
 
-/* Estilos para las tarjetas de categorías */
-.category-card .balance {
-    font-size: 20px;
-    color: #333;
-}
-
-/* Estilos para los movimientos */
-.movement-card {
-    width: 100%;
+.movement-details {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 10px;
 }
 
-.movement-card .movement-details {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-}
-
-.movement-card .movement-details .date {
-    font-size: 14px;
-    color: #666;
-}
-
-.movement-card .movement-details .description {
-    font-size: 16px;
-    color: #333;
-    font-weight: 500;
-}
-
-.movement-card .amount {
+.amount {
     font-size: 18px;
     font-weight: bold;
+    margin-top: 10px;
 }
 
-.movement-card .amount.negative {
+.amount.negative {
     color: #f44336;
 }
 
-.movement-card .amount.positive {
+.amount.positive {
     color: #4CAF50;
 }
