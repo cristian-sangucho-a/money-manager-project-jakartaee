@@ -339,8 +339,8 @@ public class ContabilidadController extends HttpServlet {
 		Date to;
 		// paso 1: obtener datos
 		// setear la fecha default segun la regla de negocio del caso de uso
-		String fromString = (String) req.getAttribute("from");
-		String toString = (String) req.getAttribute("to");
+		String fromString = (String) req.getParameter("from");
+		String toString = (String) req.getParameter("to");
 		
 
 		if (fromString == null || toString == null) {
@@ -355,6 +355,7 @@ public class ContabilidadController extends HttpServlet {
 			from = convertToDate(fromDefault);
 			to = convertToDate(toDefault);
 		}
+
 
 		// paso 2: hablar con el modelo
 		List<Cuenta> accounts = cuentaDAO.getAll();

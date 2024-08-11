@@ -32,7 +32,39 @@ public class MovimientoDTO {
         this.tipo_movimiento = tipo_movimiento;
     }
 
-    public int getId() {
+    public String getTipo_movimiento() {
+		return tipo_movimiento;
+	}
+
+	public void setTipo_movimiento(String tipo_movimiento) {
+		this.tipo_movimiento = tipo_movimiento;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setSrc(int src) {
+		this.src = src;
+	}
+
+	public void setDst(int dst) {
+		this.dst = dst;
+	}
+
+	public void setConcept(String concept) {
+		this.concept = concept;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public void setValue(double value) {
+		this.value = value;
+	}
+
+	public int getId() {
         return id;
     }
 

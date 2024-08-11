@@ -79,9 +79,9 @@
             <h2>Ingresos</h2>
             <c:forEach var="incomeCategory" items="${incomes}">
                 <div class="category-card">
-                    <h3>${incomeCategory.name}</h3>
+                    <h3>${incomeCategory.categoryName}</h3>
                     <div class="balance">
-                        ${incomeCategory.total}
+                        ${incomeCategory.sumarized}
                     </div>
                 </div>
             </c:forEach>
@@ -91,9 +91,9 @@
             <h2>Egresos</h2>
             <c:forEach var="expenseCategory" items="${expenses}">
                 <div class="category-card">
-                    <h3>${expenseCategory.name}</h3>
+                    <h3>${expenseCategory.categoryName}</h3>
                     <div class="balance">
-                        ${expenseCategory.total}
+                        ${expenseCategory.sumarized}
                     </div>
                 </div>
             </c:forEach>
@@ -110,10 +110,10 @@
                 <div class="movement-card">
                     <div class="movement-details">
                         <span class="date">${movement.date}</span>
-                        <span class="description">${movement.description}</span>
+                        <span class="description">${movement.concept}</span>
                     </div>
-                    <div class="amount ${movement.amount < 0 ? 'negative' : 'positive'}">
-                        ${movement.amount}
+                    <div class="amount ${movement.value < 0 ? 'negative' : 'positive'}">
+                        ${movement.value}
                     </div>
                 </div>
             </c:forEach>
