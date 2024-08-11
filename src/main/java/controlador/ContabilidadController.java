@@ -60,6 +60,12 @@ public class ContabilidadController extends HttpServlet {
 		case "eliminarmovimiento":
 			this.deleteMovement(req, resp);
 			break;
+		case "actualizarmovimiento":
+			this.updateMovement(req, resp);
+			break;
+		case "confirmaractualizarmovimiento":
+			this.confirmUpdateOfMovement(req, resp);
+			break;
 		case "verdashboard":
 			this.viewDashboard(req, resp);
 			break;
@@ -97,21 +103,51 @@ public class ContabilidadController extends HttpServlet {
 		}
 	}
 
+	private void confirmUpdateOfMovement(HttpServletRequest req, HttpServletResponse resp) {
+		MovimientoDAO movimientoDAO = new MovimientoDAO();
+		// 1. Obtener datos
+		double value = Double.parseDouble(req.getParameter("value"));	
+		String concept = req.getParameter("movementID");	
+		int srcAccountID = Integer.parseInt(req.getParameter("srcAccountID"));	
+		int dstAccountID = Integer.parseInt(req.getParameter("dstAccountID"));	
+		Date date = convertToDate(req.getParameter("date"));
+		int movementID = Integer.parseInt(req.getParameter("movementID"));
+		// 2. Hablar con el modelo
+		Movimiento movement = movimientoDAO.getMovementById(movementID);
+		movement.setValue(value);
+		movement.setConcept(concept);
+		movement.setDate(date);
+		
+		// 3. Hablar con la vista
+
+	}
+
+	private void updateMovement(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		MovimientoDAO movimientoDAO = new MovimientoDAO();
+		// 1. Obtener datos
+		int movementID = Integer.parseInt(req.getParameter("movementID"));		
+		// 2. Hablar con el modelo
+		Movimiento movement = movimientoDAO.getMovementById(movementID);
+		// 3. Hablar con la vista
+		req.setAttribute("movement", movement);
+		req.getRequestDispatcher("jsp/actualizarmovimiento.jsp").forward(req, resp);
+	}
+
 	private void deleteMovement(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//1. Obtener datos
+		// 1. Obtener datos
 		int movementID = Integer.parseInt(req.getParameter("movementID"));
 		MovimientoDAO movimientoDAO = new MovimientoDAO();
-		
+
 		Movimiento mov = movimientoDAO.getMovementById(movementID);
-		
+
 		movimientoDAO.delete(mov);
-		
+
 		this.viewDashboard(req, resp);
 	}
 
 	private void viewMovements(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		MovimientoDAO movimientoDAO = new MovimientoDAO();
-		//1. Obtener datos
+		// 1. Obtener datos
 		Date from;
 		Date to;
 		String fromString = (String) req.getAttribute("from");
@@ -127,19 +163,19 @@ public class ContabilidadController extends HttpServlet {
 			from = convertToDate(fromDefault);
 			to = convertToDate(toDefault);
 		}
-		//2. Hablar con el modelo
+		// 2. Hablar con el modelo
 		List<MovimientoDTO> movements = movimientoDAO.getAll(from, to);
-		//3. Hablar con la vista
+		// 3. Hablar con la vista
 		req.setAttribute("movements", movements);
 		req.getRequestDispatcher("jsp/vermovimientos.jsp").forward(req, resp);
-		
+
 	}
 
 	private void viewCategory(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		MovimientoDAO movimientoDAO = new MovimientoDAO();
 		CategoriaEgresoDAO categoriaEgresoDAO = new CategoriaEgresoDAO();
 		CategoriaIngresoDAO categoriaIngresoDAO = new CategoriaIngresoDAO();
-		//1. Obtener datos
+		// 1. Obtener datos
 		int categoryID = Integer.parseInt(req.getParameter("categoryID"));
 		Date from;
 		Date to;
@@ -156,54 +192,53 @@ public class ContabilidadController extends HttpServlet {
 			from = convertToDate(fromDefault);
 			to = convertToDate(toDefault);
 		}
-		//2. Hablar con el modelo
-		
-		//3. Hablar con la vista
-		
+		// 2. Hablar con el modelo
+
+		// 3. Hablar con la vista
+
 	}
 
 	private void error(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.sendRedirect("jsp/error.jsp");
-		
+
 	}
 
-	private void confirmTransfer(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	private void confirmTransfer(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
 		CuentaDAO cuentaDAO = new CuentaDAO();
 		TransferenciaDAO transferenciaDAO = new TransferenciaDAO();
 		CategoriaTransferenciaDAO categoriaTransferenciaDAO = new CategoriaTransferenciaDAO();
-		//1. Obtener datos
+		// 1. Obtener datos
 		double amount = Double.parseDouble(req.getParameter("amount"));
-		
+
 		int dstAccountID = Integer.parseInt(req.getParameter("dstAccountID"));
 		System.out.print(dstAccountID);
 		System.out.println(dstAccountID);
-		Cuenta dstAccount =cuentaDAO.getByID(dstAccountID);
-		
+		Cuenta dstAccount = cuentaDAO.getByID(dstAccountID);
+
 		int srcAccountID = Integer.parseInt(req.getParameter("srcAccountID"));
 		System.out.println(srcAccountID);
 		Cuenta srcAccount = cuentaDAO.getByID(srcAccountID);
 		System.out.print(srcAccountID);
 		Date date = convertToDate(req.getParameter("date"));
-		
+
 		String concept = req.getParameter("concept");
-		
+
 		double balance = srcAccount.getBalance();
-		
-		
-		//2. Hablar con el modelo
+
+		// 2. Hablar con el modelo
 		boolean approveTransfer = amount < balance;
-		
-		if(!approveTransfer) {
+
+		if (!approveTransfer) {
 			req.setAttribute("aproveTransfer", approveTransfer);
 			registerExpense(req, resp);
 			return;
 		}
-		
-		
+
 		CategoriaTransferencia category = categoriaTransferenciaDAO.getCategoryById(1);
 		transferenciaDAO.transfer(amount, dstAccount, srcAccount, date, concept, category);
-		
-		//3. Hablar con la vista
+
+		// 3. Hablar con la vista
 		viewDashboard(req, resp);
 	}
 
@@ -281,8 +316,8 @@ public class ContabilidadController extends HttpServlet {
 		int categoryID = Integer.parseInt(req.getParameter("categoryID"));
 		double balance = cuentaDAO.getBalance(accountID);
 		boolean approveExpense = value < balance;
-		
-		if(!approveExpense) {
+
+		if (!approveExpense) {
 			req.setAttribute("approveExpense", approveExpense);
 			registerExpense(req, resp);
 			return;
@@ -356,7 +391,6 @@ public class ContabilidadController extends HttpServlet {
 		// setear la fecha default segun la regla de negocio del caso de uso
 		String fromString = (String) req.getParameter("from");
 		String toString = (String) req.getParameter("to");
-		
 
 		if (fromString == null || toString == null) {
 			from = convertToDate(fromDefault);
@@ -371,15 +405,12 @@ public class ContabilidadController extends HttpServlet {
 			to = convertToDate(toDefault);
 		}
 
-
 		// paso 2: hablar con el modelo
 		List<Cuenta> accounts = cuentaDAO.getAll();
 		List<CategoriaResumenDTO> incomeCategoriesSumarized = categoriaIngresoDAO.getAllSumarized(from, to);
 		List<CategoriaResumenDTO> expenseCategoriesSumarized = categoriaEgresoDAO.getAllSumarized(from, to);
 		List<MovimientoDTO> movements = movimientoDAO.getAll(from, to);
-	
-		
-		
+
 		// paso 3: hablar con la vista
 		req.setAttribute("movements", movements);
 		req.setAttribute("accounts", accounts);
