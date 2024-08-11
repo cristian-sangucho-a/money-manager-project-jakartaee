@@ -289,6 +289,7 @@ public class MovimientoDAO {
 		}
 		return null;
 	}
+	
 	private Object typeOfMovementToUpdate(Movimiento movement, CuentaDAO cdao, MovimientoDTO movementDTO, int categoryID) {
 		if (movement instanceof Egreso) {
 			CategoriaEgresoDAO categoriaEgresoDAO = new CategoriaEgresoDAO();

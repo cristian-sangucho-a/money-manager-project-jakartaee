@@ -191,6 +191,7 @@ public class ContabilidadController extends HttpServlet {
 		MovimientoDAO movimientoDAO = new MovimientoDAO();
 		CategoriaEgresoDAO categoriaEgresoDAO = new CategoriaEgresoDAO();
 		CategoriaIngresoDAO categoriaIngresoDAO = new CategoriaIngresoDAO();
+		CategoriaDAO categoriaDAO = new CategoriaDAO();
 		// 1. Obtener datos
 		int categoryID = Integer.parseInt(req.getParameter("categoryID"));
 		Date from;
@@ -209,9 +210,12 @@ public class ContabilidadController extends HttpServlet {
 			to = convertToDate(toDefault);
 		}
 		// 2. Hablar con el modelo
-
+		List<MovimientoDTO> movimientos = categoriaDAO.getMovimientosByCategoria(categoryID);
+		
 		// 3. Hablar con la vista
-
+		req.setAttribute("movimientos", movimientos);
+		req.getRequestDispatcher("jsp/vercategoria.jsp").forward(req, resp);
+		
 	}
 
 	private void error(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -13,15 +13,15 @@
 <div class="movimientos">
     <c:forEach var="movimiento" items="${movimientos}">
         <div class="movimiento">
-            <p><strong>Concepto:</strong> ${movement.concept}</p>
-            <p><strong>Fecha:</strong> ${movement.date}</p>
-            <p><strong>Valor:</strong> ${movement.value}</p>
-            <p><strong>Origen:</strong> ${movement.srcName}</p>
-            <p><strong>Destino:</strong> ${movement.dstName}</p>
+            <p><strong>Concepto:</strong> ${movimiento.concept}</p>
+            <p><strong>Fecha:</strong> ${movimiento.date}</p>
+            <p><strong>Valor:</strong> ${movimiento.value}</p>
+            <p><strong>Origen:</strong> ${movimiento.srcAccount}</p>
+            <p><strong>Destino:</strong> ${movimiento.dstAccount}</p>
         </div>
     </c:forEach>
     
-    <c:if test="${empty movements}">
+    <c:if test="${empty movimientos}">
         <p>No se encontraron movimientos para esta categoría en el rango de fechas especificado.</p>
     </c:if>
 </div>
