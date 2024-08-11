@@ -29,14 +29,16 @@ public class CategoriaDAO {
 		
 	}
 
-	public List<MovimientoDTO> getMovimientosByCategoria(int categoryID) {
+	public List<MovimientoDTO> getMovementsByCategory(int categoryID, Date from, Date to) {
 		List<MovimientoDTO> resultList = new ArrayList<>();
 		EntityManager em = ManejoEntidadPersistencia.getEntityManager();
 		try {
 			String queryStr = "SELECT m.* " + "FROM Movimiento m "
-					+ "WHERE m.Categoria_ID = ?1 ";
+					+ "WHERE (FECHA BETWEEN ?1 AND ?2) AND m.Categoria_ID = ?3 ";
 			Query query = em.createNativeQuery(queryStr);
-			query.setParameter(1, categoryID);
+			query.setParameter(1, from);
+			query.setParameter(2, to);
+			query.setParameter(3, categoryID);
 			List<Object[]> results = query.getResultList();
 			for (Object[] result : results) {
 				int id = (Integer) result[0];
