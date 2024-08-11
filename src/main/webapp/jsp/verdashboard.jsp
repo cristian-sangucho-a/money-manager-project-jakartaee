@@ -134,10 +134,10 @@
                         </c:choose>
                     </div>
                     <div class="actions">
-                        <a href="ContabilidadController?ruta=updatemovement&movementID=${movement.id}">
+                        <a href="ContabilidadController?ruta=actualizarmovimiento&movementID=${movement.id}">
                             <i class="fa-solid fa-pen-to-square"></i> Editar
                         </a>
-                        <a href="ContabilidadController?ruta=deletemovement&movementID=${movement.id}">
+                        <a href="ContabilidadController?ruta=eliminarmovimiento&movementID=${movement.id}">
                             <i class="fa-solid fa-trash"></i> Eliminar
                         </a>
                     </div>
