@@ -42,7 +42,7 @@ public class RecursoContabilidad {
 	    List<Categoria> result = new ArrayList<>();	    
 	    result.addAll(cedao.getAll()); 
 	    result.addAll(cidao.getAll());
-	    result.add(ctdao.getCategoryById(1));
+	    result.addAll(ctdao.getAll());
 	    
 	    return result;        
 	}
