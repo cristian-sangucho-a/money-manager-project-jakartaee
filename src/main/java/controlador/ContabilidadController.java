@@ -205,26 +205,23 @@ public class ContabilidadController extends HttpServlet {
 		// 1. Obtener datos
 		double amount = Double.parseDouble(req.getParameter("amount"));
 		int dstAccountID = Integer.parseInt(req.getParameter("dstAccountID"));
-		Cuenta dstAccount = cuentaDAO.getByID(dstAccountID);
 		int srcAccountID = Integer.parseInt(req.getParameter("srcAccountID"));
-		Cuenta srcAccount = cuentaDAO.getByID(srcAccountID);
 		Date date = convertToDate(req.getParameter("date"));
 		String concept = req.getParameter("concept");
-		double balance = srcAccount.getBalance();
 		int categoriaTransferenciaID = Integer.parseInt(req.getParameter("categoryID"));
+		
+		CategoriaTransferencia category = categoriaTransferenciaDAO.getCategoryById(categoriaTransferenciaID);
+		Cuenta dstAccount = cuentaDAO.getByID(dstAccountID);
+		Cuenta srcAccount = cuentaDAO.getByID(srcAccountID);
+		double balance = srcAccount.getBalance();
 		// 2. Hablar con el modelo
 		boolean approveTransfer = amount <= balance;
-
 		if (!approveTransfer) {
 			req.setAttribute("approveTransfer", approveTransfer);
 			this.transfer(req, resp);
 			return;
 		}
-
-		CategoriaTransferencia category = categoriaTransferenciaDAO.getCategoryById(categoriaTransferenciaID);
-		
 		transferenciaDAO.transfer(amount, dstAccount, srcAccount, date, concept, category);
-
 		// 3. Hablar con la vista
 		this.viewDashboard(req, resp);
 	}
@@ -238,31 +235,33 @@ public class ContabilidadController extends HttpServlet {
 		// 2. Hablar con el modelo
 		Cuenta srcAccount = cuentaDAO.getByID(accountID);
 		List<Cuenta> accounts = cuentaDAO.getAll();
+		double balance = srcAccount.getBalance();
 		List<CategoriaTransferencia> transferCategories = categoriaTransferenciaDAO.getAll();
+		
 		// 3. Hablar con la vista
 		req.setAttribute("srcAccount", srcAccount);
 		req.setAttribute("accounts", accounts);
-		req.setAttribute("balance", srcAccount.getBalance());
+		req.setAttribute("balance", balance);
 		req.setAttribute("categories", transferCategories);
 		req.getRequestDispatcher("jsp/registrartransferencia.jsp").forward(req, resp);
 	}
 
 	private void confirmRegisterIncome(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		// 1. Obtener datos
 		CuentaDAO cuentaDAO = new CuentaDAO();
 		CategoriaIngresoDAO categoriaIngresoDAO = new CategoriaIngresoDAO();
 		IngresoDAO ingresoDAO = new IngresoDAO();
+		// 1. Obtener datos
 		Date date = convertToDate(req.getParameter("date"));
 		String concept = req.getParameter("concept");
 		double value = Double.parseDouble(req.getParameter("value"));
 		int categoryID = Integer.parseInt(req.getParameter("categoryID"));
 		int accountID = Integer.parseInt(req.getParameter("accountID"));
-		Cuenta account = cuentaDAO.getByID(accountID);
 		// 2. Hablar con el modelo
 		CategoriaIngreso incomeCategory = categoriaIngresoDAO.getCategoryById(categoryID);
+		Cuenta account = cuentaDAO.getByID(accountID);
 		ingresoDAO.registerIncome(date, concept, value, incomeCategory, account);
-		cuentaDAO.updateBalance(value, account.getId());
+		cuentaDAO.updateBalance(value, accountID);
 		// 3. Hablar con la vista
 		this.viewDashboard(req, resp);
 
@@ -273,15 +272,15 @@ public class ContabilidadController extends HttpServlet {
 		CuentaDAO cuentaDAO = new CuentaDAO();
 		// 1. Obtener datos
 		int accountID = Integer.parseInt(req.getParameter("accountID"));
-		Cuenta account = cuentaDAO.getByID(accountID);
 		// 2. Hablar con el modelo
+		Cuenta account = cuentaDAO.getByID(accountID);
 		double balance = account.getBalance();
 		List<CategoriaIngreso> categories = categoriaIngresoDAO.getAll();
 
 		// 3. Hablar con la vista
 		req.setAttribute("balance", balance);
 		req.setAttribute("categories", categories);
-		req.setAttribute("account", account.getId());
+		req.setAttribute("accountID", account.getId());
 		req.getRequestDispatcher("jsp/registraringreso.jsp").forward(req, resp);
 
 	}
