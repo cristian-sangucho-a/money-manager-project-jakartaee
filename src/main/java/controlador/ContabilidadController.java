@@ -106,6 +106,7 @@ public class ContabilidadController extends HttpServlet {
 	private void confirmUpdateOfMovement(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		MovimientoDAO movimientoDAO = new MovimientoDAO();
+		
 		// 1. Obtener datos
 		int categoryID = Integer.parseInt(req.getParameter("categoryID"));
 		double value = Double.parseDouble(req.getParameter("value"));
