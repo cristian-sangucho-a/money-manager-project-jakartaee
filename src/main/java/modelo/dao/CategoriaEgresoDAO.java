@@ -28,7 +28,7 @@ public class CategoriaEgresoDAO extends CategoriaDAO {
         List<CategoriaResumenDTO> resultList = new ArrayList<>();
         try {
             String queryStr = "SELECT c.name, SUM(m.valor) " +
-                              "FROM Movimiento m, CategoriaEgreso c " +
+                              "FROM Movimiento m, Categoria c " +
                               "WHERE m.fecha BETWEEN ?1 AND ?2 " +
                               "AND m.tipo_movimiento = 'EGRESO' " +
                               "AND m.Categoria_ID = c.id " +

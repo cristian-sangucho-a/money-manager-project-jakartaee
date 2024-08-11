@@ -40,7 +40,8 @@
     </div>
 
     <div class="tabs">
-        <a class="tab">Cuentas</a>
+        <a href="jsp/vercategoria.jsp" class="tab">Categorías</a>
+        <a href="jsp/vermovimiento.jsp" class="tab">Movimientos</a>
     </div>
 
     <div class="container">
@@ -64,74 +65,6 @@
                         <a href="ContabilidadController?ruta=vercuenta&accountID=${account.id}">
                             <i class="fa-solid fa-eye"></i> Movs.
                         </a>
-                    </div>
-                </div>
-            </c:forEach>
-        </div>
-    </div>
-    
-    <div class="tabs">
-        <a class="tab">Categorías</a>
-    </div>
-    
-    <div class="container">
-        <div class="category-container">
-            <h2>Ingresos</h2>
-            <c:forEach var="incomeCategory" items="${incomes}">
-                <div class="category-card">
-                    <h3>${incomeCategory.categoryName}</h3>
-                    <div class="balance">
-                        ${incomeCategory.sumarized}
-                    </div>
-                </div>
-            </c:forEach>
-        </div>
-        
-        <div class="category-container">
-            <h2>Egresos</h2>
-            <c:forEach var="expenseCategory" items="${expenses}">
-                <div class="category-card">
-                    <h3>${expenseCategory.categoryName}</h3>
-                    <div class="balance">
-                        ${expenseCategory.sumarized}
-                    </div>
-                </div>
-            </c:forEach>
-        </div>
-    </div>
-    
-    <div class="tabs">
-        <a class="tab">Movimientos</a>
-    </div>
-    
-    <div class="container">
-        <div class="movements-container">
-            <c:forEach var="movement" items="${movements}">
-                <div class="movement-card ${movement.tipoMovimiento}">
-                    <div class="movement-details">
-                        <span class="date">${movement.date}</span>
-                        <span class="description">${movement.concept}</span>
-                        <c:choose>
-                            <c:when test="${movement.tipoMovimiento == 'Transferencia'}">
-                                <span class="details">Origen: ${movement.nameSrc} - Destino: ${movement.nameDst}</span>
-                            </c:when>
-                        </c:choose>
-                    </div>
-                    <div class="amount ${movement.value < 0 ? 'negative' : 'positive'}">
-                        ${movement.value}
-                    </div>
-                    <div class="movement-type">
-                        <c:choose>
-                            <c:when test="${movement.tipoMovimiento == 'Ingreso'}">
-                                <span>Ingreso</span>
-                            </c:when>
-                            <c:when test="${movement.tipoMovimiento == 'Egreso'}">
-                                <span>Egreso</span>
-                            </c:when>
-                            <c:when test="${movement.tipoMovimiento == 'Transferencia'}">
-                                <span>Transferencia</span>
-                            </c:when>
-                        </c:choose>
                     </div>
                 </div>
             </c:forEach>
