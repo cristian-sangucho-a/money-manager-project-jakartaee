@@ -6,43 +6,23 @@ import java.util.*;
 import jakarta.persistence.*;
 
 @Entity
-public class CategoriaIngreso implements Serializable{
+@DiscriminatorValue("CATINGRESO")
+public class CategoriaIngreso extends Categoria implements Serializable{
 
-	/**
-	 * 
-	 */
+	
+
+
+
 	private static final long serialVersionUID = 1L;
 
-	@Column
-    private String name;
-
-    @Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    
+	
 
     public CategoriaIngreso() {
     }
-
-
-	public String getName() {
-		return name;
+    public CategoriaIngreso(String name) {
+		super(name);
+		
 	}
 
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-
-	public int getId() {
-		return id;
-	}
-
-
-	public void setId(int id) {
-		this.id = id;
-	}
-    
-    
+	
 }

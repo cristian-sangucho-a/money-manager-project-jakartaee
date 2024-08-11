@@ -14,6 +14,7 @@
         <class>modelo.entidades.Ingreso</class>
         <class>modelo.entidades.CategoriaEgreso</class>
         <class>modelo.entidades.Egreso</class>
+        <class>modelo.entidades.Categoria</class>
         
         <properties>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/contabilidad"/>
@@ -23,7 +24,7 @@
             <!-- Configuración para la generación de tablas -->
             <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>
             <!-- Cargar datos iniciales desde el script SQL -->
-            <property name="jakarta.persistence.sql-load-script-source" value="META-INF/load-data.sql"/>
+            <!-- property name="jakarta.persistence.sql-load-script-source" value="META-INF/load-data.sql"/> -->
             <property name="eclipselink.logging.level" value="FINE"/>
 			<property name="eclipselink.logging.parameters" value="true"/>
         </properties>

@@ -4,44 +4,25 @@ import java.io.Serializable;
 import java.util.*;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
+@DiscriminatorValue("CATEGRESO")
 public class CategoriaEgreso extends Categoria implements Serializable {
 
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
-	@Column
-    private String name;
-
-    @Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
     
-    public CategoriaEgreso() {
-    }
-
-	public String getName() {
-		return name;
+	private static final long serialVersionUID = 1L;
+	public CategoriaEgreso() {
+		
 	}
-
-	public void setName(String name) {
-		this.name = name;
+	public CategoriaEgreso(String name) {
+		super(name);
 	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
+	
     
     
 
