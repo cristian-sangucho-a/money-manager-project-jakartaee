@@ -1,6 +1,7 @@
 package modelo.dto;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import modelo.dao.CuentaDAO;
@@ -98,6 +99,11 @@ public class MovimientoDTO {
         CuentaDAO cuentaDao = new CuentaDAO();
         Cuenta cuentaDst = cuentaDao.getByID(this.dst);
         return cuentaDst.getName();
+    }
+    
+    public String getStringDate(){
+    	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return dateFormat.format(date);
     }
 
 	@Override

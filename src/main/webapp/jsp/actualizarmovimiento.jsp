@@ -25,7 +25,7 @@
     <input type="text" id="concept" name="concept" value="${movement.concept}" required>
     
     <label for="date">Fecha:</label>
-    <input type="date" id="date" name="date" value="${movement.date}" required>
+    <input type="date" id="date" name="date" value="${movement.stringDate}" required>
     
     <label for="value">Valor:</label>
     <input type="number" id="value" name="value" value="${movement.value}" step="1" required>
