@@ -78,12 +78,12 @@ public class CategoriaIngresoDAO extends CategoriaDAO {
         return categorias;
     }
 
-    public CategoriaIngreso getCategoryById(int categoryId) {
+    public CategoriaIngreso getCategoryById(int categoryID) {
     	EntityManager em = ManejoEntidadPersistencia.getEntityManager();
     	CategoriaIngreso categoria = null;
 	    em.getTransaction().begin();
 	    try {
-	        categoria = em.find(CategoriaIngreso.class, categoryId);
+	        categoria = em.find(CategoriaIngreso.class, categoryID);
 	        em.getTransaction().commit();
 	    } catch (Exception e) {
 	        if (em.getTransaction().isActive()) {

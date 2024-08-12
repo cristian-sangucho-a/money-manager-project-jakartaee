@@ -33,12 +33,12 @@ public class CategoriaTransferenciaDAO {
         return null;
     }
     
-    public CategoriaTransferencia getCategoryById(int categoryId) {
+    public CategoriaTransferencia getCategoryById(int categoryID) {
     	EntityManager em = ManejoEntidadPersistencia.getEntityManager();
     	CategoriaTransferencia categoria = null;
 	    em.getTransaction().begin();
 	    try {
-	        categoria = em.find(CategoriaTransferencia.class, categoryId);
+	        categoria = em.find(CategoriaTransferencia.class, categoryID);
 	        em.getTransaction().commit();
 	    } catch (Exception e) {
 	        if (em.getTransaction().isActive()) {

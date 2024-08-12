@@ -14,11 +14,11 @@ public class EgresoDAO {
 	public EgresoDAO() {
 
 	}
-	public void registerExpense(Date date, String concept, double value, CategoriaEgreso expenseCategory, Cuenta accountID) {
+	public void registerExpense(Date date, String concept, double value, CategoriaEgreso expenseCategory, Cuenta account) {
 		EntityManager em = ManejoEntidadPersistencia.getEntityManager();
 		em.getTransaction().begin();
 		try {
-            Egreso eg = new Egreso(concept,date,-value,accountID,expenseCategory);
+            Egreso eg = new Egreso(concept,date,-value,account,expenseCategory);
 			em.persist(eg);	
 			em.getTransaction().commit();
 		}catch(Exception e) {
