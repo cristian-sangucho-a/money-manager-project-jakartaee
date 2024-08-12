@@ -22531,7 +22531,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGRJaCiAV3vJWM="
 							},
-							"name": "Analisis CU: Ver Movimiento",
+							"name": "Analisis CU: Ver Movimientos",
 							"ownedElements": [
 								{
 									"_type": "UMLCollaboration",
@@ -22555,7 +22555,7 @@
 													"_parent": {
 														"$ref": "AAAAAAGRJb1HYZOabGY="
 													},
-													"name": "Analisis CU: Ver Movimiento",
+													"name": "Analisis CU: Ver Movimientos",
 													"documentation": "# CU-04: Ver Movimientos\n- **Descripción**: El CU constituye una funcionalidad repetitiva relacionada con mostrar el listado de movimientos realizados en un rango de fechas especificado\n- **Actor:** Usuario  \n- **Precondiciones:** Usuario está autenticado en el sistema\n- **PostCondiciones:** EL Usuario puede visualizar el listado de movimientos realizados\n\n# Basic Path:  \n\n1. El Usuario solicita visualizar los movimientos realizados\n2. El Sistema presenta la lista de movimientos en el rango de fechas especificado en el Dashboard. Cada movimiento presenta:\n\t- Hora y minuto en el que fue realizado\n    - Concepto\n    - Cuenta Origen\n    - Cuenta Destino\n    - Categoría\n    - Monto (negativo o positivo, según el tipo de movimiento)\n3. El Usuario revisa los movimientos\n\n# Extensiones\n\n**Punto 3:**   \n\n1. **Actualizar Movimiento**: El Usuario se da cuenta que un movimiento no está correcto y desea modificar su información\n\t1. El Usuario selecciona un movimiento que quiere modificar\n    2. El Sistema muestra la información del movimiento\n    3. El Usuario modifica la información \n    4. El Usuario confirma la modificación\n       \t1. El Usuario cancela la operación\n    5. El Sistema confirma la operación\n2. **Eliminar Movimiento**: El Usuario se da cuenta que un movimiento no está correcto y desea quitarlo de la contabilidad\n\t1. El Usuario identifica el movimiento que quiere quitar\n    2. El Usuario confirma la eliminación\n    3. El Sistema confirma la operación\n",
 													"ownedViews": [
 														{
@@ -22577,9 +22577,9 @@
 																	"font": "Arial;13;0",
 																	"left": 40.72998046875,
 																	"top": 13,
-																	"width": 163.998046875,
+																	"width": 170.498046875,
 																	"height": 13,
-																	"text": "Analisis CU: Ver Movimiento"
+																	"text": "Analisis CU: Ver Movimientos"
 																},
 																{
 																	"_type": "LabelView",
@@ -83456,7 +83456,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGRJht3qhZ72gU="
 							},
-							"name": "Diseño CU: Ver Movimiento",
+							"name": "Diseño CU: Ver Movimientos",
 							"ownedElements": [
 								{
 									"_type": "UMLClassDiagram",
@@ -83464,7 +83464,7 @@
 									"_parent": {
 										"$ref": "AAAAAAGROO74+GpeJy4="
 									},
-									"name": "DCD_CU_Ver Movimiento",
+									"name": "DCD_CU_Ver Movimientos",
 									"ownedViews": [
 										{
 											"_type": "UMLClassView",
@@ -106270,7 +106270,7 @@
 													"_parent": {
 														"$ref": "AAAAAAGRROBqiFBc12Q="
 													},
-													"name": "SequenceDiagram1",
+													"name": "Tranferir",
 													"ownedViews": [
 														{
 															"_type": "UMLFrameView",
@@ -106291,9 +106291,9 @@
 																	"font": "Arial;13;0",
 																	"left": 40.72998046875,
 																	"top": 13,
-																	"width": 114.9052734375,
+																	"width": 48.6357421875,
 																	"height": 13,
-																	"text": "SequenceDiagram1"
+																	"text": "Tranferir"
 																},
 																{
 																	"_type": "LabelView",
@@ -109937,8 +109937,8 @@
 															"font": "Arial;13;0",
 															"left": 8,
 															"top": 8,
-															"width": 692,
-															"height": 592,
+															"width": 1576,
+															"height": 808,
 															"nameLabel": {
 																"$ref": "AAAAAAGRROgFr1T2D38="
 															},
