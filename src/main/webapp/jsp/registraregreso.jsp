@@ -105,10 +105,13 @@
         document.getElementById("popup").style.display = "none";
     }
 
-    // Verifica si el egreso fue aprobado
-    <c:if test="${not approveExpense}">
-        document.getElementById("popup").style.display = "block";
-    </c:if>
+    <c:choose>
+        <c:when test="${not empty approveExpense}">
+            <c:if test="${not approveExpense}">
+                document.getElementById("popup").style.display = "block";
+            </c:if>
+        </c:when>
+    </c:choose>
 </script>
 </body>
 </html>
