@@ -21,10 +21,10 @@
             <p><strong>Fecha:</strong> ${movimiento.date}</p>
             <p><strong>Valor:</strong> ${movimiento.value}</p>
             <c:choose>
-                <c:when test="${movimiento.movementType == 'INGRESO'}">
+                <c:when test="${movimiento.tipo_movimiento == 'INGRESO'}">
                     <span class="details">Cuenta: ${movimiento.nameDstAccount}</span>
                 </c:when>
-                <c:when test="${movimiento.movementType == 'EGRESO'}">
+                <c:when test="${movimiento.tipo_movimiento == 'EGRESO'}">
                     <span class="details">Cuenta: ${movimiento.nameSrcAccount}</span>
                 </c:when>
             </c:choose>

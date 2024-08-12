@@ -9,6 +9,34 @@
     <meta charset="UTF-8">
     <title>Registrar Egreso</title>
     <link rel="stylesheet" type="text/css" href="jsp/stylesregistrarmovimiento.css">
+    <style>
+        .popup {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .popup-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+        }
+        .close-btn {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 
@@ -52,7 +80,7 @@
                     </c:forEach>
                 </select>
             </div>
-            <input type="hidden" id="account" name="accountID" value="${account.id}">
+            <input type="hidden" id="account" name="accountID" value="${accountID}">
             <div class="controls center-button">
                 <button type="submit">Registrar</button>
             </div>
@@ -65,5 +93,22 @@
     </div>
 </div>
 
+<div id="popup" class="popup">
+    <div class="popup-content">
+        <p>El egreso no puede ser aprobado porque el valor supera el balance disponible.</p>
+        <button class="close-btn" onclick="closePopup()">Cerrar</button>
+    </div>
+</div>
+
+<script>
+    function closePopup() {
+        document.getElementById("popup").style.display = "none";
+    }
+
+    // Verifica si el egreso fue aprobado
+    <c:if test="${not approveExpense}">
+        document.getElementById("popup").style.display = "block";
+    </c:if>
+</script>
 </body>
 </html>
