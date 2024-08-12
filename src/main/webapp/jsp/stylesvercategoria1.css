@@ -2,77 +2,94 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Merriweather:wght@700&display=swap');
 
 body {
-    font-family: 'Roboto', sans-serif; /* Fuente principal */
+    font-family: 'Roboto', sans-serif;
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
 }
 
 .header {
-    background-color: #698a8c; /* Primer color */
+    background-color: #698a8c;
     color: #fff;
-    padding: 20px;
+    padding: 10px;
     text-align: center;
 }
 
 .header h1 {
-    font-family: 'Merriweather', serif; 
+    font-family: 'Merriweather', serif;
     font-size: 36px;
     font-weight: 700;
     margin: 0;
 }
 
-.container {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+.account-container {
+    margin: 20px auto;
     padding: 20px;
-    gap: 20px;
-}
-
-.category-container {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.category-card {
     background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    width: 250px;
-    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
 }
 
-.category-card h3 {
-    margin-top: 0;
-    font-size: 20px;
-    color: #333;
-    font-weight: 500;
-    border-bottom: 2px solid #698a8c; /* Línea decorativa debajo del título */
-    padding-bottom: 10px;
-    margin-bottom: 15px;
+.movements-list {
+    margin-top: 20px;
 }
 
-.category-card ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+.movement-item {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
 }
 
-.category-card li {
+.movement-item:last-child {
+    border-bottom: none;
+}
+
+.movement-description p {
     font-size: 16px;
-    color: #486565; /* Segundo color */
-    margin: 10px 0;
+    color: #333;
+    margin: 0;
+    font-weight: 500;
 }
 
-.category-card li::before {
-    content: "•"; /* Agrega un punto delante de cada subcategoría */
-    color: #698a8c; /* Color del punto */
+.movement-details p {
+    font-size: 14px;
+    color: #666;
+    margin: 5px 0;
+}
+
+.movement-amount {
+    font-size: 16px;
     font-weight: bold;
-    display: inline-block;
-    width: 1em;
-    margin-left: -1em;
+}
+
+.movement-amount.positive {
+    color: #4CAF50;
+}
+
+.movement-amount.negative {
+    color: #f44336;
+}
+
+.center-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.button-back {
+    background-color: #486565;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.button-back:hover {
+    background-color: #57745d;
 }

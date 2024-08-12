@@ -52,7 +52,7 @@
 						</c:forEach>
 					</select>
 				</div>
-				<input type="hidden" id="account" name="accountID" value="${account}">
+				<input type="hidden" id="account" name="accountID" value="${accountID}">
 				<div class="controls center-button">
 					<button type="submit">Registrar</button>
 				</div>

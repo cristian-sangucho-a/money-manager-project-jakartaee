@@ -223,7 +223,7 @@ public class ContabilidadController extends HttpServlet {
 		}
 		transferenciaDAO.transfer(amount, dstAccount, srcAccount, date, concept, category);
 		// 3. Hablar con la vista
-		this.viewDashboard(req, resp);
+		this.viewAccount(req, resp);
 	}
 
 	private void transfer(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -263,8 +263,7 @@ public class ContabilidadController extends HttpServlet {
 		ingresoDAO.registerIncome(date, concept, value, incomeCategory, account);
 		cuentaDAO.updateBalance(value, accountID);
 		// 3. Hablar con la vista
-		this.viewDashboard(req, resp);
-
+		this.viewAccount(req, resp);
 	}
 
 	private void registerIncome(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -315,7 +314,7 @@ public class ContabilidadController extends HttpServlet {
 		egresoDAO.registerExpense(date, concept, value, expenseCategory, account);
 		cuentaDAO.updateBalance(-value, accountID);
 		// 3. Hablar con la vista
-		this.viewDashboard(req, resp);
+		this.viewAccount(req, resp);
 	}
 
 

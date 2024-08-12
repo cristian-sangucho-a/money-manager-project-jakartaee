@@ -18,7 +18,7 @@
     <input type="hidden" name="ruta" value="actualizarmovimiento">
     <input type="hidden" name="srcAccountID" value="${movement.srcAccount}">
     <input type="hidden" name="dstAccountID" value="${movement.dstAccount}">
-    <input type="hidden" name="tipo_movimiento" value="${movement.tipo_movimiento}">
+    <input type="hidden" name="movementType" value="${movement.tipo_movimiento}">
     <input type="hidden" name="movementID" value="${movement.id}">
 
     <label for="concept">Concepto:</label>

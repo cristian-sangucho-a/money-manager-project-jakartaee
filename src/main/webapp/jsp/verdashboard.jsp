@@ -99,7 +99,7 @@
 					<div class="balance">${expenseCategory.sumarized}</div>
 					<div class="actions">
 						<a
-							href="ContabilidadController?ruta=vercategoria&categoryID=${expenseCategory.id}">
+							href="ContabilidadController?ruta=vercategoria&categoryID=${expenseCategory.id}&from=<%=fromDate%>&to=<%=toDate%>">
 							<i class="fa-solid fa-hand-holding-dollar"></i> Ver
 						</a>
 					</div>
@@ -115,12 +115,12 @@
 	<div class="container">
 		<div class="movements-container">
 			<c:forEach var="movement" items="${movements}">
-				<div class="movement-card ${movement.movementType}">
+				<div class="movement-card ${movement.tipo_movimiento}">
 					<div class="movement-details">
 						<span class="date">${movement.date}</span> <span
 							class="description">${movement.concept}</span>
 						<c:choose>
-							<c:when test="${movement.movementType == 'TRANSFERENCIA'}">
+							<c:when test="${movement.tipo_movimiento == 'TRANSFERENCIA'}">
 								<span class="details">Origen: ${movement.nameSrcAccount}
 									- Destino: ${movement.nameDstAccount}</span>
 							</c:when>
@@ -130,13 +130,13 @@
 						${movement.value}</div>
 					<div class="movement-type">
 						<c:choose>
-							<c:when test="${movement.movementType == 'INGRESO'}">
+							<c:when test="${movement.tipo_movimiento == 'INGRESO'}">
 								<span>Ingreso</span>
 							</c:when>
-							<c:when test="${movement.movementType == 'EGRESO'}">
+							<c:when test="${movement.tipo_movimiento == 'EGRESO'}">
 								<span>Egreso</span>
 							</c:when>
-							<c:when test="${movement.movementType == 'TRANSFERENCIA'}">
+							<c:when test="${movement.tipo_movimiento == 'TRANSFERENCIA'}">
 								<span>Transferencia</span>
 							</c:when>
 						</c:choose>
