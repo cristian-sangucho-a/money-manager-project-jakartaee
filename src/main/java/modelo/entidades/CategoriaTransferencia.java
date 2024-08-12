@@ -17,20 +17,13 @@ import jakarta.persistence.Id;
 @DiscriminatorValue("CATTRANSFERENCIA")
 public class CategoriaTransferencia extends Categoria implements Serializable {
 
-	
 	private static final long serialVersionUID = 1L;
-
-	
 
 	public CategoriaTransferencia() {
 	}
 
-
-
 	public CategoriaTransferencia(String name) {
 		super(name);
-		
 	}
-	
 	
 }

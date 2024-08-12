@@ -21,19 +21,6 @@ public class IngresoDAO extends MovimientoDAO {
 	
 	public IngresoDAO() {
 	}
-	
-    public void getAllByAccount() {
-        // TODO implement here
-    }
-
-
-    /**
-     * @param date 
-     * @param concept 
-     * @param value 
-     * @param category 
-     * @param dstID
-     */
 
     public void registerIncome(Date date, String concept, double value, CategoriaIngreso incomeCategory, Cuenta dstID) {
     	EntityManager em = ManejoEntidadPersistencia.getEntityManager();
@@ -47,7 +34,5 @@ public class IngresoDAO extends MovimientoDAO {
 			}
 		}
 		em.close();
-    	
     }
-
 }

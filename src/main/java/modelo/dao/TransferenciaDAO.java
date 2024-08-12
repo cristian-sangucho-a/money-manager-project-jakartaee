@@ -11,45 +11,12 @@ import modelo.entidades.CategoriaTransferencia;
 import modelo.entidades.Cuenta;
 import modelo.entidades.Transferencia;
 
-
-/**
- * 
- */
 public class TransferenciaDAO extends MovimientoDAO {
 
-
-    /**
-     * Default constructor
-     */
     public TransferenciaDAO() {
 	
     }
 
-    /**
-     * 
-     */
-    public void getAllByAccount() {
-        // TODO implement here
-    }
-
-    /**
-     * @param from 
-     * @param to
-     * @return 
-     */
-    public List<MovimientoDTO> getAll(Date from, Date to) {
-        // TODO implement here
-    	return null;
-    }
-
-    /**
-     * @param amount 
-     * @param dstAccount 
-     * @param srcAccount 
-     * @param date 
-     * @param concept 
-     * @param category
-     */
     public void transfer(double amount, Cuenta dstAccount, Cuenta srcAccount, Date date, String concept, CategoriaTransferencia transferCategory) {
     	CuentaDAO cdao = new CuentaDAO();
     	cdao.updateBalance(amount, dstAccount.getId());

@@ -15,7 +15,6 @@ public class CuentaDAO {
     	
     }
 
- 
     public List<Cuenta> getAll() {
     	EntityManager em = ManejoEntidadPersistencia.getEntityManager();
         List<Cuenta> cuentas = null;
@@ -38,9 +37,6 @@ public class CuentaDAO {
         return cuentas;
     }
 
- 
-
-  
     public double getBalance(int accountID) {
         
         EntityManager em = ManejoEntidadPersistencia.getEntityManager();
@@ -65,7 +61,6 @@ public class CuentaDAO {
         double totalCuentas = 0;
         em.getTransaction().begin();
         try {
-            
             Query query = em.createQuery("Select c from Cuenta c", Cuenta.class);
             cuentas = query.getResultList();
             em.getTransaction().commit();

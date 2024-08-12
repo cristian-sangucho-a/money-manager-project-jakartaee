@@ -3,24 +3,11 @@ package modelo .dto;
 import java.io.Serializable;
 import java.util.*;
 
-/**
- * 
- */
 public class CategoriaResumenDTO implements Serializable {
 	
 	private int id;
     private String categoryName;
     private double sumarized;
-    
-    
-    
-    public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public CategoriaResumenDTO(String categoryName, double sumarized, int id) {
 		super();
@@ -45,4 +32,11 @@ public class CategoriaResumenDTO implements Serializable {
 		this.sumarized = sumarized;
 	}
      
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 }
