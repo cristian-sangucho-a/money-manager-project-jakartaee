@@ -223,7 +223,6 @@ public class ContabilidadController extends HttpServlet {
 		}
 		transferenciaDAO.transfer(amount, dstAccount, srcAccount, date, concept, category);
 		// 3. Hablar con la vista
-		//this.viewDashboard(req, resp);
 		this.viewAccount(req, resp);
 	}
 
