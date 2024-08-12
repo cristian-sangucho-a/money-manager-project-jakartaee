@@ -93349,7 +93349,7 @@
 													"_parent": {
 														"$ref": "AAAAAAGRRL4rejdRvzo="
 													},
-													"name": "SequenceDiagram1",
+													"name": "Ver Dashboard",
 													"ownedViews": [
 														{
 															"_type": "UMLFrameView",
@@ -93370,9 +93370,9 @@
 																	"font": "Arial;13;0",
 																	"left": 32.72998046875,
 																	"top": 13,
-																	"width": 114.9052734375,
+																	"width": 86.7216796875,
 																	"height": 13,
-																	"text": "SequenceDiagram1"
+																	"text": "Ver Dashboard"
 																},
 																{
 																	"_type": "LabelView",
@@ -94685,7 +94685,7 @@
 																		"$ref": "AAAAAAGRRMHQFDoRmCo="
 																	},
 																	"edgePosition": 1,
-																	"text": "5 : expenseCategoriesSumarized"
+																	"text": "5 : expenses"
 																},
 																{
 																	"_type": "EdgeLabelView",
@@ -94908,7 +94908,7 @@
 																		"$ref": "AAAAAAGRRMIM4Do9CWc="
 																	},
 																	"edgePosition": 1,
-																	"text": "7 : incomeCategoriesSumarized"
+																	"text": "7 : incomes"
 																},
 																{
 																	"_type": "EdgeLabelView",
@@ -95401,7 +95401,7 @@
 													"_parent": {
 														"$ref": "AAAAAAGRRL4rejdRvzo="
 													},
-													"name": "expenseCategoriesSumarized",
+													"name": "expenses",
 													"source": {
 														"$ref": "AAAAAAGRRL60Qjja+I4="
 													},
@@ -95433,7 +95433,7 @@
 													"_parent": {
 														"$ref": "AAAAAAGRRL4rejdRvzo="
 													},
-													"name": "incomeCategoriesSumarized",
+													"name": "incomes",
 													"source": {
 														"$ref": "AAAAAAGRRL7BiDj5Y1M="
 													},
@@ -95661,6 +95661,14 @@
 									]
 								}
 							]
+						},
+						{
+							"_type": "UMLPackage",
+							"_id": "AAAAAAGRRMV8dDqxF24=",
+							"_parent": {
+								"$ref": "AAAAAAGRRL1rtjdIFzo="
+							},
+							"name": "Package1"
 						}
 					]
 				}
