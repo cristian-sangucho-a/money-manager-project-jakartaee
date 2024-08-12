@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Dashboard</title>
 <link rel="stylesheet" type="text/css"
-	href="jsp/stylesverdashboard1.css">
+	href="jsp/stylesverdashboard.css">
 <script src="https://kit.fontawesome.com/1a501b4a16.js"
 	crossorigin="anonymous"></script>
 </head>
