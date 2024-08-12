@@ -35,7 +35,7 @@ public class CategoriaIngresoDAO extends CategoriaDAO {
         	String queryStr = "SELECT c.name, SUM(m.valor), c.id "
             		+ "FROM categoria c "
             		+ "LEFT JOIN movimiento m ON c.id = m.Categoria_ID "
-            		+ "AND m.fecha BETWEEN '?1' AND '?2' "
+            		+ "AND m.fecha BETWEEN ?1 AND ?2 "
             		+ "WHERE c.tipo_categoria = 'CATINGRESO' "
             		+ "GROUP BY c.id;";
             Query query = em.createNativeQuery(queryStr);
