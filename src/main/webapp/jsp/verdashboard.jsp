@@ -99,7 +99,7 @@
 					<div class="balance">${expenseCategory.sumarized}</div>
 					<div class="actions">
 						<a
-							href="ContabilidadController?ruta=vercategoria&categoryID=${expenseCategory.id}">
+							href="ContabilidadController?ruta=vercategoria&categoryID=${expenseCategory.id}&from=<%=fromDate%>&to=<%=toDate%>">
 							<i class="fa-solid fa-hand-holding-dollar"></i> Ver
 						</a>
 					</div>
