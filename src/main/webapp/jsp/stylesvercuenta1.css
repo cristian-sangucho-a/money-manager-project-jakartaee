@@ -71,6 +71,7 @@ body {
     justify-content: space-between;
     padding: 10px 0;
     border-bottom: 1px solid #ddd;
+    align-items: flex-start; /* Alinea los elementos en la parte superior */
 }
 
 .movement-description {
@@ -86,6 +87,7 @@ body {
 .movement-amount {
     font-size: 16px;
     font-weight: bold;
+    margin-bottom: 10px; /* Añade margen para separar del área de acciones */
 }
 
 .movement-amount.positive {
@@ -94,6 +96,28 @@ body {
 
 .movement-amount.negative {
     color: #f44336;
+}
+
+.actions {
+    display: flex;
+    flex-direction: column; /* Organiza los botones en columna */
+    align-items: flex-end; /* Alinea los botones a la derecha */
+    gap: 5px; /* Añade espacio entre los botones */
+    margin-top: 5px; /* Añade margen superior para separar del monto */
+}
+
+.actions a {
+    text-decoration: none;
+    color: #486565; /* Color del texto del botón */
+    font-weight: bold;
+    font-size: 12px;
+    padding: 5px;
+}
+
+.actions a:hover {
+    color: #fff;
+    background-color: #486565; /* Color de fondo del botón al pasar el cursor */
+    border-radius: 5px;
 }
 
 .center-button {
