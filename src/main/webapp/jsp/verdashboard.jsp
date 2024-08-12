@@ -21,20 +21,9 @@
 		<form action="ContabilidadController" method="GET">
 			<input type="hidden" name="ruta" value="verdashboard" />
 
-			<%
-			// Obtener la fecha actual
-			java.time.LocalDate today = java.time.LocalDate.now();
-			// Calcular el primer día del mes actual
-			java.time.LocalDate firstDayOfMonth = today.withDayOfMonth(1);
-			// Formatear las fechas para el input type="date"
-			String fromDate = firstDayOfMonth.toString();
-			String toDate = today.toString();
-			
-			%>
-
 			<label for="from">Desde:</label> <input type="date" id="from"
-				name="from" value="<%=fromDate%>"> <label for="to">Hasta:</label>
-			<input type="date" id="to" name="to" value="<%=toDate%>">
+				name="from" value="${from}"> <label for="to">Hasta:</label>
+			<input type="date" id="to" name="to" value="${to}">
 
 			<button type="submit">Consultar</button>
 		</form>
@@ -63,7 +52,7 @@
 							<i class="fa-solid fa-money-bill-transfer"></i> Transf.
 						</a> <a
 							href="ContabilidadController?ruta=vercuenta&accountID=${account.id}">
-							<i class="fa-solid fa-eye"></i> Movs.
+							<i class="fa-solid fa-eye"></i> Cuenta
 						</a>
 					</div>
 				</div>
@@ -100,7 +89,7 @@
 					<div class="balance">${expenseCategory.sumarized}</div>
 					<div class="actions">
 						<a
-							href="ContabilidadController?ruta=vercategoria&categoryID=${expenseCategory.id}&from=<%=fromDate%>&to=<%=toDate%>">
+							href="ContabilidadController?ruta=vercategoria&categoryID=${expenseCategory.id}&from=${from}&to=${to}">
 							<i class="fa-solid fa-hand-holding-dollar"></i> Ver
 						</a>
 					</div>

@@ -28,13 +28,18 @@ import modelo.entidades.*;
 
 @WebServlet("/ContabilidadController")
 public class ContabilidadController extends HttpServlet {
+	java.time.LocalDate today = java.time.LocalDate.now();
+	// Calcular el primer día del mes actual
+	java.time.LocalDate firstDayOfMonth = today.withDayOfMonth(1);
+	// Formatear las fechas para el input type="date"
 
 	private static final long serialVersionUID = 1L;
-	private final String fromDefault = "2024-08-01";
-	private final String toDefault = "2024-08-31";
+	private final String fromDefault = firstDayOfMonth.toString();;
+	private final String toDefault = today.toString();
 
 
 	public ContabilidadController() {
+		
 	}
 
 	@Override
@@ -112,10 +117,17 @@ public class ContabilidadController extends HttpServlet {
 		int movementID = Integer.parseInt(req.getParameter("movementID"));
 		int categoryID = Integer.parseInt(req.getParameter("categoryID"));
 		String movementType = req.getParameter("movementType");
+		
+		
 		// 2. Hablar con el modelo
-		MovimientoDTO movimientoDTO = new MovimientoDTO(movementID, srcAccountID, dstAccountID, concept, date, value,
-				movementType);
-		movimientoDAO.update(movimientoDTO, categoryID);
+		Movimiento movimiento = movimientoDAO.getMovementById(movementID);
+		
+		try {
+			movimientoDAO.update(movimiento, value, concept, srcAccountID, dstAccountID, date, movementID, categoryID);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		// 3. Hablar con la vista
 		this.viewDashboard(req, resp);
 	}
@@ -217,6 +229,9 @@ public class ContabilidadController extends HttpServlet {
 			return;
 		}
 		transferenciaDAO.transfer(amount, dstAccount, srcAccount, date, concept, category);
+		
+		req.setAttribute("accountID", srcAccount.getId());
+		
 		// 3. Hablar con la vista
 		this.viewAccount(req, resp);
 	}
@@ -230,6 +245,8 @@ public class ContabilidadController extends HttpServlet {
 		// 2. Hablar con el modelo
 		Cuenta srcAccount = cuentaDAO.getByID(accountID);
 		List<Cuenta> accounts = cuentaDAO.getAll();
+		accounts.remove(srcAccount);
+		
 		double balance = srcAccount.getBalance();
 		List<CategoriaTransferencia> transferCategories = categoriaTransferenciaDAO.getAll();
 		
@@ -359,15 +376,21 @@ public class ContabilidadController extends HttpServlet {
 
 		if (fromString == null || toString == null) {
 			from = convertToDate(fromDefault);
+			fromString = fromDefault;
 			to = convertToDate(toDefault);
+			toString = toDefault;
 		} else {
 			from = convertToDate(fromString);
+			fromString = fromDefault;
 			to = convertToDate(toString);
+			toString = toDefault;
 		}
 
 		if (!isAValidRangeOfDates(from, to)) {
 			from = convertToDate(fromDefault);
+			fromString = fromDefault;
 			to = convertToDate(toDefault);
+			toString = toDefault;
 		}
 
 		// paso 2: hablar con el modelo
@@ -382,8 +405,8 @@ public class ContabilidadController extends HttpServlet {
 		req.setAttribute("accounts", accounts);
 		req.setAttribute("incomes", incomeCategoriesSumarized);
 		req.setAttribute("expenses", expenseCategoriesSumarized);
-		req.setAttribute("from", from);
-		req.setAttribute("to", to);
+		req.setAttribute("from", fromString);
+		req.setAttribute("to", toString);
 
 		req.getRequestDispatcher("jsp/verdashboard.jsp").forward(req, resp);
 

@@ -22,7 +22,7 @@ import modelo.entidades.Transferencia;
 import modelo.entidades.Movimiento;
 
 public class MovimientoDAO {
-	
+
 	public MovimientoDAO() {
 	}
 
@@ -32,19 +32,61 @@ public class MovimientoDAO {
 		Movimiento oldMovement = getMovementById(movementToUpdate);
 		CuentaDAO cdao = new CuentaDAO();
 		Object movUpdated = typeOfMovementToUpdate(oldMovement, cdao, movement, categoryID);
+
+		em.getTransaction().begin();
+		try {
+			if (movUpdated != null) {
+				em.merge(movUpdated);
+				em.getTransaction().commit();
+			}
+		} finally {
+			if (em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
+			em.close();
+		}
+	}
+
+	public void update(Egreso movement, double value, String concept, int srcAccountID, Date date,
+			int movementID, int categoryID) {
+
+		EgresoDAO egresoDAO = new EgresoDAO();
+		egresoDAO.update(movement, value, concept, srcAccountID, date, categoryID);
+	}
+	
+	public void update(Ingreso movement, double value, String concept, int dstAccountID, Date date,
+			int movementID, int categoryID) {
+
+		IngresoDAO ingresoDAO = new IngresoDAO();
+		ingresoDAO.update(movement, value, concept, dstAccountID, date, categoryID);
+	}
+	
+	public void update(Transferencia movement, double value, String concept,int srcAccountID, int dstAccountID, Date date,
+			int movementID, int categoryID) {
+
+		TransferenciaDAO transferenciaDAO = new TransferenciaDAO();
+		transferenciaDAO.update(movement, value, concept,srcAccountID, dstAccountID, date, categoryID);
+	}
+
+	public void update(Movimiento movement, double value, String concept, int srcAccountID, int dstAccountID, Date date,
+			int movementID, int categoryID) throws Exception {
 		
-        em.getTransaction().begin();
-        try {
-            if (movUpdated != null) {
-            	em.merge(movUpdated);
-                em.getTransaction().commit();
-            }
-        } finally {
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback();
-            }
-            em.close();
-        }
+		if(movement instanceof Egreso) {
+			update((Egreso) movement, value, concept, srcAccountID, date, movementID, categoryID);
+			return;
+		}
+		
+		if(movement instanceof Ingreso) {
+			update((Ingreso) movement, value, concept, dstAccountID, date, movementID, categoryID);
+			return;
+		}
+		
+		if(movement instanceof Transferencia) {
+			update((Transferencia) movement, value, concept, srcAccountID, dstAccountID, date, movementID, categoryID);
+			return;
+		}
+
+		throw new Exception("No valio");
 	}
 
 	public void delete(Movimiento movement) {
@@ -135,8 +177,8 @@ public class MovimientoDAO {
 				Date date = convertToDate((LocalDateTime) result[3]);
 				double value = (Double) result[4];
 				Integer categoriaId = (result[5] != null) ? (Integer) result[5] : 0;
-	            Integer dstAccountId = (result[6] != null) ? (Integer) result[6] : 0;
-	            Integer srcAccountId = (result[7] != null) ? (Integer) result[7] : 0;
+				Integer dstAccountId = (result[6] != null) ? (Integer) result[6] : 0;
+				Integer srcAccountId = (result[7] != null) ? (Integer) result[7] : 0;
 				MovimientoDTO dto = new MovimientoDTO(id, srcAccountId, dstAccountId, concept, date, value,
 						tipoMovimiento);
 				movimientos.add(dto);
@@ -148,7 +190,7 @@ public class MovimientoDAO {
 		}
 		return movimientos;
 	}
-	
+
 	public MovimientoDTO getMovementDTOById(int movimientoDTOID) {
 		EntityManager em = ManejoEntidadPersistencia.getEntityManager();
 		MovimientoDTO movimientoDTO = new MovimientoDTO();
@@ -161,16 +203,16 @@ public class MovimientoDAO {
 			if (result != null) {
 				Date date = convertToDate((LocalDateTime) result[3]);
 				Integer categoriaId = (result[5] != null) ? (Integer) result[5] : 0;
-	            Integer dstAccountId = (result[6] != null) ? (Integer) result[6] : 0;
-	            Integer srcAccountId = (result[7] != null) ? (Integer) result[7] : 0;
-	            
-	            movimientoDTO.setId((Integer) result[0]);
-	            movimientoDTO.setTipo_movimiento((String) result[1]);
-	            movimientoDTO.setConcept((String) result[2]);
-	            movimientoDTO.setDate(date);
-	            movimientoDTO.setValue((Double) result[4]);
-	            movimientoDTO.setDstAccount(dstAccountId);
-	            movimientoDTO.setSrcAccount(srcAccountId);
+				Integer dstAccountId = (result[6] != null) ? (Integer) result[6] : 0;
+				Integer srcAccountId = (result[7] != null) ? (Integer) result[7] : 0;
+
+				movimientoDTO.setId((Integer) result[0]);
+				movimientoDTO.setTipo_movimiento((String) result[1]);
+				movimientoDTO.setConcept((String) result[2]);
+				movimientoDTO.setDate(date);
+				movimientoDTO.setValue((Double) result[4]);
+				movimientoDTO.setDstAccount(dstAccountId);
+				movimientoDTO.setSrcAccount(srcAccountId);
 			}
 		} finally {
 			if (em != null && em.isOpen()) {
@@ -207,8 +249,9 @@ public class MovimientoDAO {
 		}
 		return null;
 	}
-	
-	private Object typeOfMovementToUpdate(Movimiento oldMovement, CuentaDAO cdao, MovimientoDTO movementDTO, int categoryID) {
+
+	private Object typeOfMovementToUpdate(Movimiento oldMovement, CuentaDAO cdao, MovimientoDTO movementDTO,
+			int categoryID) {
 		if (oldMovement instanceof Egreso) {
 			CategoriaEgresoDAO categoriaEgresoDAO = new CategoriaEgresoDAO();
 			Egreso egreso = (Egreso) oldMovement;
@@ -217,13 +260,13 @@ public class MovimientoDAO {
 			egreso.setConcept(movementDTO.getConcept());
 			egreso.setDate(movementDTO.getDate());
 			egreso.setSrcAccount(cdao.getByID(movementDTO.getSrcAccount()));
-			cdao.updateBalance(-egreso.getValue(), srcAccount.getId()); //eliminar el anterior
-			
+			cdao.updateBalance(-egreso.getValue(), srcAccount.getId()); // eliminar el anterior
+
 			egreso.setValue(movementDTO.getValue());
-			cdao.updateBalance(movementDTO.getValue(), srcAccount.getId()); //actualizar con el nuevo
-			
+			cdao.updateBalance(movementDTO.getValue(), srcAccount.getId()); // actualizar con el nuevo
+
 			return egreso;
-			
+
 		} else if (oldMovement instanceof Ingreso) {
 			CategoriaIngresoDAO categoriaIngresoDAO = new CategoriaIngresoDAO();
 			Ingreso ingreso = (Ingreso) oldMovement;
@@ -232,10 +275,10 @@ public class MovimientoDAO {
 			ingreso.setConcept(movementDTO.getConcept());
 			ingreso.setDate(movementDTO.getDate());
 			ingreso.setDstAccount(cdao.getByID(movementDTO.getDstAccount()));
-			cdao.updateBalance(-ingreso.getValue(), dstAccount.getId()); //eliminar el anterior
-			
+			cdao.updateBalance(-ingreso.getValue(), dstAccount.getId()); // eliminar el anterior
+
 			ingreso.setValue(movementDTO.getValue());
-			cdao.updateBalance(movementDTO.getValue(), dstAccount.getId());//actualizar con el nuevo
+			cdao.updateBalance(movementDTO.getValue(), dstAccount.getId());// actualizar con el nuevo
 			return ingreso;
 
 		} else if (oldMovement instanceof Transferencia) {
@@ -248,11 +291,11 @@ public class MovimientoDAO {
 			transferencia.setDate(movementDTO.getDate());
 			transferencia.setSrcAccount(cdao.getByID(movementDTO.getSrcAccount()));
 			transferencia.setDstAccount(cdao.getByID(movementDTO.getDstAccount()));
-			cdao.updateBalance(transferencia.getValue(), srcAccount.getId()); //eliminar el anterior
-			cdao.updateBalance(-transferencia.getValue(), dstAccount.getId()); //eliminar el anterior
+			cdao.updateBalance(transferencia.getValue(), srcAccount.getId()); // eliminar el anterior
+			cdao.updateBalance(-transferencia.getValue(), dstAccount.getId()); // eliminar el anterior
 			transferencia.setValue(movementDTO.getValue());
-			cdao.updateBalance(-movementDTO.getValue(), srcAccount.getId()); //actualizar con el nuevo
-			cdao.updateBalance(movementDTO.getValue(), dstAccount.getId()); //actualizar con el nuevo
+			cdao.updateBalance(-movementDTO.getValue(), srcAccount.getId()); // actualizar con el nuevo
+			cdao.updateBalance(movementDTO.getValue(), dstAccount.getId()); // actualizar con el nuevo
 			return transferencia;
 		}
 		return null;

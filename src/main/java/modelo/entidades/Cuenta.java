@@ -55,4 +55,17 @@ public class Cuenta implements Serializable{
 		this.balance = balance;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof Cuenta)) {
+			return false;
+		}
+		
+		Cuenta cuentaAComparar =(Cuenta) obj;
+		
+		return cuentaAComparar.getId() == this.id;
+	}
+	
+	
+
 }

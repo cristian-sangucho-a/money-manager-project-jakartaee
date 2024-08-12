@@ -88,8 +88,7 @@
 						Destino:</label> <select id="destinationAccount" name="dstAccountID"
 						class="select-account" required>
 						<c:forEach var="account" items="${accounts}">
-							<option value="${account.id}">${account.id}y
-								${account.name}</option>
+							<option value="${account.id}">${account.name}</option>
 						</c:forEach>
 					</select>
 				</div>
@@ -102,7 +101,7 @@
 					</select>
 				</div>
 				<input type="hidden" id="account" name="accountID"
-					value="${accountID}">
+					value="${srcAccount.id}">
 				<div class="controls center-button">
 					<button type="submit">Registrar</button>
 				</div>

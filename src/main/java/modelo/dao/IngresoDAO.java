@@ -18,6 +18,40 @@ public class IngresoDAO extends MovimientoDAO {
 	
 	public IngresoDAO() {
 	}
+	
+	protected void update(Ingreso ingreso, double value, String concept, int srcAccountID, Date date,
+			int categoryID) {
+		CuentaDAO cuentaDAO = new CuentaDAO();
+		
+		CategoriaIngresoDAO categoriaIngresoDAO = new CategoriaIngresoDAO();
+		Cuenta dstAccount = ingreso.getDstAccount();
+		ingreso.setCategoria(categoriaIngresoDAO.getCategoryById(categoryID));
+		ingreso.setConcept(concept);
+		ingreso.setDate(date);
+		ingreso.setDstAccount(dstAccount);
+		
+		cuentaDAO.updateBalance(-ingreso.getValue(), dstAccount.getId()); //eliminar el anterior
+		
+		ingreso.setValue(value);
+
+		cuentaDAO.updateBalance(value, dstAccount.getId()); //actualizar con el nuevo
+		
+		updateIncome(ingreso);
+	}
+	
+	private void updateIncome(Ingreso ingreso) {
+		EntityManager em = ManejoEntidadPersistencia.getEntityManager();
+		em.getTransaction().begin();
+		try {
+            em.merge(ingreso);
+			em.getTransaction().commit();
+		}catch(Exception e) {
+			if(em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
+		}
+		em.close();
+	}
 
     public void registerIncome(Date date, String concept, double value, CategoriaIngreso incomeCategory, Cuenta dstID) {
     	EntityManager em = ManejoEntidadPersistencia.getEntityManager();
