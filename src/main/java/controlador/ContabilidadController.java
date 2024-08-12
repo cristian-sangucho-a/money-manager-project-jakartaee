@@ -120,10 +120,10 @@ public class ContabilidadController extends HttpServlet {
 		
 		
 		// 2. Hablar con el modelo
-		Movimiento movimiento = movimientoDAO.getMovementById(movementID);
+		Movimiento movement = movimientoDAO.getMovementById(movementID);
 		
 		try {
-			movimientoDAO.update(movimiento, value, concept, srcAccountID, dstAccountID, date, movementID, categoryID);
+			movimientoDAO.update(movement, value, concept, srcAccountID, dstAccountID, date, movementID, categoryID);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

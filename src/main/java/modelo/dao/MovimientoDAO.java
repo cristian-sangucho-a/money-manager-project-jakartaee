@@ -26,27 +26,6 @@ public class MovimientoDAO {
 	public MovimientoDAO() {
 	}
 
-	public void update(MovimientoDTO movement, int categoryID) {
-		EntityManager em = ManejoEntidadPersistencia.getEntityManager();
-		int movementToUpdate = movement.getId();
-		Movimiento oldMovement = getMovementById(movementToUpdate);
-		CuentaDAO cdao = new CuentaDAO();
-		Object movUpdated = typeOfMovementToUpdate(oldMovement, cdao, movement, categoryID);
-
-		em.getTransaction().begin();
-		try {
-			if (movUpdated != null) {
-				em.merge(movUpdated);
-				em.getTransaction().commit();
-			}
-		} finally {
-			if (em.getTransaction().isActive()) {
-				em.getTransaction().rollback();
-			}
-			em.close();
-		}
-	}
-
 	public void update(Egreso movement, double value, String concept, int srcAccountID, Date date,
 			int movementID, int categoryID) {
 
@@ -89,6 +68,7 @@ public class MovimientoDAO {
 		throw new Exception("No valio");
 	}
 
+	
 	public void delete(Movimiento movement) {
 		CuentaDAO cdao = new CuentaDAO();
 		double value = movement.getValue();
@@ -138,7 +118,6 @@ public class MovimientoDAO {
 				int id = (Integer) result[0];
 				String tipoMovimiento = (String) result[1];
 				String concept = (String) result[2];
-				System.out.print("/////////////////////////////////" + result[3]);
 				Date date = convertToDate((LocalDateTime) result[3]);
 				double value = (Double) result[4];
 				int dst = (result[6] == null) ? 0 : (Integer) result[6];
@@ -246,57 +225,6 @@ public class MovimientoDAO {
 			return date;
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		return null;
-	}
-
-	private Object typeOfMovementToUpdate(Movimiento oldMovement, CuentaDAO cdao, MovimientoDTO movementDTO,
-			int categoryID) {
-		if (oldMovement instanceof Egreso) {
-			CategoriaEgresoDAO categoriaEgresoDAO = new CategoriaEgresoDAO();
-			Egreso egreso = (Egreso) oldMovement;
-			Cuenta srcAccount = egreso.getSrcAccount();
-			egreso.setCategoria(categoriaEgresoDAO.getCategoryById(categoryID));
-			egreso.setConcept(movementDTO.getConcept());
-			egreso.setDate(movementDTO.getDate());
-			egreso.setSrcAccount(cdao.getByID(movementDTO.getSrcAccount()));
-			cdao.updateBalance(-egreso.getValue(), srcAccount.getId()); // eliminar el anterior
-
-			egreso.setValue(movementDTO.getValue());
-			cdao.updateBalance(movementDTO.getValue(), srcAccount.getId()); // actualizar con el nuevo
-
-			return egreso;
-
-		} else if (oldMovement instanceof Ingreso) {
-			CategoriaIngresoDAO categoriaIngresoDAO = new CategoriaIngresoDAO();
-			Ingreso ingreso = (Ingreso) oldMovement;
-			Cuenta dstAccount = ingreso.getDstAccount();
-			ingreso.setCategoria(categoriaIngresoDAO.getCategoryById(categoryID));
-			ingreso.setConcept(movementDTO.getConcept());
-			ingreso.setDate(movementDTO.getDate());
-			ingreso.setDstAccount(cdao.getByID(movementDTO.getDstAccount()));
-			cdao.updateBalance(-ingreso.getValue(), dstAccount.getId()); // eliminar el anterior
-
-			ingreso.setValue(movementDTO.getValue());
-			cdao.updateBalance(movementDTO.getValue(), dstAccount.getId());// actualizar con el nuevo
-			return ingreso;
-
-		} else if (oldMovement instanceof Transferencia) {
-			CategoriaTransferenciaDAO categoriaTransferenciaDAO = new CategoriaTransferenciaDAO();
-			Transferencia transferencia = (Transferencia) oldMovement;
-			Cuenta srcAccount = transferencia.getSrcAccount();
-			Cuenta dstAccount = transferencia.getDstAccount();
-			transferencia.setCategoria(categoriaTransferenciaDAO.getCategoryById(categoryID));
-			transferencia.setConcept(movementDTO.getConcept());
-			transferencia.setDate(movementDTO.getDate());
-			transferencia.setSrcAccount(cdao.getByID(movementDTO.getSrcAccount()));
-			transferencia.setDstAccount(cdao.getByID(movementDTO.getDstAccount()));
-			cdao.updateBalance(transferencia.getValue(), srcAccount.getId()); // eliminar el anterior
-			cdao.updateBalance(-transferencia.getValue(), dstAccount.getId()); // eliminar el anterior
-			transferencia.setValue(movementDTO.getValue());
-			cdao.updateBalance(-movementDTO.getValue(), srcAccount.getId()); // actualizar con el nuevo
-			cdao.updateBalance(movementDTO.getValue(), dstAccount.getId()); // actualizar con el nuevo
-			return transferencia;
 		}
 		return null;
 	}
