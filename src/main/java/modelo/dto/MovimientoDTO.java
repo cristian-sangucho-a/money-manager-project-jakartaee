@@ -7,9 +7,6 @@ import java.util.*;
 import modelo.dao.CuentaDAO;
 import modelo.entidades.Cuenta;
 
-/**
- * 
- */
 public class MovimientoDTO {
 
     private int id;
@@ -117,7 +114,6 @@ public class MovimientoDTO {
 	public String toString() {
 		return "MovimientoDTO [id=" + id + ", src=" + src + ", dst=" + dst + ", concept=" + concept + ", date=" + date
 				+ ", value=" + value + ", tipo_movimiento=" + tipo_movimiento + "]";
-	}
-    
+	}   
     
 }

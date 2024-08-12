@@ -13,17 +13,14 @@ import jakarta.persistence.Id;
 @Entity
 @DiscriminatorValue("CATEGRESO")
 public class CategoriaEgreso extends Categoria implements Serializable {
-
-    
+	
 	private static final long serialVersionUID = 1L;
+	
 	public CategoriaEgreso() {
 		
 	}
 	public CategoriaEgreso(String name) {
 		super(name);
 	}
-	
-    
-    
 
 }

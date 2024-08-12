@@ -17,19 +17,6 @@ public class CategoriaDAO {
     public CategoriaDAO() {
     }
 
-    public void getName() {
-        // TODO implement here
-    }
-
-    public void getIncomeCategories() {
-        // TODO implement here
-    }
-
-	public void updateBalance(double value) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public List<MovimientoDTO> getMovementsByCategory(int categoryID, Date from, Date to) {
 		List<MovimientoDTO> resultList = new ArrayList<>();
 		EntityManager em = ManejoEntidadPersistencia.getEntityManager();
@@ -65,7 +52,6 @@ public class CategoriaDAO {
 			}
 		}
 		return resultList;
-		// TODO Auto-generated method stub
 	}
 	
 	private Date convertToDate(LocalDateTime localDateTime) {

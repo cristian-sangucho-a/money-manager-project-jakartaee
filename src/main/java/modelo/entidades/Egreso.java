@@ -48,9 +48,5 @@ public class Egreso extends Movimiento implements Serializable {
 	public void setCategoria(CategoriaEgreso categoria) {
 		this.categoria = categoria;
 	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 	
 }

@@ -11,23 +11,12 @@ import modelo.entidades.CategoriaEgreso;
 import modelo.entidades.CategoriaIngreso;
 
 
-
-/**
- * 
- */
 public class CategoriaIngresoDAO extends CategoriaDAO {
 
-	
-	
     public CategoriaIngresoDAO() {
     	
     }
 
-    /**
-     * @param from 
-     * @param to 
-     * @return
-     */
     public List<CategoriaResumenDTO> getAllSumarized(Date from, Date to) {
     	EntityManager em = ManejoEntidadPersistencia.getEntityManager();
         List<CategoriaResumenDTO> resultList = new ArrayList<>();
@@ -93,5 +82,4 @@ public class CategoriaIngresoDAO extends CategoriaDAO {
 	    }
 	    return categoria;
     }
-
 }

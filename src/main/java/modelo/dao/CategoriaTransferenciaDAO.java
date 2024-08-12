@@ -10,29 +10,12 @@ import modelo.dto.CategoriaResumenDTO;
 import modelo.entidades.CategoriaIngreso;
 import modelo.entidades.CategoriaTransferencia;
 
-/**
- * 
- */
 public class CategoriaTransferenciaDAO {
 	
-
-    /**
-     * Default constructor
-     */
     public CategoriaTransferenciaDAO() {
     	
     }
 
-    /**
-     * @param from 
-     * @param to 
-     * @return
-     */
-    public List<CategoriaResumenDTO> getAllSumarized(Date from, Date to) {
-        // TODO implement here
-        return null;
-    }
-    
     public CategoriaTransferencia getCategoryById(int categoryID) {
     	EntityManager em = ManejoEntidadPersistencia.getEntityManager();
     	CategoriaTransferencia categoria = null;

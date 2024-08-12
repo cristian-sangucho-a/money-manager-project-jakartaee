@@ -21,20 +21,11 @@ import modelo.entidades.Movimiento;
 import modelo.entidades.Transferencia;
 import modelo.entidades.Movimiento;
 
-/**
- * 
- */
 public class MovimientoDAO {
-	/**
-	 * Default constructor
-	 */
+	
 	public MovimientoDAO() {
 	}
 
-	/**
-	 * @param movement
-	 * @return
-	 */
 	public void update(MovimientoDTO movement, int categoryID) {
 		EntityManager em = ManejoEntidadPersistencia.getEntityManager();
 		int movementToUpdate = movement.getId();
@@ -56,11 +47,6 @@ public class MovimientoDAO {
         }
 	}
 
-	
-
-	/**
-	 * @param movement
-	 */
 	public void delete(Movimiento movement) {
 		CuentaDAO cdao = new CuentaDAO();
 		double value = movement.getValue();
@@ -96,47 +82,6 @@ public class MovimientoDAO {
 		}
 	}
 
-	/**
-	 * @param categoryID
-	 */
-	public void getMovementsByCategory(int categoryID) {
-		// TODO implement here
-	}
-
-	/**
-	 * @param from
-	 * @param to
-	 */
-	public void getMovementsByDate(Date from, Date to) {
-		// TODO implement here
-	}
-
-	/**
-	 * @param accountID public List<MovimientoDTO> getAllByAccount(int accountID) {
-	 *                  EntityManager em =
-	 *                  ManejoEntidadPersistencia.getEntityManager();
-	 * 
-	 *                  CuentaDAO cu = new CuentaDAO();
-	 * 
-	 * 
-	 * 
-	 *                  List<MovimientoDTO> movimientos = null; try { // Create and
-	 *                  execute the JPQL query String jpql = "SELECT m FROM
-	 *                  Movimiento m WHERE m.DSTACCOUNT_ID = :dstID OR
-	 *                  m.SRCACCOUNT_ID = :srcID"; TypedQuery<MovimientoDTO> query =
-	 *                  em.createQuery(jpql, MovimientoDTO.class);
-	 *                  query.setParameter("dstID", cu.getByID(accountID));
-	 *                  query.setParameter("srcID", cu.getByID(accountID));
-	 * 
-	 *                  movimientos = query.getResultList(); } finally { if (em !=
-	 *                  null && em.isOpen()) { em.close(); } } return movimientos; }
-	 */
-
-	/**
-	 * @param from
-	 * @param to
-	 * @return
-	 */
 	public List<MovimientoDTO> getAllByAccount(int accountID) {
 		List<MovimientoDTO> resultList = new ArrayList<>();
 		EntityManager em = ManejoEntidadPersistencia.getEntityManager();
@@ -173,26 +118,16 @@ public class MovimientoDAO {
 		return resultList;
 	}
 
-	/**
-	 * @param from
-	 * @param to
-	 */
 	public List<MovimientoDTO> getAll(Date from, Date to) {
 		EntityManager em = ManejoEntidadPersistencia.getEntityManager();
 		List<MovimientoDTO> movimientos = new ArrayList<>();
-
 		try {
-			// Create and execute the native SQL query
 			String sql = "SELECT ID, tipo_movimiento, CONCEPT, FECHA, VALOR, Categoria_ID, DSTACCOUNT_ID, SRCACCOUNT_ID "
 					+ "FROM Movimiento WHERE FECHA BETWEEN ?1 AND ?2";
 			Query query = em.createNativeQuery(sql);
 			query.setParameter(1, from);
 			query.setParameter(2, to);
-
-			// Get the result list
 			List<Object[]> results = query.getResultList();
-
-			// Map each result to a MovimientoDTO
 			for (Object[] result : results) {
 				int id = (Integer) result[0];
 				String tipoMovimiento = (String) result[1];
@@ -202,36 +137,27 @@ public class MovimientoDAO {
 				Integer categoriaId = (result[5] != null) ? (Integer) result[5] : 0;
 	            Integer dstAccountId = (result[6] != null) ? (Integer) result[6] : 0;
 	            Integer srcAccountId = (result[7] != null) ? (Integer) result[7] : 0;
-
-				// Create a MovimientoDTO and add it to the list
 				MovimientoDTO dto = new MovimientoDTO(id, srcAccountId, dstAccountId, concept, date, value,
 						tipoMovimiento);
 				movimientos.add(dto);
 			}
 		} finally {
-			// Ensure that the EntityManager is closed
 			if (em != null && em.isOpen()) {
 				em.close();
 			}
 		}
-
 		return movimientos;
 	}
+	
 	public MovimientoDTO getMovementDTOById(int movimientoDTOID) {
 		EntityManager em = ManejoEntidadPersistencia.getEntityManager();
 		MovimientoDTO movimientoDTO = new MovimientoDTO();
-
 		try {
-			// Create and execute the native SQL query
 			String sql = "SELECT ID, tipo_movimiento, CONCEPT, FECHA, VALOR, Categoria_ID, DSTACCOUNT_ID, SRCACCOUNT_ID "
 					+ "FROM Movimiento WHERE ID = ?1";
 			Query query = em.createNativeQuery(sql);
 			query.setParameter(1, movimientoDTOID);
-
-			// Get the result list
 			Object[] result = (Object[]) query.getSingleResult();
-
-			// Map each result to a MovimientoDTO
 			if (result != null) {
 				Date date = convertToDate((LocalDateTime) result[3]);
 				Integer categoriaId = (result[5] != null) ? (Integer) result[5] : 0;
@@ -247,18 +173,13 @@ public class MovimientoDAO {
 	            movimientoDTO.setSrcAccount(srcAccountId);
 			}
 		} finally {
-			// Ensure that the EntityManager is closed
 			if (em != null && em.isOpen()) {
 				em.close();
 			}
 		}
-
 		return movimientoDTO;
 	}
 
-	/**
-	 * @param movementID
-	 */
 	public Movimiento getMovementById(int movementID) {
 		EntityManager em = ManejoEntidadPersistencia.getEntityManager();
 		Movimiento movimiento = null;
@@ -276,12 +197,9 @@ public class MovimientoDAO {
 	}
 
 	private Date convertToDate(LocalDateTime localDateTime) {
-		// Parse LocalDateTime
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 		ZoneId defaultZoneId = ZoneId.systemDefault();
-
 		try {
-			// Convertir LocalDateTime a Date
 			Date date = Date.from(localDateTime.atZone(defaultZoneId).toInstant());
 			return date;
 		} catch (Exception e) {
@@ -300,10 +218,10 @@ public class MovimientoDAO {
 			egreso.setDate(movementDTO.getDate());
 			egreso.setSrcAccount(cdao.getByID(movementDTO.getSrcAccount()));
 			cdao.updateBalance(-egreso.getValue(), srcAccount.getId()); //eliminar el anterior
-			System.out.println(egreso.getValue() + "CUANDO QUITO EL ANTIGUO");
+			
 			egreso.setValue(movementDTO.getValue());
 			cdao.updateBalance(movementDTO.getValue(), srcAccount.getId()); //actualizar con el nuevo
-			System.out.println(movementDTO.getValue()+ "CUANDO COLOCO EL NUEVO");
+			
 			return egreso;
 			
 		} else if (oldMovement instanceof Ingreso) {
@@ -315,7 +233,7 @@ public class MovimientoDAO {
 			ingreso.setDate(movementDTO.getDate());
 			ingreso.setDstAccount(cdao.getByID(movementDTO.getDstAccount()));
 			cdao.updateBalance(-ingreso.getValue(), dstAccount.getId()); //eliminar el anterior
-			System.out.println(-ingreso.getValue() + "CUANDO QUITO EL ANTIGUO");
+			
 			ingreso.setValue(movementDTO.getValue());
 			cdao.updateBalance(movementDTO.getValue(), dstAccount.getId());//actualizar con el nuevo
 			return ingreso;
