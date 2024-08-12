@@ -14,9 +14,6 @@ import modelo.entidades.Egreso;
 import modelo.entidades.Ingreso;
 import modelo.entidades.Transferencia;
 
-/**
- * 
- */
 public class IngresoDAO extends MovimientoDAO {
 	
 	public IngresoDAO() {

@@ -10,9 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-/**
- * 
- */
+
 @Entity
 @DiscriminatorValue("CATTRANSFERENCIA")
 public class CategoriaTransferencia extends Categoria implements Serializable {

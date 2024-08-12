@@ -52,7 +52,6 @@ public class CategoriaDAO {
 			}
 		}
 		return resultList;
-		// TODO Auto-generated method stub
 	}
 	
 	private Date convertToDate(LocalDateTime localDateTime) {

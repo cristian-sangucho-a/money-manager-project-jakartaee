@@ -22,8 +22,6 @@ public class CuentaDAO {
         try {
             
             Query query = em.createQuery("Select c from Cuenta c", Cuenta.class);
-            
-     
             cuentas = query.getResultList();
             
             em.getTransaction().commit();

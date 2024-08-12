@@ -21,9 +21,6 @@ import modelo.entidades.Movimiento;
 import modelo.entidades.Transferencia;
 import modelo.entidades.Movimiento;
 
-/**
- * 
- */
 public class MovimientoDAO {
 	
 	public MovimientoDAO() {
@@ -221,10 +218,10 @@ public class MovimientoDAO {
 			egreso.setDate(movementDTO.getDate());
 			egreso.setSrcAccount(cdao.getByID(movementDTO.getSrcAccount()));
 			cdao.updateBalance(-egreso.getValue(), srcAccount.getId()); //eliminar el anterior
-			System.out.println(egreso.getValue() + "CUANDO QUITO EL ANTIGUO");
+			
 			egreso.setValue(movementDTO.getValue());
 			cdao.updateBalance(movementDTO.getValue(), srcAccount.getId()); //actualizar con el nuevo
-			System.out.println(movementDTO.getValue()+ "CUANDO COLOCO EL NUEVO");
+			
 			return egreso;
 			
 		} else if (oldMovement instanceof Ingreso) {
@@ -236,7 +233,7 @@ public class MovimientoDAO {
 			ingreso.setDate(movementDTO.getDate());
 			ingreso.setDstAccount(cdao.getByID(movementDTO.getDstAccount()));
 			cdao.updateBalance(-ingreso.getValue(), dstAccount.getId()); //eliminar el anterior
-			System.out.println(-ingreso.getValue() + "CUANDO QUITO EL ANTIGUO");
+			
 			ingreso.setValue(movementDTO.getValue());
 			cdao.updateBalance(movementDTO.getValue(), dstAccount.getId());//actualizar con el nuevo
 			return ingreso;

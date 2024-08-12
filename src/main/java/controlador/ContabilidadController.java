@@ -26,9 +26,6 @@ import modelo.dto.CategoriaResumenDTO;
 import modelo.dto.MovimientoDTO;
 import modelo.entidades.*;
 
-/**
- * 
- */
 @WebServlet("/ContabilidadController")
 public class ContabilidadController extends HttpServlet {
 
@@ -36,9 +33,7 @@ public class ContabilidadController extends HttpServlet {
 	private final String fromDefault = "2024-08-01";
 	private final String toDefault = "2024-08-31";
 
-	/**
-	 * Default constructor
-	 */
+
 	public ContabilidadController() {
 	}
 
@@ -349,10 +344,7 @@ public class ContabilidadController extends HttpServlet {
 		req.getRequestDispatcher("jsp/vercuenta.jsp").forward(req, resp);
 	}
 
-	/**
-	 * @param from vienen en el cuerpo / url
-	 * @param to
-	 */
+
 	public void viewDashboard(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		CuentaDAO cuentaDAO = new CuentaDAO();
 		CategoriaIngresoDAO categoriaIngresoDAO = new CategoriaIngresoDAO();
@@ -405,11 +397,10 @@ public class ContabilidadController extends HttpServlet {
 	}
 
 	private Date convertToDate(String dateString) {
-		// Parse a LocalDate
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		ZoneId defaultZoneId = ZoneId.systemDefault();
 		LocalDate localDate = LocalDate.parse(dateString, formatter);
-		// Para convertir a DATE
+
 		try {
 			Date date = Date.from(localDate.atStartOfDay(defaultZoneId).toInstant());
 			return date;

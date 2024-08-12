@@ -7,9 +7,6 @@ import java.util.*;
 import modelo.dao.CuentaDAO;
 import modelo.entidades.Cuenta;
 
-/**
- * 
- */
 public class MovimientoDTO {
 
     private int id;

@@ -8,9 +8,6 @@ import modelo.dto.CategoriaResumenDTO;
 import modelo.entidades.CategoriaEgreso;
 import modelo.entidades.Cuenta;
 
-/**
- * 
- */
 public class CategoriaEgresoDAO extends CategoriaDAO {
 	
 
