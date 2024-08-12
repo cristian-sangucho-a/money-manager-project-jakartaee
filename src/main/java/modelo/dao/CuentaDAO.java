@@ -102,11 +102,11 @@ public class CuentaDAO {
     }
 
 
-	public Cuenta getByID(int id) {
+	public Cuenta getByID(int accountID) {
 		EntityManager em = ManejoEntidadPersistencia.getEntityManager();
 	    em.getTransaction().begin();
 	    try {
-	        Cuenta cuenta = em.find(Cuenta.class, id);
+	        Cuenta cuenta = em.find(Cuenta.class, accountID);
 	        em.getTransaction().commit();
             System.out.print(cuenta.getId());
 	        return cuenta;

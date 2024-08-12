@@ -35,12 +35,12 @@ public class MovimientoDAO {
 	 * @param movement
 	 * @return
 	 */
-	public void update(MovimientoDTO movementDTO, int categoryID) {
+	public void update(MovimientoDTO movement, int categoryID) {
 		EntityManager em = ManejoEntidadPersistencia.getEntityManager();
-		int movementToUpdate = movementDTO.getId();
-		Movimiento movement = getMovementById(movementToUpdate);
+		int movementToUpdate = movement.getId();
+		Movimiento oldMovement = getMovementById(movementToUpdate);
 		CuentaDAO cdao = new CuentaDAO();
-		Object movUpdated = typeOfMovementToUpdate(movement, cdao, movementDTO, categoryID);
+		Object movUpdated = typeOfMovementToUpdate(oldMovement, cdao, movement, categoryID);
 		
         em.getTransaction().begin();
         try {
@@ -290,10 +290,10 @@ public class MovimientoDAO {
 		return null;
 	}
 	
-	private Object typeOfMovementToUpdate(Movimiento movement, CuentaDAO cdao, MovimientoDTO movementDTO, int categoryID) {
-		if (movement instanceof Egreso) {
+	private Object typeOfMovementToUpdate(Movimiento oldMovement, CuentaDAO cdao, MovimientoDTO movementDTO, int categoryID) {
+		if (oldMovement instanceof Egreso) {
 			CategoriaEgresoDAO categoriaEgresoDAO = new CategoriaEgresoDAO();
-			Egreso egreso = (Egreso) movement;
+			Egreso egreso = (Egreso) oldMovement;
 			Cuenta srcAccount = egreso.getSrcAccount();
 			egreso.setCategoria(categoriaEgresoDAO.getCategoryById(categoryID));
 			egreso.setConcept(movementDTO.getConcept());
@@ -306,9 +306,9 @@ public class MovimientoDAO {
 			System.out.println(movementDTO.getValue()+ "CUANDO COLOCO EL NUEVO");
 			return egreso;
 			
-		} else if (movement instanceof Ingreso) {
+		} else if (oldMovement instanceof Ingreso) {
 			CategoriaIngresoDAO categoriaIngresoDAO = new CategoriaIngresoDAO();
-			Ingreso ingreso = (Ingreso) movement;
+			Ingreso ingreso = (Ingreso) oldMovement;
 			Cuenta dstAccount = ingreso.getDstAccount();
 			ingreso.setCategoria(categoriaIngresoDAO.getCategoryById(categoryID));
 			ingreso.setConcept(movementDTO.getConcept());
@@ -320,9 +320,9 @@ public class MovimientoDAO {
 			cdao.updateBalance(movementDTO.getValue(), dstAccount.getId());//actualizar con el nuevo
 			return ingreso;
 
-		} else if (movement instanceof Transferencia) {
+		} else if (oldMovement instanceof Transferencia) {
 			CategoriaTransferenciaDAO categoriaTransferenciaDAO = new CategoriaTransferenciaDAO();
-			Transferencia transferencia = (Transferencia) movement;
+			Transferencia transferencia = (Transferencia) oldMovement;
 			Cuenta srcAccount = transferencia.getSrcAccount();
 			Cuenta dstAccount = transferencia.getDstAccount();
 			transferencia.setCategoria(categoriaTransferenciaDAO.getCategoryById(categoryID));

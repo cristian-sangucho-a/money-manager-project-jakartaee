@@ -91,14 +91,21 @@ public class MovimientoDTO {
 
 	public String getNameSrcAccount(){
         CuentaDAO cuentaDao = new CuentaDAO();
-        Cuenta cuentaSrc = cuentaDao.getByID(this.src);
-        return cuentaSrc.getName();
+        if(src!=0) {
+        	Cuenta cuentaSrc = cuentaDao.getByID(this.src);
+            return cuentaSrc.getName();
+        }
+        return null;
     }
 
     public String getNameDstAccount(){
         CuentaDAO cuentaDao = new CuentaDAO();
-        Cuenta cuentaDst = cuentaDao.getByID(this.dst);
-        return cuentaDst.getName();
+        if(dst!=0) {
+        	Cuenta cuentaDst = cuentaDao.getByID(this.dst);
+        	return cuentaDst.getName();
+        }
+        return null; 
+        
     }
     
     public String getStringDate(){
