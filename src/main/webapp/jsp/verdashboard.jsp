@@ -29,6 +29,7 @@
 			// Formatear las fechas para el input type="date"
 			String fromDate = firstDayOfMonth.toString();
 			String toDate = today.toString();
+			
 			%>
 
 			<label for="from">Desde:</label> <input type="date" id="from"

@@ -90,7 +90,7 @@ public class CategoriaDAO {
             String queryStr = "SELECT c.name, SUM(m.valor), c.id "
             		+ "FROM categoria c "
             		+ "LEFT JOIN movimiento m ON c.id = m.Categoria_ID "
-            		+ "WHERE m.fecha BETWEEN ?1 AND ?2 "
+            		+ "AND m.fecha BETWEEN ?1 AND ?2 "
             		+ "GROUP BY c.id;";
             Query query = em.createNativeQuery(queryStr);
             query.setParameter(1, from);
@@ -98,7 +98,7 @@ public class CategoriaDAO {
             List<Object[]> results = query.getResultList();
             for (Object[] result : results) {
                 String name = (String) result[0];
-                Double sum = (Double) result[1];
+                Double sum = (result[1] == null) ? 0 : (Double) result[1];
                 int id = (Integer) result[2];
                 resultList.add(new CategoriaResumenDTO(name, sum, id));
             }
