@@ -7,6 +7,7 @@ import java.util.*;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
+import modelo.dto.CategoriaResumenDTO;
 import modelo.dto.MovimientoDTO;
 import modelo.entidades.Categoria;
 import modelo.entidades.CategoriaEgreso;
@@ -81,5 +82,34 @@ public class CategoriaDAO {
 		}
 		return null;
 	}
+	
+	public List<CategoriaResumenDTO> getAllSumarized(Date from, Date to) {
+    	EntityManager em = ManejoEntidadPersistencia.getEntityManager();
+        List<CategoriaResumenDTO> resultList = new ArrayList<>();
+        try {
+            String queryStr = "SELECT c.name, SUM(m.valor), c.id "
+            		+ "FROM categoria c "
+            		+ "LEFT JOIN movimiento m ON c.id = m.Categoria_ID "
+            		+ "WHERE m.fecha BETWEEN ?1 AND ?2 "
+            		+ "GROUP BY c.id;";
+            Query query = em.createNativeQuery(queryStr);
+            query.setParameter(1, from);
+            query.setParameter(2, to);
+            List<Object[]> results = query.getResultList();
+            for (Object[] result : results) {
+                String name = (String) result[0];
+                Double sum = (Double) result[1];
+                int id = (Integer) result[2];
+                resultList.add(new CategoriaResumenDTO(name, sum, id));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+        return resultList;
+    }
 
 }
