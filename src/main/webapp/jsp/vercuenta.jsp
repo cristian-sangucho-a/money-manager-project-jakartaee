@@ -23,6 +23,18 @@
 				Saldo: $
 				<c:out value="${account.balance}" />
 			</div>
+			<div class="actions">
+				<a
+					href="ContabilidadController?ruta=registraringreso&accountID=${account.id}">
+					<i class="fa-solid fa-money-bill-trend-up"></i> Ingreso
+				</a> <a
+					href="ContabilidadController?ruta=registraregreso&accountID=${account.id}">
+					<i class="fa-solid fa-arrow-down"></i> Egreso
+				</a> <a
+					href="ContabilidadController?ruta=registrartransferencia&accountID=${account.id}">
+					<i class="fa-solid fa-money-bill-transfer"></i> Transf. 
+				</a>
+			</div>
 		</div>
 
 		<div class="movements-list">
@@ -40,7 +52,8 @@
 						</div>
 					</div>
 					<div>
-						<div class="movement-amount ${movement.value < 0 ? 'negative' : 'positive'}">
+						<div
+							class="movement-amount ${movement.value < 0 ? 'negative' : 'positive'}">
 							Monto: $
 							<c:out value="${movement.value}" />
 						</div>
