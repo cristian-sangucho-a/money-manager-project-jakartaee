@@ -44,14 +44,6 @@
 							Monto: $
 							<c:out value="${movement.value}" />
 						</div>
-						<div class="actions">
-							<a href="ContabilidadController?ruta=actualizarmovimiento&movementID=${movement.id}">
-								<i class="fa-solid fa-pen-to-square"></i> Editar
-							</a>
-							<a href="ContabilidadController?ruta=eliminarmovimiento&movementID=${movement.id}">
-								<i class="fa-solid fa-trash"></i> Eliminar
-							</a>
-						</div>
 					</div>
 				</div>
 			</c:forEach>
