@@ -56,7 +56,7 @@ public class RecursoContabilidad {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         
-		return mdao.getAll(calendar.getTime(), new Date());
+		return mdao.getAll("2024-08-01 00:00:00","2024-08-31 23:59:59");
 	}
 	
 	
