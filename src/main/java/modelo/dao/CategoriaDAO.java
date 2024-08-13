@@ -32,7 +32,6 @@ public class CategoriaDAO {
 				int id = (Integer) result[0];
 				String tipoMovimiento = (String) result[1];
 				String concept = (String) result[2];
-				System.out.print("/////////////////////////////////" + result[3]);
 				Date date = convertToDate((LocalDateTime) result[3]);
 				double value = (Double) result[4];
 				int dst = (result[6] == null) ? 0 : (Integer) result[6];
