@@ -253,7 +253,7 @@ public class ContabilidadController extends HttpServlet {
 		CategoriaTransferencia category = categoriaTransferenciaDAO.getCategoryById(categoriaTransferenciaID);
 		Cuenta dstAccount = cuentaDAO.getByID(dstAccountID);
 		Cuenta srcAccount = cuentaDAO.getByID(srcAccountID);
-		double balance = srcAccount.getBalance();
+		double balance = cuentaDAO.getBalance(srcAccountID);
 		// 2. Hablar con el modelo
 		boolean approveExpense = amount <= balance && amount > 0;
 
@@ -282,7 +282,7 @@ public class ContabilidadController extends HttpServlet {
 		List<Cuenta> accounts = cuentaDAO.getAll();
 		accounts.remove(srcAccount);
 
-		double balance = srcAccount.getBalance();
+		double balance = cuentaDAO.getBalance(accountID);
 		List<CategoriaTransferencia> transferCategories = categoriaTransferenciaDAO.getAll();
 
 		// 3. Hablar con la vista
@@ -305,10 +305,10 @@ public class ContabilidadController extends HttpServlet {
 		int categoryID = Integer.parseInt(req.getParameter("categoryID"));
 		int accountID = Integer.parseInt(req.getParameter("accountID"));
 		// 2. Hablar con el modelo
-		boolean approveExpense = value > 0;
+		boolean approveIncome = value > 0;
 
-		if (!approveExpense) {
-			req.setAttribute("approveExpense", approveExpense);
+		if (!approveIncome) {
+			req.setAttribute("approveExpense", approveIncome);
 			this.registerExpense(req, resp);
 			return;
 		}
@@ -328,9 +328,8 @@ public class ContabilidadController extends HttpServlet {
 		int accountID = Integer.parseInt(req.getParameter("accountID"));
 		// 2. Hablar con el modelo
 		Cuenta account = cuentaDAO.getByID(accountID);
-		double balance = account.getBalance();
+		double balance = cuentaDAO.getBalance(accountID);
 		List<CategoriaIngreso> categories = categoriaIngresoDAO.getAll();
-
 		// 3. Hablar con la vista
 		req.setAttribute("balance", balance);
 		req.setAttribute("categories", categories);
@@ -381,7 +380,7 @@ public class ContabilidadController extends HttpServlet {
 		int accountID = Integer.parseInt(req.getParameter("accountID"));
 		// paso 2: hablar con el modelo
 		Cuenta account = cuentaDAO.getByID(accountID);
-		double balance = account.getBalance();
+		double balance = cuentaDAO.getBalance(accountID);
 		List<CategoriaEgreso> expensesCategories = categoriaEgresoDAO.getAll();
 		// paso 3: hablar con la vista
 		req.setAttribute("balance", balance);
