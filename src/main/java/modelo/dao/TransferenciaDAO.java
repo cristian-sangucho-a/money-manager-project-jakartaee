@@ -73,6 +73,21 @@ public class TransferenciaDAO extends MovimientoDAO {
 		em.close();
     }
 
-	
-
+    protected void delete(Transferencia transferencia) {
+		CuentaDAO cdao = new CuentaDAO();
+    	cdao.updateBalance(transferencia.getValue(), transferencia.getSrcAccount().getId());
+		cdao.updateBalance(-transferencia.getValue(), transferencia.getDstAccount().getId());
+		EntityManager em = ManejoEntidadPersistencia.getEntityManager();
+		em.getTransaction().begin();
+		try {
+			em.remove(em.find(Transferencia.class, transferencia.getId()));
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			if (em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
+		} finally {
+			em.close();
+		}
+	}
 }

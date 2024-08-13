@@ -39,6 +39,20 @@
 	padding: 10px 20px;
 	cursor: pointer;
 }
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
 </style>
 </head>
 <body>
@@ -74,7 +88,7 @@
 				</div>
 				<div class="controls vertical-center">
 					<label for="value" class="left-label">Valor:</label> <input
-						type="text" id="value" name="amount" class="large-input" required>
+						type="number" id="value" name="amount" class="large-input" step="0.01" required>
 				</div>
 				<div class="controls vertical-center">
 					<label for="originAccount" class="left-label">Cuenta
@@ -85,8 +99,8 @@
 				</div>
 				<div class="controls vertical-center">
 					<label for="destinationAccount" class="left-label">Cuenta
-						Destino:</label> <select id="destinationAccount" name="dstAccountID"
-						class="select-account" required>
+						Destino:</label> <select id="cuenta" name="dstAccountID"
+						class="select-category" required>
 						<c:forEach var="account" items="${accounts}">
 							<option value="${account.id}">${account.name}</option>
 						</c:forEach>
@@ -113,18 +127,25 @@
 			</div>
 		</div>
 	</div>
-	<script>
-		function closePopup() {
-			document.getElementById("popup").style.display = "none";
-		}
+	<div id="popup" class="popup">
+    <div class="popup-content">
+        <p>La transferencia no puede ser aprobado porque el valor supera el balance disponible o ingresó un valor negativo.</p>
+        <button class="close-btn" onclick="closePopup()">Cerrar</button>
+    </div>
+</div>
 
-		<c:choose>
-		<c:when test="${not empty approveTransfer}">
-		<c:if test="${not approveTransfer}">
-		document.getElementById("popup").style.display = "block";
-		</c:if>
-		</c:when>
-		</c:choose>
-	</script>
+<script>
+    function closePopup() {
+        document.getElementById("popup").style.display = "none";
+    }
+
+    <c:choose>
+        <c:when test="${not empty approveExpense}">
+            <c:if test="${not approveExpense}">
+                document.getElementById("popup").style.display = "block";
+            </c:if>
+        </c:when>
+    </c:choose>
+</script>
 </body>
 </html>

@@ -36,6 +36,17 @@
             padding: 10px 20px;
             cursor: pointer;
         }
+        /* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
     </style>
 </head>
 <body>
@@ -70,7 +81,7 @@
             </div>
             <div class="controls vertical-center">
                 <label for="value" class="left-label">Valor:</label>
-                <input type="text" id="value" name="value" class="large-input" required>
+                <input type="number" id="value" name="value" class="large-input" step="0.01" required>
             </div>
             <div class="controls vertical-center">
                 <label for="category" class="left-label">Categoría:</label>
@@ -95,7 +106,7 @@
 
 <div id="popup" class="popup">
     <div class="popup-content">
-        <p>El egreso no puede ser aprobado porque el valor supera el balance disponible.</p>
+        <p>El egreso no puede ser aprobado porque el valor supera el balance disponible o ingresó un valor negativo (Ingrese el valor positivo cuando se registre este se guardara de manera correcta).</p>
         <button class="close-btn" onclick="closePopup()">Cerrar</button>
     </div>
 </div>

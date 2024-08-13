@@ -1,6 +1,7 @@
 package modelo.entidades;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -48,7 +49,8 @@ public class Cuenta implements Serializable{
 	}
 
 	public double getBalance() {
-		return balance;
+	    DecimalFormat df = new DecimalFormat("#.##");
+	    return Double.parseDouble(df.format(balance));
 	}
 
 	public void setBalance(double balance) {

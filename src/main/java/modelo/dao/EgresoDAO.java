@@ -64,5 +64,24 @@ public class EgresoDAO extends MovimientoDAO{
 		}
 		em.close();
 	}
+	
+	protected void delete(Egreso egreso) {
+		CuentaDAO cdao = new CuentaDAO();
+		Cuenta srcAccount = egreso.getSrcAccount();
+		cdao.updateBalance(-egreso.getValue(), srcAccount.getId());
+		
+		EntityManager em = ManejoEntidadPersistencia.getEntityManager();
+		em.getTransaction().begin();
+		try {
+			em.remove(em.find(Movimiento.class, egreso.getId()));
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			if (em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
+		} finally {
+			em.close();
+		}
+	}
 
 }

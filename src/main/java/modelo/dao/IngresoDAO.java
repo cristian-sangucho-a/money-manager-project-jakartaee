@@ -12,6 +12,7 @@ import modelo.entidades.CategoriaIngreso;
 import modelo.entidades.Cuenta;
 import modelo.entidades.Egreso;
 import modelo.entidades.Ingreso;
+import modelo.entidades.Movimiento;
 import modelo.entidades.Transferencia;
 
 public class IngresoDAO extends MovimientoDAO {
@@ -66,4 +67,22 @@ public class IngresoDAO extends MovimientoDAO {
 		}
 		em.close();
     }
+    
+    protected void delete(Ingreso ingreso) {
+		CuentaDAO cdao = new CuentaDAO();
+    	Cuenta dstAccount = ingreso.getDstAccount();
+		cdao.updateBalance(-ingreso.getValue(), dstAccount.getId());
+		EntityManager em = ManejoEntidadPersistencia.getEntityManager();
+		em.getTransaction().begin();
+		try {
+			em.remove(em.find(Ingreso.class, ingreso.getId()));
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			if (em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
+		} finally {
+			em.close();
+		}
+	}
 }

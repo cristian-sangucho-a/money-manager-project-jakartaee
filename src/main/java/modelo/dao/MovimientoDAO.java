@@ -26,94 +26,70 @@ public class MovimientoDAO {
 	public MovimientoDAO() {
 	}
 
-	public void update(Egreso movement, double value, String concept, int srcAccountID, Date date,
-			int movementID, int categoryID) {
-
-		EgresoDAO egresoDAO = new EgresoDAO();
-		egresoDAO.update(movement, value, concept, srcAccountID, date, categoryID);
-	}
 	
-	public void update(Ingreso movement, double value, String concept, int dstAccountID, Date date,
-			int movementID, int categoryID) {
-
-		IngresoDAO ingresoDAO = new IngresoDAO();
-		ingresoDAO.update(movement, value, concept, dstAccountID, date, categoryID);
-	}
 	
-	public void update(Transferencia movement, double value, String concept,int srcAccountID, int dstAccountID, Date date,
-			int movementID, int categoryID) {
-
-		TransferenciaDAO transferenciaDAO = new TransferenciaDAO();
-		transferenciaDAO.update(movement, value, concept,srcAccountID, dstAccountID, date, categoryID);
-	}
-
 	public void update(Movimiento movement, double value, String concept, int srcAccountID, int dstAccountID, Date date,
 			int movementID, int categoryID) throws Exception {
-		
-		if(movement instanceof Egreso) {
-			update((Egreso) movement, value, concept, srcAccountID, date, movementID, categoryID);
-			return;
-		}
-		
-		if(movement instanceof Ingreso) {
-			update((Ingreso) movement, value, concept, dstAccountID, date, movementID, categoryID);
-			return;
-		}
-		
-		if(movement instanceof Transferencia) {
-			update((Transferencia) movement, value, concept, srcAccountID, dstAccountID, date, movementID, categoryID);
+
+		if (movement instanceof Egreso) {
+			EgresoDAO egresoDAO = new EgresoDAO();
+			egresoDAO.update((Egreso) movement, value, concept, srcAccountID, date, categoryID);
 			return;
 		}
 
-		throw new Exception("No valio");
+		if (movement instanceof Ingreso) {
+			IngresoDAO ingresoDAO = new IngresoDAO();
+			ingresoDAO.update((Ingreso) movement, value, concept, dstAccountID, date, categoryID);
+			return;
+		}
+
+		if (movement instanceof Transferencia) {
+			TransferenciaDAO transferenciaDAO = new TransferenciaDAO();
+			transferenciaDAO.update((Transferencia) movement, value, concept, srcAccountID, dstAccountID, date,
+					 categoryID);
+			return;
+		}
+
+		throw new Exception("No delegó la tarea de actualizar a los hijos");
 	}
 
-	
-	public void delete(Movimiento movement) {
-		CuentaDAO cdao = new CuentaDAO();
-		double value = movement.getValue();
+	public void delete(Movimiento movement) throws Exception {
+
 		if (movement instanceof Egreso) {
-			Egreso egreso = (Egreso) movement;
-			Cuenta srcAccount = egreso.getSrcAccount();
-			cdao.updateBalance(-value, srcAccount.getId());
-
-		} else if (movement instanceof Ingreso) {
-			Ingreso ingreso = (Ingreso) movement;
-			Cuenta dstAccount = ingreso.getDstAccount();
-			cdao.updateBalance(-value, dstAccount.getId());
-
-		} else if (movement instanceof Transferencia) {
-			Transferencia transferencia = (Transferencia) movement;
-			Cuenta srcAccount = transferencia.getSrcAccount();
-			Cuenta dstAccount = transferencia.getDstAccount();
-			cdao.updateBalance(value, srcAccount.getId());
-			cdao.updateBalance(-value, dstAccount.getId());
+			EgresoDAO egresoDAO = new EgresoDAO();
+			egresoDAO.delete((Egreso) movement);
+			return;
 		}
 
-		EntityManager em = ManejoEntidadPersistencia.getEntityManager();
-		em.getTransaction().begin();
-		try {
-			em.remove(em.find(Movimiento.class, movement.getId()));
-			em.getTransaction().commit();
-		} catch (Exception e) {
-			if (em.getTransaction().isActive()) {
-				em.getTransaction().rollback();
-			}
-		} finally {
-			em.close();
+		if (movement instanceof Ingreso) {
+			IngresoDAO ingresoDAO = new IngresoDAO();
+			ingresoDAO.delete((Ingreso) movement);
+			return;
 		}
+
+		if (movement instanceof Transferencia) {
+			TransferenciaDAO transferenciaDAO = new TransferenciaDAO();
+			transferenciaDAO.delete((Transferencia) movement);
+			return;
+		}
+
+		throw new Exception("No delegó la tarea borrar a los hijos");
 	}
 
 	public List<MovimientoDTO> getAllByAccount(int accountID) {
 		List<MovimientoDTO> resultList = new ArrayList<>();
 		EntityManager em = ManejoEntidadPersistencia.getEntityManager();
 		try {
-			String queryStr = "SELECT m.* " + "FROM Movimiento m "
-					+ "WHERE m.DSTACCOUNT_ID = ?1 OR m.SRCACCOUNT_ID = ?2 ";
+			String queryStr = "SELECT m.* " +
+	                  "FROM Movimiento m " +
+	                  "WHERE m.DSTACCOUNT_ID = ?1 " +
+	                  "OR m.SRCACCOUNT_ID = ?2";
+
 			Query query = em.createNativeQuery(queryStr);
 			query.setParameter(1, accountID);
 			query.setParameter(2, accountID);
 			List<Object[]> results = query.getResultList();
+			
 			for (Object[] result : results) {
 				int id = (Integer) result[0];
 				String tipoMovimiento = (String) result[1];
@@ -124,8 +100,6 @@ public class MovimientoDAO {
 				int src = (result[7] == null) ? 0 : (Integer) result[7];
 
 				MovimientoDTO mvn = new MovimientoDTO(id, src, dst, concept, date, value, tipoMovimiento);
-
-				System.out.print(mvn);
 
 				resultList.add(mvn);
 			}
@@ -139,15 +113,15 @@ public class MovimientoDAO {
 		return resultList;
 	}
 
-	public List<MovimientoDTO> getAll(Date from, Date to) {
+	public List<MovimientoDTO> getAll(String from, String to) {
 		EntityManager em = ManejoEntidadPersistencia.getEntityManager();
 		List<MovimientoDTO> movimientos = new ArrayList<>();
 		try {
 			String sql = "SELECT ID, tipo_movimiento, CONCEPT, FECHA, VALOR, Categoria_ID, DSTACCOUNT_ID, SRCACCOUNT_ID "
 					+ "FROM Movimiento WHERE FECHA BETWEEN ?1 AND ?2";
 			Query query = em.createNativeQuery(sql);
-			query.setParameter(1, from);
-			query.setParameter(2, to);
+			query.setParameter(1, from + " 00:00:00");
+			query.setParameter(2, to + " 23:59:59");
 			List<Object[]> results = query.getResultList();
 			for (Object[] result : results) {
 				int id = (Integer) result[0];
@@ -170,6 +144,22 @@ public class MovimientoDAO {
 		return movimientos;
 	}
 
+	public Movimiento getMovementById(int movementID) {
+		EntityManager em = ManejoEntidadPersistencia.getEntityManager();
+		Movimiento movimiento = null;
+		em.getTransaction().begin();
+		try {
+			movimiento = em.find(Movimiento.class, movementID);
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			if (em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
+			e.printStackTrace();
+		}
+		return movimiento;
+	}
+	
 	public MovimientoDTO getMovementDTOById(int movimientoDTOID) {
 		EntityManager em = ManejoEntidadPersistencia.getEntityManager();
 		MovimientoDTO movimientoDTO = new MovimientoDTO();
@@ -201,22 +191,6 @@ public class MovimientoDAO {
 		return movimientoDTO;
 	}
 
-	public Movimiento getMovementById(int movementID) {
-		EntityManager em = ManejoEntidadPersistencia.getEntityManager();
-		Movimiento movimiento = null;
-		em.getTransaction().begin();
-		try {
-			movimiento = em.find(Movimiento.class, movementID);
-			em.getTransaction().commit();
-		} catch (Exception e) {
-			if (em.getTransaction().isActive()) {
-				em.getTransaction().rollback();
-			}
-			e.printStackTrace();
-		}
-		return movimiento;
-	}
-
 	private Date convertToDate(LocalDateTime localDateTime) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 		ZoneId defaultZoneId = ZoneId.systemDefault();
@@ -226,6 +200,9 @@ public class MovimientoDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		//TODO
 		return null;
+		//throw new Exception("Fecha enviada no válida");
 	}
 }

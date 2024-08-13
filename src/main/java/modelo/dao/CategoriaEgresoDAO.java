@@ -5,6 +5,7 @@ import java.util.*;
 import jakarta.persistence.Query;
 import jakarta.persistence.*;
 import modelo.dto.CategoriaResumenDTO;
+import modelo.entidades.Categoria;
 import modelo.entidades.CategoriaEgreso;
 import modelo.entidades.Cuenta;
 

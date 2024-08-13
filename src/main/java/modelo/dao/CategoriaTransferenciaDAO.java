@@ -7,6 +7,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
 import modelo.dto.CategoriaResumenDTO;
+import modelo.entidades.Categoria;
 import modelo.entidades.CategoriaIngreso;
 import modelo.entidades.CategoriaTransferencia;
 

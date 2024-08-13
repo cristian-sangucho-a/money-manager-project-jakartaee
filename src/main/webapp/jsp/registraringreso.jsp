@@ -42,7 +42,7 @@
 				</div>
 				<div class="controls vertical-center">
 					<label for="value" class="left-label">Valor:</label> 
-					<input type="text" id="value" name="value" class="large-input" required>
+					<input type="number" id="value" name="value" class="large-input" step="0.01" required>
 				</div>
 				<div class="controls vertical-center">
 					<label for="category" class="left-label">Categoría:</label> 
@@ -64,5 +64,25 @@
 			</div>
 		</div>
 	</div>
+	<div id="popup" class="popup">
+    <div class="popup-content">
+        <p>El ingreso no puede ser aprobado porque el valor supera el balance disponible o ingresó un valor negativo.</p>
+        <button class="close-btn" onclick="closePopup()">Cerrar</button>
+    </div>
+</div>
+
+<script>
+    function closePopup() {
+        document.getElementById("popup").style.display = "none";
+    }
+
+    <c:choose>
+        <c:when test="${not empty approveExpense}">
+            <c:if test="${not approveExpense}">
+                document.getElementById("popup").style.display = "block";
+            </c:if>
+        </c:when>
+    </c:choose>
+</script>
 </body>
 </html>

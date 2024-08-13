@@ -111,8 +111,15 @@
 							class="description">${movement.concept}</span>
 						<c:choose>
 							<c:when test="${movement.tipo_movimiento == 'TRANSFERENCIA'}">
-								<span class="details">Origen: ${movement.nameSrcAccount}
+								<br><span class="details">Origen: ${movement.nameSrcAccount}
 									- Destino: ${movement.nameDstAccount}</span>
+							</c:when>
+							<c:when test="${movement.tipo_movimiento == 'EGRESO'}">
+								<br><span class="details">Cuenta: ${movement.nameSrcAccount}</span>
+							</c:when>
+							<c:when test="${movement.tipo_movimiento == 'INGRESO'}">
+								<br><span class="details">Cuenta: ${movement.nameDstAccount}
+									</span>
 							</c:when>
 						</c:choose>
 					</div>
