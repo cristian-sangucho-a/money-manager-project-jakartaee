@@ -115103,9 +115103,9 @@
 																		"$ref": "AAAAAAGRROmsB1dRrwk="
 																	},
 																	"font": "Arial;13;0",
-																	"left": 659,
+																	"left": 620,
 																	"top": 200,
-																	"width": 134.42431640625,
+																	"width": 213.90966796875,
 																	"height": 13,
 																	"alpha": 1.5707963267948966,
 																	"distance": 10,
@@ -115113,7 +115113,7 @@
 																		"$ref": "AAAAAAGRROmsB1dSqj8="
 																	},
 																	"edgePosition": 1,
-																	"text": "4 : getBalance():double"
+																	"text": "4 : getBalance(accountID: int):double"
 																},
 																{
 																	"_type": "EdgeLabelView",
