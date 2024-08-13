@@ -436,8 +436,8 @@ public class ContabilidadController extends HttpServlet {
 
 		// paso 2: hablar con el modelo
 		List<Cuenta> accounts = cuentaDAO.getAll();
-		List<CategoriaResumenDTO> incomeCategoriesSumarized = categoriaIngresoDAO.getAllSumarized(from, to);
-		List<CategoriaResumenDTO> expenseCategoriesSumarized = categoriaEgresoDAO.getAllSumarized(from, to);
+		List<CategoriaResumenDTO> incomeCategoriesSumarized = categoriaIngresoDAO.getAllSumarized(fromString, toString);
+		List<CategoriaResumenDTO> expenseCategoriesSumarized = categoriaEgresoDAO.getAllSumarized(fromString, toString);
 		List<MovimientoDTO> movements = movimientoDAO.getAll(fromString, toString);
 
 		// paso 3: hablar con la vista

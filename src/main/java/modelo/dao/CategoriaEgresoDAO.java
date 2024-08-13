@@ -1,5 +1,6 @@
 package modelo .dao;
 
+import java.text.DecimalFormat;
 import java.util.*;
 
 import jakarta.persistence.Query;
@@ -21,7 +22,7 @@ public class CategoriaEgresoDAO extends CategoriaDAO {
      * @param to 
      * @return
      */
-    public List<CategoriaResumenDTO> getAllSumarized(Date from, Date to) {
+    public List<CategoriaResumenDTO> getAllSumarized(String from, String to) {
     	EntityManager em = ManejoEntidadPersistencia.getEntityManager();
         List<CategoriaResumenDTO> resultList = new ArrayList<>();
         try {
@@ -32,12 +33,14 @@ public class CategoriaEgresoDAO extends CategoriaDAO {
             		+ "WHERE c.tipo_categoria = 'CATEGRESO' "
             		+ "GROUP BY c.id;";
             Query query = em.createNativeQuery(queryStr);
-            query.setParameter(1, from);
-            query.setParameter(2, to);
+            query.setParameter(1, from + " 00:00:00");
+            query.setParameter(2, to + " 23:59:59");
             List<Object[]> results = query.getResultList();
             for (Object[] result : results) {
                 String name = (String) result[0];
                 Double sum = (result[1] == null) ? 0 : (Double) result[1];
+                DecimalFormat df = new DecimalFormat("#.##");
+                sum = Double.parseDouble(df.format(sum));
                 int id = (Integer) result[2];
                 resultList.add(new CategoriaResumenDTO(name, sum, id));
             }
