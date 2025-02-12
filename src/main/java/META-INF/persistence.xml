@@ -24,7 +24,7 @@
             <!-- Configuración para la generación de tablas -->
             <property name="jakarta.persistence.schema-generation.database.action" value="create"/>
             <!-- Cargar datos iniciales desde el script SQL -->
-            <!-- property name="jakarta.persistence.sql-load-script-source" value="META-INF/load-data.sql"/> -->
+            <!--property name="jakarta.persistence.sql-load-script-source" value="META-INF/load-data.sql"/> Crear las cat en la bd-->
             <property name="eclipselink.logging.level" value="FINE"/>
 			<property name="eclipselink.logging.parameters" value="true"/>
         </properties>

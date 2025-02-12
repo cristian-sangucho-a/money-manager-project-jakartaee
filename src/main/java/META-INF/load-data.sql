@@ -1,13 +1,16 @@
-INSERT INTO CategoriaIngreso (ID, NAME) VALUES (1, 'Salario');
-INSERT INTO CategoriaIngreso (ID, NAME) VALUES (2, 'Intereses');
-INSERT INTO CategoriaIngreso (ID, NAME) VALUES (3, 'Servicios');
+-- Insert into CATEGORIA with discriminator values
+INSERT INTO CATEGORIA (ID, NAME, tipo_categoria) VALUES 
+(1, 'Salario', 'CATINGRESO'),
+(2, 'Intereses', 'CATINGRESO'),
+(3, 'Servicios', 'CATINGRESO');
 
-INSERT INTO CategoriaEgreso (ID, NAME) VALUES (1, 'Alimentacion');
-INSERT INTO CategoriaEgreso (ID, NAME) VALUES (2, 'Transporte');
-INSERT INTO CategoriaEgreso (ID, NAME) VALUES (3, 'Golosina');
-INSERT INTO CategoriaEgreso (ID, NAME) VALUES (4, 'Guaguas');
+INSERT INTO CATEGORIA (ID, NAME, tipo_categoria) VALUES 
+(4, 'Alimentacion', 'CATEGRESO'),
+(5, 'Transporte', 'CATEGRESO'),
+(6, 'Golosina', 'CATEGRESO'),
+(7, 'Guaguas', 'CATEGRESO');
 
-INSERT INTO CategoriaTransferencia (ID, NAME) VALUES (1, 'Transferencia');
+INSERT INTO CATEGORIA (ID, NAME, tipo_categoria) VALUES (1, 'Transferencia', 'CATTRANSFERENCIA');
 
 INSERT INTO Cuenta (ID, NAME, BALANCE) VALUES (1, 'Bco. Pichincha ahorros', 1000.00);
 INSERT INTO Cuenta (ID, NAME, BALANCE) VALUES (2, 'Bco. Pacifico corriente', 2000.00);
